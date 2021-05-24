@@ -3,7 +3,6 @@ package com.feelsoftware.feelfine.ui.base
 import android.os.Bundle
 import androidx.annotation.CallSuper
 import androidx.annotation.IdRes
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.navigation.ActionOnlyNavDirections
 import androidx.navigation.NavDirections
@@ -30,7 +29,7 @@ open class BaseViewModel : ViewModel() {
     // endregion
 
     // region Navigation
-    val navigation = MutableLiveData<NavDirections>()
+    val navigation = SingleLiveData<NavDirections>()
 
     fun navigate(@IdRes actionId: Int) {
         navigation.postValue(ActionOnlyNavDirections(actionId))
