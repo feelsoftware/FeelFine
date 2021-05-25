@@ -3,7 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/mainFragment">
+    app:startDestination="@id/entryPointFragment">
+
+    <fragment
+        android:id="@+id/entryPointFragment"
+        android:name="com.feelsoftware.feelfine.ui.EntryPointFragment"
+        android:label="EntryPointFragment"
+        tools:layout="@layout/fragment_entry_point">
+        <action
+            android:id="@+id/toMainFragment"
+            app:destination="@id/mainFragment"
+            app:popUpTo="@id/mainFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
 
     <fragment
         android:id="@+id/mainFragment"
@@ -24,11 +36,5 @@
             android:name="number"
             app:argType="integer" />
     </fragment>
-
-    <action
-        android:id="@+id/toMainFragment"
-        app:destination="@id/mainFragment"
-        app:popUpTo="@id/nav_graph"
-        app:popUpToInclusive="true" />
 
 </navigation>

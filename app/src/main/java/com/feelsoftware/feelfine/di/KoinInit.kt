@@ -12,7 +12,8 @@ object KoinInit {
             modules(
                 dbModule,
                 repositoryModule,
-                presentationModule
+                presentationModule,
+                utilsModule
             )
         }
     }
