@@ -66,6 +66,9 @@ dependencies {
     // DI
     implementation "io.insert-koin:koin-android:3.0.2"
 
+    // Utils
+    implementation 'com.jakewharton.timber:timber:4.7.1'
+
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
