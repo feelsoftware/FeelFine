@@ -15,6 +15,9 @@
             app:destination="@id/mainFragment"
             app:popUpTo="@id/mainFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/toOnboarding"
+            app:destination="@id/onboardingFragment" />
     </fragment>
 
     <fragment
@@ -36,5 +39,9 @@
             android:name="number"
             app:argType="integer" />
     </fragment>
+    <fragment
+        android:id="@+id/onboardingFragment"
+        android:name="com.feelsoftware.feelfine.ui.OnboardingFragment"
+        android:label="OnboardingFragment" />
 
 </navigation>

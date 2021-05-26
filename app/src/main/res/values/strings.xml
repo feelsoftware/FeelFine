@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">Feel Fine</string>
+    <string name="welcome_title">Welcome to Feel Fine!</string>
+    <string name="register">Register</string>
+    <string name="dont_have_account">Don\'t have account?</string>
 </resources>

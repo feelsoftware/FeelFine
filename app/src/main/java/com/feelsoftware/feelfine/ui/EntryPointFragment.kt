@@ -22,11 +22,9 @@ class EntryPointViewModel(
         flowManager.isPassed()
             .subscribeBy(onSuccess = { isPassed ->
                 if (isPassed) {
-                    // Navigate to Dashboard screen
-                    // navigate(R.id.toMainFragment)
+                // TODO
                 } else {
-                    // Navigate to OnBoarding screen
-                    // navigate(R.id.toMainFragment)
+                     navigate(R.id.toOnboarding)
                 }
             }).disposeOnInActive()
     }

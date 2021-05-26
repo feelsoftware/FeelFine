@@ -5,6 +5,7 @@ package com.feelsoftware.feelfine.di
 import com.feelsoftware.feelfine.data.repository.UserRepository
 import com.feelsoftware.feelfine.ui.EntryPointViewModel
 import com.feelsoftware.feelfine.ui.MainViewModel
+import com.feelsoftware.feelfine.ui.OnboardingViewModel
 import com.feelsoftware.feelfine.ui.base.EmptyViewModel
 import com.feelsoftware.feelfine.utils.OnBoardingFlowManager
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -20,4 +21,8 @@ val presentationModule = module {
     viewModel {
         MainViewModel(get<UserRepository>())
     }
+
+     viewModel {
+         OnboardingViewModel(get<OnBoardingFlowManager>())
+     }
 }
