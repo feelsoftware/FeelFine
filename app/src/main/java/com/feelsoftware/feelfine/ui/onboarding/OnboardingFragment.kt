@@ -1,24 +1,18 @@
-package com.feelsoftware.feelfine.ui
+package com.feelsoftware.feelfine.ui.onboarding
 
 import com.feelsoftware.feelfine.R
+import com.feelsoftware.feelfine.extension.onClick
 
 import com.feelsoftware.feelfine.ui.base.BaseFragment
-import com.feelsoftware.feelfine.ui.base.BaseViewModel
-import com.feelsoftware.feelfine.utils.OnBoardingFlowManager
+import com.feelsoftware.feelfine.ui.base.EmptyViewModel
+import kotlinx.android.synthetic.main.fragment_onboarding.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class OnboardingFragment : BaseFragment<OnboardingViewModel>(R.layout.fragment_onboarding) {
+class OnboardingFragment : BaseFragment<EmptyViewModel>(R.layout.fragment_onboarding) {
 
-    override val viewModel: OnboardingViewModel by viewModel()
+    override val viewModel: EmptyViewModel by viewModel()
 
-    override fun onReady() {}
-}
-
-class OnboardingViewModel(
-    private val flowManager: OnBoardingFlowManager
-) : BaseViewModel() {
-
-    override fun onActive() {
-       // TODO
+    override fun onReady() {
+        registerB.onClick {  viewModel.navigate(R.id.toNickNameFragment) }
     }
 }
