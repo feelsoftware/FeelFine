@@ -11,7 +11,7 @@ class OnBoardingFlowManager(
 
     var name: String? = null
     var gender: UserProfile.Gender? = null
-    var weight: Float? = null
+    var weight: Int? = null
     var age: Int? = null
 
     /**
