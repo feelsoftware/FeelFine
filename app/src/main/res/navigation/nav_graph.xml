@@ -41,7 +41,44 @@
     </fragment>
     <fragment
         android:id="@+id/onboardingFragment"
-        android:name="com.feelsoftware.feelfine.ui.OnboardingFragment"
-        android:label="OnboardingFragment" />
+        android:name="com.feelsoftware.feelfine.ui.onboarding.OnboardingFragment"
+        android:label="OnboardingFragment"
+        tools:layout="@layout/fragment_onboarding">
+        <action
+            android:id="@+id/toNickNameFragment"
+            app:destination="@id/nickNameFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/nickNameFragment"
+        android:name="com.feelsoftware.feelfine.ui.onboarding.NickNameFragment"
+        android:label="NickNameFragment"
+        tools:layout="@layout/fragment_nick_name">
+        <action
+            android:id="@+id/toGenderFragment"
+            app:destination="@id/genderFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/genderFragment"
+        android:name="com.feelsoftware.feelfine.ui.onboarding.GenderFragment"
+        android:label="GenderFragment"
+        tools:layout="@layout/fragment_gender">
+        <action
+            android:id="@+id/toWeightFragment"
+            app:destination="@id/weightFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/weightFragment"
+        android:name="com.feelsoftware.feelfine.ui.onboarding.WeightFragment"
+        android:label="WeightFragment"
+        tools:layout="@layout/fragment_wage">
+        <action
+            android:id="@+id/toAgeFragment"
+            app:destination="@id/ageFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/ageFragment"
+        android:name="com.feelsoftware.feelfine.ui.onboarding.AgeFragment"
+        android:label="AgeFragment"
+        tools:layout="@layout/fragment_age" />
 
 </navigation>
