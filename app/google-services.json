@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "255481131019",
+    "project_id": "feel-fine",
+    "storage_bucket": "feel-fine.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:255481131019:android:622c3e70681e741d35170e",
+        "android_client_info": {
+          "package_name": "com.feelsoftware.feelfine"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "255481131019-77ue2qv1kf8iqum6b9h6sb87e231gi96.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.feelsoftware.feelfine",
+            "certificate_hash": "caa964d18ba3968eeb494b71ef56f97f40835b98"
+          }
+        },
+        {
+          "client_id": "255481131019-ec5kbgbasr8vr6gd3eico36mls85835n.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.feelsoftware.feelfine",
+            "certificate_hash": "8c869b264b3eb8330d3e01bbfeb44b1dc1bb5dbb"
+          }
+        },
+        {
+          "client_id": "255481131019-lngk7nm4hffdssjuvia9lgudeio11efa.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB4oOvdWEQxf0olc-CuZoB1AFyn6-F7_1U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "255481131019-lngk7nm4hffdssjuvia9lgudeio11efa.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
