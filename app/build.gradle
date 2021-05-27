@@ -25,7 +25,25 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+        debug {
+            debuggable true
+        }
     }
+    signingConfigs {
+        debug {
+            storeFile file('./debug.jks')
+            storePassword 'V7e5tBA2'
+            keyAlias 'feelsoftware'
+            keyPassword 'xVr8uud5'
+        }
+        release {
+            storeFile file('./release.jks')
+            storePassword 'TvqLcv2f'
+            keyAlias 'feelsoftware'
+            keyPassword 'mqEA6V9e'
+        }
+    }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
