@@ -16,7 +16,7 @@ data class UserProfileEntity(
     val id: Int,
     val name: String,
     val gender: Gender,
-    val weight: Float,
+    val weight: Int,
     val age: Int,
 ) {
 
