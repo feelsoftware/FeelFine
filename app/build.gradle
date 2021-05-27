@@ -4,6 +4,8 @@ plugins {
     id 'kotlin-kapt'
     id 'kotlin-android-extensions'
     id "androidx.navigation.safeargs"
+    id 'com.google.gms.google-services'
+    id 'com.google.firebase.crashlytics'
 }
 
 android {
@@ -72,6 +74,12 @@ dependencies {
     implementation "androidx.navigation:navigation-fragment-ktx:2.3.5"
     implementation "androidx.navigation:navigation-ui-ktx:2.3.5"
 
+    // Google Fit
+    implementation "com.google.android.gms:play-services-fitness:20.0.0"
+    implementation "com.google.android.gms:play-services-auth:19.0.0"
+    implementation 'com.google.firebase:firebase-analytics-ktx:19.0.0'
+    implementation 'com.google.firebase:firebase-crashlytics-ktx:18.0.0'
+
     // DataBase
     implementation "androidx.room:room-runtime:2.3.0"
     kapt "androidx.room:room-compiler:2.3.0"
@@ -80,6 +88,7 @@ dependencies {
     // RxJava
     implementation 'io.reactivex.rxjava3:rxjava:3.0.12'
     implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
+    implementation 'com.jakewharton.rxrelay3:rxrelay:3.0.0'
 
     // DI
     implementation "io.insert-koin:koin-android:3.0.2"
