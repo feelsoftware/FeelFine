@@ -3,7 +3,7 @@ package com.feelsoftware.feelfine.ui.onboarding
 import android.widget.SeekBar
 import com.feelsoftware.feelfine.R
 import com.feelsoftware.feelfine.extension.onClick
-
+import com.feelsoftware.feelfine.extension.subscribeBy
 import com.feelsoftware.feelfine.ui.base.BaseFragment
 import com.feelsoftware.feelfine.ui.base.BaseViewModel
 import com.feelsoftware.feelfine.utils.OnBoardingFlowManager
@@ -35,8 +35,15 @@ class AgeFragment : BaseFragment<AgeViewModel>(R.layout.fragment_age) {
 class AgeViewModel(
     private val flowManager: OnBoardingFlowManager
 ) : BaseViewModel() {
+
     fun setAge(age: Int) {
         flowManager.age = age
-        // TODO navigate to the dashboard
+        flowManager.markAsPassed(flowManager.buildUserProfile() ?: return)
+            .subscribeBy(onComplete = {
+                print("success")
+                navigate(R.id.toCurrentScoreFragment)
+            }, onError = {
+                print("error")
+            })
     }
 }

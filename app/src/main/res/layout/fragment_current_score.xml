@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/scoreView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="10dp"
+        android:background="@drawable/full_circle_shape"
+        android:fontFamily="@font/montserrat_bold"
+        android:gravity="center"
+        android:text="93"
+        android:textSize="30dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@drawable/outline_trending_up_24"
+        android:text="30%"
+        app:layout_constraintEnd_toEndOf="@+id/scoreView"
+        app:layout_constraintTop_toTopOf="@+id/scoreView" />
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fontFamily="@font/montserrat_regular"
+        android:gravity="center"
+        android:text="This is you current score, \n depends on your activity, steps, \nmood and sleep quality "
+        app:layout_constraintBottom_toTopOf="@+id/guideline"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/scoreView"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.518" />
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/greenMain"
+        app:layout_constraintBottom_toTopOf="@+id/guideline" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.25" />
+
+    <TextView
+        android:id="@+id/todayTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="Today's data: "
+        app:layout_constraintStart_toStartOf="@+id/view"
+        app:layout_constraintTop_toTopOf="@+id/guideline" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/secondGL"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.625" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/thirdGL"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <TextView
+        android:id="@+id/stepsView"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginStart="20dp"
+        android:background="@drawable/circle_with_hall"
+        android:fontFamily="@font/montserrat_bold"
+        android:foregroundGravity="center"
+        android:gravity="center"
+        android:text="Steps \n 12000"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/secondGL"
+        app:layout_constraintEnd_toStartOf="@+id/thirdGL"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline" />
+
+    <TextView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@drawable/outline_trending_up_24"
+        android:text="10%"
+        android:translationX="20dp"
+        android:translationY="-20dp"
+        app:layout_constraintEnd_toEndOf="@+id/stepsView"
+        app:layout_constraintTop_toTopOf="@+id/stepsView" />
+
+    <TextView
+        android:id="@+id/sleepView"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:background="@drawable/circle_with_hall_red"
+        android:fontFamily="@font/montserrat_bold"
+        android:foregroundGravity="center"
+        android:gravity="center"
+        android:text="Sleep \n 2 hours"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/secondGL"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/thirdGL"
+        app:layout_constraintTop_toTopOf="@+id/guideline" />
+
+
+    <TextView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@drawable/outline_trending_down_24"
+        android:text="70%"
+        android:translationX="20dp"
+        android:translationY="-20dp"
+        app:layout_constraintEnd_toEndOf="@+id/sleepView"
+        app:layout_constraintTop_toTopOf="@+id/sleepView" />
+
+    <TextView
+        android:id="@+id/activityView"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:background="@drawable/circle_with_hall"
+        android:fontFamily="@font/montserrat_bold"
+        android:foregroundGravity="center"
+        android:gravity="center"
+        android:text="Activity \n 4 hours"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/thirdGL"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/secondGL" />
+
+    <TextView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@drawable/outline_trending_up_24"
+        android:text="30%"
+        android:translationX="20dp"
+        android:translationY="-20dp"
+        app:layout_constraintEnd_toEndOf="@+id/activityView"
+        app:layout_constraintTop_toTopOf="@+id/activityView" />
+
+    <TextView
+        android:id="@+id/moodView"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:background="@drawable/circle_with_hall"
+        android:fontFamily="@font/montserrat_bold"
+        android:foregroundGravity="center"
+        android:gravity="center"
+        android:text="Mood \n 20 points"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/thirdGL"
+        app:layout_constraintTop_toTopOf="@+id/secondGL" />
+
+    <TextView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@drawable/outline_trending_up_24"
+        android:text="70%"
+        android:translationX="20dp"
+        android:translationY="-20dp"
+        app:layout_constraintEnd_toEndOf="@+id/moodView"
+        app:layout_constraintTop_toTopOf="@+id/moodView" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
