@@ -81,4 +81,13 @@
         android:label="AgeFragment"
         tools:layout="@layout/fragment_age" />
 
+    <fragment
+        android:id="@+id/currentScoreFragment"
+        tools:layout="@layout/fragment_current_score"
+        android:name="com.feelsoftware.feelfine.ui.score.CurrentScoreFragment"
+        android:label="CurrentScoreFragment" />
+    <action
+        android:id="@+id/toCurrentScoreFragment"
+        app:destination="@id/currentScoreFragment" />
+
 </navigation>
