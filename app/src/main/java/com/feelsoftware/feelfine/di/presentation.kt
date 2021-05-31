@@ -10,6 +10,7 @@ import com.feelsoftware.feelfine.ui.onboarding.AgeViewModel
 import com.feelsoftware.feelfine.ui.onboarding.GenderViewModel
 import com.feelsoftware.feelfine.ui.onboarding.NickNameViewModel
 import com.feelsoftware.feelfine.ui.onboarding.WeightViewModel
+import com.feelsoftware.feelfine.ui.score.CurrentScoreViewModel
 import com.feelsoftware.feelfine.utils.OnBoardingFlowManager
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -35,5 +36,8 @@ val presentationModule = module {
     }
     viewModel {
         AgeViewModel(get<OnBoardingFlowManager>())
+    }
+    viewModel {
+        CurrentScoreViewModel()
     }
 }

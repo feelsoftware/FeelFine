@@ -10,4 +10,6 @@
 
     <!--    Green-->
     <color name="greenMain">#00CA9D</color>
+
+    <color name="redMain">#ff9e80</color>
 </resources>
