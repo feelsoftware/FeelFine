@@ -85,9 +85,34 @@
         android:id="@+id/currentScoreFragment"
         tools:layout="@layout/fragment_current_score"
         android:name="com.feelsoftware.feelfine.ui.score.CurrentScoreFragment"
-        android:label="CurrentScoreFragment" />
+        android:label="CurrentScoreFragment" >
+        <action
+            android:id="@+id/toSleepScoreFragment"
+            app:destination="@id/sleepScoreFragment" />
+        <action
+            android:id="@+id/toStepScoreFragment"
+            app:destination="@id/stepScoreFragment" />
+        <action
+            android:id="@+id/toActivityScoreFragment"
+            app:destination="@id/activityScoreFragment" />
+    </fragment>
     <action
         android:id="@+id/toCurrentScoreFragment"
         app:destination="@id/currentScoreFragment" />
+    <fragment
+        android:id="@+id/sleepScoreFragment"
+        tools:layout="@layout/fragment_sleep_score"
+        android:name="com.feelsoftware.feelfine.ui.score.SleepScoreFragment"
+        android:label="SleepScoreFragment" />
+    <fragment
+        android:id="@+id/stepScoreFragment"
+        tools:layout="@layout/fragment_step_score"
+        android:name="com.feelsoftware.feelfine.ui.score.StepScoreFragment"
+        android:label="StepScoreFragment" />
+    <fragment
+        android:id="@+id/activityScoreFragment"
+        tools:layout="@layout/fragment_activity_score"
+        android:name="com.feelsoftware.feelfine.ui.score.ActivityScoreFragment"
+        android:label="ActivityScoreFragment" />
 
 </navigation>
