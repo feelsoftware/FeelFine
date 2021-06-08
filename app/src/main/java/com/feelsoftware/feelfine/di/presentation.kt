@@ -3,6 +3,7 @@
 package com.feelsoftware.feelfine.di
 
 import com.feelsoftware.feelfine.data.repository.UserRepository
+import com.feelsoftware.feelfine.fit.usecase.GetFitDataUseCase
 import com.feelsoftware.feelfine.ui.EntryPointViewModel
 import com.feelsoftware.feelfine.ui.MainViewModel
 import com.feelsoftware.feelfine.ui.base.EmptyViewModel
@@ -38,7 +39,7 @@ val presentationModule = module {
         AgeViewModel(get<OnBoardingFlowManager>())
     }
     viewModel {
-        CurrentScoreViewModel()
+        CurrentScoreViewModel(get<GetFitDataUseCase>())
     }
     viewModel {
         SleepScoreViewModel()
