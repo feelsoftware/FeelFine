@@ -53,6 +53,18 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/license.txt'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/notice.txt'
+        exclude 'META-INF/ASL2.0'
+        exclude 'META-INF/*.kotlin_module'
+    }
 }
 
 dependencies {
@@ -79,6 +91,11 @@ dependencies {
     implementation "com.google.android.gms:play-services-auth:19.0.0"
     implementation 'com.google.firebase:firebase-analytics-ktx:19.0.0'
     implementation 'com.google.firebase:firebase-crashlytics-ktx:18.0.0'
+    implementation('com.google.api-client:google-api-client:1.25.0') {
+        exclude group: 'org.apache.httpcomponents', module: 'httpclient'
+    }
+    implementation 'com.google.api-client:google-api-client-android:1.22.0'
+    implementation 'com.google.apis:google-api-services-fitness:v1-rev127-1.25.0'
 
     // DataBase
     implementation "androidx.room:room-runtime:2.3.0"
