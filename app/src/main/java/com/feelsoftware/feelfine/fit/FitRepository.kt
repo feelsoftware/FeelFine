@@ -4,6 +4,10 @@ package com.feelsoftware.feelfine.fit
 
 import android.content.Context
 import com.feelsoftware.feelfine.R
+import com.feelsoftware.feelfine.fit.model.ActivityInfo
+import com.feelsoftware.feelfine.fit.model.Duration
+import com.feelsoftware.feelfine.fit.model.SleepInfo
+import com.feelsoftware.feelfine.fit.model.StepsInfo
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.fitness.FitnessActivities
 import com.google.api.client.extensions.android.http.AndroidHttp
