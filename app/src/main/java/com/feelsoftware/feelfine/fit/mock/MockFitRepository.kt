@@ -61,7 +61,8 @@ class MockFitRepository : FitRepository {
 
     private fun mockActivity(date: Date) = ActivityInfo(
         date = date,
-        duration = Duration(Random.nextInt(1, 720)),
-        type = ActivityInfo.ActivityType.values().random(),
+        activityUnknown = Duration(Random.nextInt(1, 720)),
+        activityWalking = Duration(Random.nextInt(1, 720)),
+        activityRunning = Duration(Random.nextInt(1, 720)),
     )
 }
