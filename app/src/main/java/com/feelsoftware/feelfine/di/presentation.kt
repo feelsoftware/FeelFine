@@ -2,10 +2,8 @@
 
 package com.feelsoftware.feelfine.di
 
-import com.feelsoftware.feelfine.data.repository.UserRepository
 import com.feelsoftware.feelfine.fit.usecase.GetFitDataUseCase
 import com.feelsoftware.feelfine.ui.EntryPointViewModel
-import com.feelsoftware.feelfine.ui.MainViewModel
 import com.feelsoftware.feelfine.ui.base.EmptyViewModel
 import com.feelsoftware.feelfine.ui.onboarding.AgeViewModel
 import com.feelsoftware.feelfine.ui.onboarding.GenderViewModel
@@ -22,9 +20,6 @@ val presentationModule = module {
     }
     viewModel {
         EntryPointViewModel(get<OnBoardingFlowManager>())
-    }
-    viewModel {
-        MainViewModel(get<UserRepository>())
     }
     viewModel {
         NickNameViewModel(get<OnBoardingFlowManager>())
@@ -47,5 +42,7 @@ val presentationModule = module {
     viewModel {
         StepScoreViewModel()
     }
-    viewModel { ActivityScoreViewModel() }
+    viewModel {
+        ActivityScoreViewModel()
+    }
 }

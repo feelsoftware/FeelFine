@@ -22,9 +22,9 @@ class EntryPointViewModel(
         flowManager.isPassed()
             .subscribeBy(onSuccess = { isPassed ->
                 if (isPassed) {
-                navigate(R.id.toCurrentScoreFragment)
+                    navigate(R.id.toCurrentScoreFragment)
                 } else {
-                     navigate(R.id.toOnboarding)
+                    navigate(R.id.toOnboarding)
                 }
             }).disposeOnInActive()
     }
