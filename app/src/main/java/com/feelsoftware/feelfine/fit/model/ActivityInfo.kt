@@ -4,13 +4,10 @@ import java.util.*
 
 data class ActivityInfo(
     val date: Date,
-    val duration: Duration,
-    val type: ActivityType
-) {
+    val activityUnknown: Duration,
+    val activityWalking: Duration,
+    val activityRunning: Duration
+)
 
-    enum class ActivityType(val raw: Int) {
-        UNKNOWN(0),
-        WALKING(7),
-        RUNNING(8)
-    }
-}
+val ActivityInfo.total: Duration
+    get() = activityUnknown + activityWalking + activityRunning

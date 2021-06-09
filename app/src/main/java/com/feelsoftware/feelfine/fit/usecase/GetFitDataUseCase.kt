@@ -70,7 +70,7 @@ fun GetFitDataUseCase.getPercentActivity(): Single<Int> {
     val yesterdayData = getActivity(startTime, endTime).oneItem(startTime)
 
     return Single.zip(currentData, yesterdayData, { current, yesterday ->
-        (current.duration.minutes * 100f / yesterday.duration.minutes.coerceAtLeast(1)).roundToInt() - 100
+        (current.total.minutes * 100f / yesterday.total.minutes.coerceAtLeast(1)).roundToInt() - 100
     })
 }
 // endregion
@@ -90,7 +90,7 @@ private fun Single<List<SleepInfo>>.oneItem(date: Date): Single<SleepInfo> = map
 @JvmName("OneItemActivity")
 private fun Single<List<ActivityInfo>>.oneItem(date: Date): Single<ActivityInfo> = map { list ->
     list.firstOrNull() ?: ActivityInfo(
-        date, Duration(0), ActivityInfo.ActivityType.UNKNOWN
+        date, Duration(0), Duration(0), Duration(0)
     )
 }
 
