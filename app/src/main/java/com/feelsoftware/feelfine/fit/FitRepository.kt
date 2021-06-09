@@ -139,6 +139,7 @@ class GoogleFitRepository(
         for (dataSet in response.bucket.flatMap { it.dataset }) {
             values += parseSteps(dataSet)
         }
+        // Group by days
         val map = values.groupBy {
             it.date.toShortString
         }
@@ -291,7 +292,25 @@ class GoogleFitRepository(
         for (dataSet in response.bucket.flatMap { it.dataset }) {
             values += parseActivity(dataSet)
         }
-        return values
+        // Group by days
+        val map = values.groupBy {
+            it.date.toShortString
+        }
+        val calendar = Calendar.getInstance()
+        return map.keys.map { key ->
+            calendar.time = SimpleDateFormat("yyyy-MM-dd", Locale.ROOT).parse(key)!!
+            calendar.set(Calendar.HOUR_OF_DAY, 12)
+            calendar.set(Calendar.MINUTE, 0)
+            calendar.set(Calendar.SECOND, 0)
+
+            val list = map.getValue(key)
+            ActivityInfo(
+                date = calendar.time,
+                activityUnknown = list.sumBy { it.activityUnknown.minutes }.run(::Duration),
+                activityWalking = list.sumBy { it.activityWalking.minutes }.run(::Duration),
+                activityRunning = list.sumBy { it.activityRunning.minutes }.run(::Duration),
+            )
+        }
     }
 
     private fun parseActivity(dataSet: Dataset): List<ActivityInfo> {
@@ -310,15 +329,32 @@ class GoogleFitRepository(
 
             list += ActivityInfo(
                 date = startTime,
-                duration = Duration(duration / 1_000 / 60),
-                type = ActivityInfo.ActivityType.values().firstOrNull {
-                    it.raw == rawActivity
-                } ?: ActivityInfo.ActivityType.UNKNOWN
+                activityUnknown = takeDuration(duration, rawActivity, ActivityType.UNKNOWN),
+                activityWalking = takeDuration(duration, rawActivity, ActivityType.WALKING),
+                activityRunning = takeDuration(duration, rawActivity, ActivityType.RUNNING),
             )
         }
 
         return list
     }
+
+    private enum class ActivityType(val raw: Int) {
+        UNKNOWN(0),
+        WALKING(7),
+        RUNNING(8)
+    }
+
+    private fun takeDuration(
+        duration: Int,
+        rawActivity: Int,
+        vararg activityType: ActivityType
+    ) = Duration(
+        if (activityType.any { it.raw == rawActivity }) {
+            duration / 1_000 / 60
+        } else {
+            0
+        }
+    )
 
     private val sleepActivities = mapOf(
         72 to FitnessActivities.SLEEP,
