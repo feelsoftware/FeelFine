@@ -10,6 +10,7 @@ import com.feelsoftware.feelfine.ui.onboarding.GenderViewModel
 import com.feelsoftware.feelfine.ui.onboarding.NickNameViewModel
 import com.feelsoftware.feelfine.ui.onboarding.WeightViewModel
 import com.feelsoftware.feelfine.ui.score.*
+import com.feelsoftware.feelfine.ui.statistic.StatisticViewModel
 import com.feelsoftware.feelfine.utils.OnBoardingFlowManager
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -42,7 +43,7 @@ val presentationModule = module {
     viewModel {
         StepScoreViewModel()
     }
-    viewModel {
-        ActivityScoreViewModel()
-    }
+    viewModel { ActivityScoreViewModel() }
+
+    viewModel { StatisticViewModel() }
 }
