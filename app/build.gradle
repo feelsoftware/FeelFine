@@ -90,7 +90,7 @@ dependencies {
     implementation "com.google.android.gms:play-services-fitness:20.0.0"
     implementation "com.google.android.gms:play-services-auth:19.0.0"
     implementation 'com.google.firebase:firebase-analytics-ktx:19.0.0'
-    implementation 'com.google.firebase:firebase-crashlytics-ktx:18.0.0'
+    implementation 'com.google.firebase:firebase-crashlytics-ktx:18.0.1'
     implementation('com.google.api-client:google-api-client:1.25.0') {
         exclude group: 'org.apache.httpcomponents', module: 'httpclient'
     }
@@ -116,4 +116,7 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+
+    //UI
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 }
