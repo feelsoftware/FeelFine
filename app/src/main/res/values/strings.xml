@@ -4,4 +4,10 @@
     <string name="register">Register</string>
     <string name="dont_have_account">Don\'t have account?</string>
     <string name="nick_fill_error">Fill nick name</string>
+    <string-array name="score_values">
+        <item>Steps</item>
+        <item>Sleep</item>
+        <item>Activity</item>
+        <item>Mood</item>
+    </string-array>
 </resources>
