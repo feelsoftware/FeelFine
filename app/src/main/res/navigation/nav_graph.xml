@@ -73,6 +73,9 @@
         <action
             android:id="@+id/toActivityScoreFragment"
             app:destination="@id/activityScoreFragment" />
+        <action
+            android:id="@+id/toStatisticFragment"
+            app:destination="@id/statisticFragment" />
     </fragment>
     <action
         android:id="@+id/toCurrentScoreFragment"
@@ -94,5 +97,9 @@
         android:name="com.feelsoftware.feelfine.ui.score.ActivityScoreFragment"
         android:label="ActivityScoreFragment"
         tools:layout="@layout/fragment_activity_score" />
+    <fragment
+        android:id="@+id/statisticFragment"
+        android:name="com.feelsoftware.feelfine.ui.statistic.StatisticFragment"
+        android:label="StatisticFragment" />
 
 </navigation>
