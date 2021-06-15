@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -12,14 +13,15 @@
         android:background="@drawable/circle_progress"
         android:fontFamily="@font/montserrat_bold"
         android:gravity="center"
-        android:text="2 \n hours"
-        android:textSize="30dp"
+        tools:text="2 \n hours"
+        android:textSize="28sp"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/guideline" />
 
     <TextView
+        android:id="@+id/scorePercentTV"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:background="@drawable/outline_trending_down_24"
@@ -73,7 +75,7 @@
         android:layout_height="40dp"
         android:fontFamily="@font/montserrat_regular"
         android:gravity="center_vertical"
-        android:text="Awake : 2 times"
+        tools:text="Awake : 2 times"
         android:drawableLeft="@drawable/full_circle_shape"
         android:drawablePadding="8dp"
         android:layout_marginStart="20dp"
@@ -89,7 +91,7 @@
         android:layout_height="40dp"
         android:fontFamily="@font/montserrat_regular"
         android:gravity="center_vertical"
-        android:text="Light sleep : 2 hours 10 minutes"
+        tools:text="Light sleep : 2 hours 10 minutes"
         android:drawableLeft="@drawable/full_circle_shape"
         android:drawablePadding="8dp"
         android:layout_marginStart="20dp"
@@ -104,7 +106,7 @@
         android:layout_height="40dp"
         android:fontFamily="@font/montserrat_regular"
         android:gravity="center_vertical"
-        android:text="Deep sleep : 6 hours 2 minutes"
+        tools:text="Deep sleep : 6 hours 2 minutes"
         android:drawableLeft="@drawable/full_circle_shape"
         android:drawablePadding="8dp"
         android:layout_marginStart="20dp"
@@ -119,7 +121,7 @@
         android:layout_height="40dp"
         android:fontFamily="@font/montserrat_regular"
         android:gravity="center_vertical"
-        android:text="Out of bed: 14 hours 22 minutes"
+        tools:text="Out of bed: 14 hours 22 minutes"
         android:drawableLeft="@drawable/full_circle_shape"
         android:drawablePadding="8dp"
         android:layout_marginStart="20dp"
