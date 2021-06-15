@@ -21,65 +21,127 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <androidx.appcompat.widget.AppCompatSpinner
-        android:id="@+id/scoreSpinner"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/scoreContainer"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginTop="20dp"
         android:entries="@array/score_values"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/titleTV" />
+        app:layout_constraintTop_toBottomOf="@id/titleTV" >
 
-    <TextView
-        android:id="@+id/periodTV"
+        <TextView
+            android:id="@+id/startTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12dp"
+            android:textColor="#ABACAE"
+            android:layout_marginEnd="20dp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/startIcon"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="activity" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/startIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:src="@drawable/ic_arrow_back"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/middleTV"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/middleTV"
+            android:layout_width="wrap_content"
+            android:textStyle="bold"
+            android:textSize="18dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="step" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/endIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:src="@drawable/ic_arrow_forward"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/middleTV"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/endTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12dp"
+            android:layout_marginStart="20dp"
+            android:textStyle="bold"
+            android:textColor="#ABACAE"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/endIcon"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="sleep" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/activityPeriodTV"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:fontFamily="@font/montserrat_bold"
-        android:gravity="center"
-        android:text="Choose period:"
-        android:textSize="14sp"
+        android:layout_height="40dp"
+        android:orientation="horizontal"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/rounded_period_background"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/scoreSpinner"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <RadioGroup
-        android:id="@+id/group"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="start"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/periodTV">
+        app:layout_constraintTop_toBottomOf="@+id/scoreContainer">
 
-        <androidx.appcompat.widget.AppCompatRadioButton
-            android:id="@+id/week"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineCenter"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5"/>
+
+        <TextView
+            android:id="@+id/weekB"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/rounded_button"
+            android:fontFamily="@font/montserrat_regular"
             android:text="week"
-            android:checked="true"
-            android:src="@drawable/ic_launcher_background" />
+            android:gravity="center"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toStartOf="@id/guidelineCenter"
+            app:layout_constraintBottom_toBottomOf="@+id/monthB"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/monthB" />
 
-        <androidx.appcompat.widget.AppCompatRadioButton
-            android:id="@+id/month"
+        <TextView
+            android:id="@+id/monthB"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/rounded_period_background"
+            android:fontFamily="@font/montserrat_regular"
+            android:gravity="center"
             android:text="month"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:src="@drawable/ic_launcher_background" />
+            android:textAllCaps="false"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@id/guidelineCenter"
+            tools:layout_editor_absoluteY="0dp" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.appcompat.widget.AppCompatRadioButton
-            android:id="@+id/custom"
-            android:text="custom"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:src="@drawable/ic_launcher_background" />
-    </RadioGroup>
-
-    <com.github.mikephil.charting.charts.LineChart
+    <com.github.mikephil.charting.charts.BarChart
         android:id="@+id/chart"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -88,7 +150,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/group" />
+        app:layout_constraintTop_toBottomOf="@id/activityPeriodTV" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
