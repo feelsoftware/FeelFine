@@ -12,6 +12,7 @@ import com.feelsoftware.feelfine.ui.onboarding.WeightViewModel
 import com.feelsoftware.feelfine.ui.score.*
 import com.feelsoftware.feelfine.ui.statistic.StatisticViewModel
 import com.feelsoftware.feelfine.utils.OnBoardingFlowManager
+import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
@@ -38,12 +39,12 @@ val presentationModule = module {
         CurrentScoreViewModel(get<GetFitDataUseCase>())
     }
     viewModel {
-        SleepScoreViewModel()
+        SleepScoreViewModel(androidContext(),get<GetFitDataUseCase>())
     }
     viewModel {
-        StepScoreViewModel()
+        StepScoreViewModel(androidContext(),get<GetFitDataUseCase>())
     }
-    viewModel { ActivityScoreViewModel() }
+    viewModel { ActivityScoreViewModel(androidContext(),get<GetFitDataUseCase>()) }
 
-    viewModel { StatisticViewModel() }
+    viewModel { StatisticViewModel(get<GetFitDataUseCase>()) }
 }
