@@ -1,126 +1,321 @@
 package com.feelsoftware.feelfine.ui.statistic
 
-import android.graphics.Color
-import android.graphics.DashPathEffect
-import androidx.core.content.ContextCompat
+import androidx.appcompat.content.res.AppCompatResources
+import androidx.lifecycle.MutableLiveData
 import com.feelsoftware.feelfine.R
+import com.feelsoftware.feelfine.extension.subscribeBy
+import com.feelsoftware.feelfine.fit.model.ActivityInfo
+import com.feelsoftware.feelfine.fit.model.SleepInfo
+import com.feelsoftware.feelfine.fit.model.StepsInfo
+import com.feelsoftware.feelfine.fit.model.total
+import com.feelsoftware.feelfine.fit.usecase.GetFitDataUseCase
 import com.feelsoftware.feelfine.ui.base.BaseFragment
 import com.feelsoftware.feelfine.ui.base.BaseViewModel
+import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.components.Legend.LegendForm
-import com.github.mikephil.charting.data.Entry
-import com.github.mikephil.charting.data.LineData
-import com.github.mikephil.charting.data.LineDataSet
-import com.github.mikephil.charting.formatter.IFillFormatter
-import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
-import com.github.mikephil.charting.utils.Utils
+import com.github.mikephil.charting.components.XAxis.XAxisPosition
+import com.github.mikephil.charting.components.YAxis.YAxisLabelPosition
+import com.github.mikephil.charting.data.BarData
+import com.github.mikephil.charting.data.BarDataSet
+import com.github.mikephil.charting.data.BarEntry
+import com.github.mikephil.charting.interfaces.datasets.IBarDataSet
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.fragment_statistic.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
+
+const val SCORE_ACTIVITY = 0
+const val SCORE_STEP = 1
+const val SCORE_SLEEP = 2
 
 class StatisticFragment : BaseFragment<StatisticViewModel>(R.layout.fragment_statistic) {
 
     override val viewModel: StatisticViewModel by viewModel()
 
-    override fun onReady() {
+    private var currentScore = 1
+    private var activeWeek = true
+    private val activityList = listOf("activity", "steps", "sleep")
 
-        // TODO code below is only for testing, please don't review
-        // // Chart Style // //
-        chart.setBackgroundColor(Color.WHITE)
-        // disable description text
-        chart.description.isEnabled = false
-        // enable touch gestures
-        chart.setTouchEnabled(true)
-        chart.setDrawGridBackground(false)
-        // enable scaling and dragging
-        chart.isDragEnabled = true
-        chart.setScaleEnabled(true)
-        chart.setPinchZoom(true)
-        // add data
-        setData(45, 180f)
-        // draw points over time
-        // draw points over time
-        chart.animateX(1500)
-        // get the legend (only possible after setting data)
-        val l = chart.legend
-        // draw legend entries as lines
-        l.form = LegendForm.LINE
+    private fun manageScore() {
+        startTV.text = activityList.getOrNull(currentScore - 1)
+        middleTV.text = activityList.getOrNull(currentScore)
+        endTV.text = activityList.getOrNull(currentScore + 1)
+        manageData()
     }
 
-    // TODO method setData is only for testing, please don't review
-    private fun setData(count: Int, range: Float) {
-        val values = ArrayList<Entry>()
-        for (i in 0 until count) {
-            val `val` = (Math.random() * range).toFloat() - 30
-            values.add(
-                Entry(
-                    i.toFloat(),
-                    `val`,
-                    resources.getDrawable(R.drawable.outline_trending_down_24)
-                )
-            )
+    override fun onReady() {
+        initChart()
+        manageScore()
+        startIcon.setOnClickListener {
+            if (currentScore > 0) {
+                currentScore--
+                manageScore()
+            }
         }
-        val set1: LineDataSet
+        endIcon.setOnClickListener {
+            if (currentScore < activityList.size - 1) {
+                currentScore++
+                manageScore()
+            }
+        }
+        weekB.setOnClickListener {
+            if (activeWeek) return@setOnClickListener
+                activeWeek = true
+                weekB.setTextColor(resources.getColor(R.color.white))
+                monthB.setTextColor(resources.getColor(R.color.black))
+                weekB.background =
+                    AppCompatResources.getDrawable(requireContext(), R.drawable.rounded_button)
+                monthB.background = AppCompatResources.getDrawable(
+                    requireContext(),
+                    R.drawable.rounded_period_background
+                )
+                manageData()
+        }
+        monthB.setOnClickListener {
+            if (!activeWeek) return@setOnClickListener
+                activeWeek = false
+                monthB.setTextColor(resources.getColor(R.color.white))
+                weekB.setTextColor(resources.getColor(R.color.black))
+                monthB.background =
+                    AppCompatResources.getDrawable(requireContext(), R.drawable.rounded_button)
+                weekB.background = AppCompatResources.getDrawable(
+                    requireContext(),
+                    R.drawable.rounded_period_background
+                )
+                manageData()
+        }
+
+    }
+
+    private fun manageData() {
+        when (currentScore) {
+            SCORE_ACTIVITY -> {
+                if (activeWeek) {
+                    viewModel.activityWeekData.observe {
+                        setActivityData(it)
+                    }
+                } else {
+                    viewModel.activityMonthData.observe {
+                        setActivityData(it)
+                    }
+                }
+            }
+            SCORE_STEP -> {
+                if (activeWeek) {
+                    viewModel.stepsWeekData.observe {
+                        setStepsData(it)
+                    }
+                } else {
+                    viewModel.stepsMonthData.observe {
+                        setStepsData(it)
+                    }
+                }
+            }
+            SCORE_SLEEP -> {
+                if (activeWeek) {
+                    viewModel.sleepWeekData.observe {
+                        setSleepData(it)
+                    }
+                } else {
+                    viewModel.sleepMonthData.observe {
+                        setSleepData(it)
+                    }
+                }
+            }
+        }
+
+    }
+
+    private fun initChart() {
+        chart.description.isEnabled = false
+        chart.setMaxVisibleValueCount(60)
+        chart.setPinchZoom(false)
+        chart.setDrawGridBackground(false)
+        chart.xAxis.apply {
+            position = XAxisPosition.BOTTOM
+            setDrawGridLines(false)
+            granularity = 1f
+        }
+        chart.axisLeft.apply {
+            setPosition(YAxisLabelPosition.OUTSIDE_CHART)
+            spaceTop = 15f
+            axisMinimum = 0f
+        }
+        chart.axisRight.apply {
+            setDrawGridLines(false)
+            setLabelCount(8, false)
+            spaceTop = 15f
+            axisMinimum = 0f
+        }
+        val l = chart.legend
+        l.verticalAlignment = Legend.LegendVerticalAlignment.BOTTOM
+        l.horizontalAlignment = Legend.LegendHorizontalAlignment.LEFT
+        l.orientation = Legend.LegendOrientation.HORIZONTAL
+        l.setDrawInside(false)
+        l.form = LegendForm.SQUARE
+        l.formSize = 9f
+        l.textSize = 11f
+        l.xEntrySpace = 4f
+    }
+
+    private fun setStepsData(range: List<StepsInfo>) {
+        chart.clear()
+        val start = 0
+        val values = ArrayList<BarEntry>()
+        var i = start
+        while (i <= start + range.size - 1) {
+            val c = Calendar.getInstance()
+            c.time = range[i].date
+            val dayOfWeek = c[Calendar.DAY_OF_MONTH]
+            val steps = range[i].count.toFloat()
+            values.add(BarEntry(dayOfWeek.toFloat(), steps))
+            i++
+        }
+        applyChart(values)
+    }
+
+    private fun setSleepData(range: List<SleepInfo>) {
+        chart.clear()
+        val start = 0
+        val values = ArrayList<BarEntry>()
+        var i = start
+        while (i <= start + range.size - 1) {
+            val c = Calendar.getInstance()
+            c.time = range[i].date
+            val dayOfWeek = c[Calendar.DAY_OF_MONTH]
+            val duration = range[i].total.hours.toFloat()
+            values.add(BarEntry(dayOfWeek.toFloat(), duration))
+            i++
+        }
+        applyChart(values)
+    }
+
+    private fun setActivityData(range: List<ActivityInfo>) {
+        chart.clear()
+        val start = 0
+        val values = ArrayList<BarEntry>()
+        var i = start
+        while (i <= start + range.size - 1) {
+            val c = Calendar.getInstance()
+            c.time = range[i].date
+            val dayOfWeek = c[Calendar.DAY_OF_MONTH]
+            val duration = range[i].total.hours.toFloat()
+            values.add(BarEntry(dayOfWeek.toFloat(), duration))
+            i++
+        }
+        applyChart(values)
+    }
+
+    private fun applyChart(values: ArrayList<BarEntry>) {
+        val set1: BarDataSet
         if (chart.data != null &&
             chart.data.dataSetCount > 0
         ) {
-            set1 = chart.data.getDataSetByIndex(0) as LineDataSet
+            set1 = chart.data.getDataSetByIndex(0) as BarDataSet
             set1.values = values
-            set1.notifyDataSetChanged()
             chart.data.notifyDataChanged()
             chart.notifyDataSetChanged()
         } else {
-            // create a dataset and give it a type
-            set1 = LineDataSet(values, "DataSet 1")
+            set1 = BarDataSet(values, "The year 2021")
             set1.setDrawIcons(false)
-
-            // draw dashed line
-            set1.enableDashedLine(10f, 5f, 0f)
-
-            // black lines and points
-            set1.color = Color.BLACK
-            set1.setCircleColor(Color.BLACK)
-
-            // line thickness and point size
-            set1.lineWidth = 1f
-            set1.circleRadius = 3f
-
-            // draw points as solid circles
-            set1.setDrawCircleHole(false)
-
-            // customize legend entry
-            set1.formLineWidth = 1f
-            set1.formLineDashEffect = DashPathEffect(floatArrayOf(10f, 5f), 0f)
-            set1.formSize = 15f
-
-            // text size of values
-            set1.valueTextSize = 9f
-
-            // draw selection line as dashed
-            set1.enableDashedHighlightLine(10f, 5f, 0f)
-
-            // set the filled area
-            set1.setDrawFilled(true)
-            set1.fillFormatter =
-                IFillFormatter { dataSet, dataProvider -> chart.axisLeft.axisMinimum }
-
-            // set color of filled area
-            if (Utils.getSDKInt() >= 18) {
-                // drawables only supported on api level 18 and above
-                val drawable = ContextCompat.getDrawable(requireContext(), R.drawable.fade_red)
-                set1.fillDrawable = drawable
-            } else {
-                set1.fillColor = Color.BLACK
-            }
-            val dataSets = ArrayList<ILineDataSet>()
-            dataSets.add(set1) // add the data sets
-
-            // create a data object with the data sets
-            val data = LineData(dataSets)
-
-            // set data
+            val dataSets = ArrayList<IBarDataSet>()
+            dataSets.add(set1)
+            val data = BarData(dataSets)
+            data.barWidth = 0.9f
             chart.data = data
+            chart.notifyDataSetChanged()
         }
+        chart.invalidate()
     }
+
 }
 
-class StatisticViewModel() : BaseViewModel()
+class StatisticViewModel(useCase: GetFitDataUseCase) : BaseViewModel() {
+
+    val stepsWeekData = MutableLiveData<List<StepsInfo>>()
+    val stepsMonthData = MutableLiveData<List<StepsInfo>>()
+    val sleepWeekData = MutableLiveData<List<SleepInfo>>()
+    val sleepMonthData = MutableLiveData<List<SleepInfo>>()
+    val activityWeekData = MutableLiveData<List<ActivityInfo>>()
+    val activityMonthData = MutableLiveData<List<ActivityInfo>>()
+
+    init {
+        val (startDate, endDate) = getWeekDates(weekOffset = 0)
+        val (startMonthDate, endMonthDate) = getMonthDates(monthOffset = 0)
+
+        useCase.getSteps(startDate, endDate)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeBy(onSuccess = {
+                stepsWeekData.value = it
+            }).disposeOnInActive()
+
+        useCase.getSteps(startMonthDate, endMonthDate)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeBy(onSuccess = {
+                stepsMonthData.value = it
+            }).disposeOnInActive()
+
+        useCase.getSleep(startDate, endDate)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeBy(onSuccess = {
+                sleepWeekData.value = it
+            }).disposeOnInActive()
+
+        useCase.getSleep(startMonthDate, endMonthDate)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeBy(onSuccess = {
+                sleepMonthData.value = it
+            }).disposeOnInActive()
+
+        useCase.getActivity(startDate, endDate)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeBy(onSuccess = {
+                activityWeekData.value = it
+            }).disposeOnInActive()
+
+        useCase.getActivity(startMonthDate, endMonthDate)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeBy(onSuccess = {
+                activityMonthData.value = it
+            }).disposeOnInActive()
+
+    }
+
+    private fun getWeekDates(weekOffset: Int): Pair<Date, Date> {
+        val startDate = Calendar.getInstance().apply {
+            set(Calendar.DAY_OF_WEEK, getMinimum(Calendar.DAY_OF_WEEK))
+            set(Calendar.HOUR_OF_DAY, 0)
+            set(Calendar.MINUTE, 0)
+            set(Calendar.SECOND, 0)
+            add(Calendar.WEEK_OF_YEAR, weekOffset)
+        }.time
+        val endDate = Calendar.getInstance().apply {
+            set(Calendar.DAY_OF_WEEK, getMaximum(Calendar.DAY_OF_WEEK))
+            set(Calendar.HOUR_OF_DAY, 23)
+            set(Calendar.MINUTE, 59)
+            set(Calendar.SECOND, 59)
+            add(Calendar.WEEK_OF_YEAR, weekOffset)
+        }.time
+        return startDate to endDate
+    }
+
+    private fun getMonthDates(monthOffset: Int): Pair<Date, Date> {
+        val startDate = Calendar.getInstance().apply {
+            set(Calendar.MONTH, getMinimum(Calendar.MONTH))
+            set(Calendar.DAY_OF_MONTH, getMinimum(Calendar.DAY_OF_MONTH))
+            set(Calendar.HOUR_OF_DAY, 0)
+            set(Calendar.MINUTE, 0)
+            set(Calendar.SECOND, 0)
+            add(Calendar.MONTH, monthOffset)
+        }.time
+        val endDate = Calendar.getInstance().apply {
+            set(Calendar.MONTH, getMinimum(Calendar.MONTH))
+            set(Calendar.DAY_OF_MONTH, getMaximum(Calendar.DAY_OF_MONTH))
+            set(Calendar.HOUR_OF_DAY, 23)
+            set(Calendar.MINUTE, 59)
+            set(Calendar.SECOND, 59)
+            add(Calendar.MONTH, monthOffset)
+        }.time
+        return startDate to endDate
+    }
+}

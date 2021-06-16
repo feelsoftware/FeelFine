@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_height="match_parent">
 
     <TextView
@@ -12,14 +13,15 @@
         android:background="@drawable/circle_progress"
         android:fontFamily="@font/montserrat_bold"
         android:gravity="center"
-        android:text="4 \n hours"
-        android:textSize="30dp"
+        tools:text="4 \n hours"
+        android:textSize="28sp"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/guideline" />
 
     <TextView
+        android:id="@+id/scorePercentTV"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:background="@drawable/outline_trending_up_24"
@@ -68,12 +70,12 @@
         app:layout_constraintGuide_percent="0.25" />
 
     <TextView
-        android:id="@+id/bikingTV"
+        android:id="@+id/walkingTV"
         android:layout_width="0dp"
         android:layout_height="40dp"
         android:fontFamily="@font/montserrat_regular"
         android:gravity="center_vertical"
-        android:text="Biking : 2 hours"
+        tools:text="Biking : 2 hours"
         android:drawableLeft="@drawable/full_circle_shape"
         android:drawablePadding="8dp"
         android:layout_marginStart="20dp"
@@ -84,34 +86,34 @@
 
 
     <TextView
-        android:id="@+id/lightSleepTV"
+        android:id="@+id/runningTV"
         android:layout_width="0dp"
         android:layout_height="40dp"
         android:fontFamily="@font/montserrat_regular"
         android:gravity="center_vertical"
-        android:text="Running : 1 hour 15 minutes"
+        tools:text="Running : 1 hour 15 minutes"
         android:drawableLeft="@drawable/full_circle_shape"
         android:drawablePadding="8dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/bikingTV" />
+        app:layout_constraintTop_toBottomOf="@id/walkingTV" />
 
     <TextView
-        android:id="@+id/walkingTV"
+        android:id="@+id/otherTV"
         android:layout_width="0dp"
         android:layout_height="40dp"
         android:fontFamily="@font/montserrat_regular"
         android:gravity="center_vertical"
-        android:text="Walking : 45 minutes"
+        tools:text="Other : 45 minutes"
         android:drawableLeft="@drawable/full_circle_shape"
         android:drawablePadding="8dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/lightSleepTV" />
+        app:layout_constraintTop_toBottomOf="@id/runningTV" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -11,4 +11,4 @@ data class SleepInfo(
 )
 
 val SleepInfo.total: Duration
-    get() = lightSleep + deepSleep + awake + outOfBed
+    get() = lightSleep + deepSleep

@@ -94,6 +94,7 @@
         app:layout_constraintTop_toTopOf="@+id/guideline" />
 
     <TextView
+        android:id="@+id/stepsPercentTV"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:background="@drawable/outline_trending_up_24"
@@ -120,6 +121,7 @@
 
 
     <TextView
+        android:id="@+id/sleepPercentTV"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:background="@drawable/outline_trending_down_24"
@@ -145,6 +147,7 @@
         app:layout_constraintTop_toTopOf="@+id/secondGL" />
 
     <TextView
+        android:id="@+id/activityPercentTV"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:background="@drawable/outline_trending_up_24"
