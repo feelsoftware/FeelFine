@@ -1,8 +1,9 @@
 <resources>
     <string name="app_name">Feel Fine</string>
     <string name="welcome_title">Welcome to Feel Fine!</string>
-    <string name="register">Register</string>
-    <string name="dont_have_account">Don\'t have account?</string>
+    <string name="register">Sing up</string>
+    <string name="sign_in">Sign in</string>
+    <string name="dont_have_account">Let\' s get started!</string>
     <string name="nick_fill_error">Fill nick name</string>
     <string-array name="score_values">
         <item>Steps</item>

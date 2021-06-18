@@ -9,21 +9,33 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:background="@color/white"
-        android:orientation="vertical"
-        android:layout_height="match_parent">
+        android:orientation="vertical">
 
         <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/logoIcon"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:id="@+id/mainIcon"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:layout_centerVertical="true"
-            android:layout_marginTop="20dp"
+            android:scaleType="fitStart"
             android:layout_marginBottom="20dp"
+            app:layout_constraintBottom_toTopOf="@+id/guideline"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_launcher_background"
+            app:srcCompat="@drawable/ic_logo_background"
+            tools:ignore="MissingConstraints" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/logoIcon"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:layout_centerVertical="true"
+            app:layout_constraintBottom_toBottomOf="@+id/mainIcon"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="@drawable/ic_logo"
             tools:ignore="MissingConstraints" />
 
         <TextView
@@ -31,67 +43,63 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
-            android:layout_marginTop="20dp"
-            android:fontFamily="@font/montserrat_semibold"
+            android:fontFamily="@font/nunito_extrabold"
             android:gravity="center"
             android:lines="2"
             android:text="@string/welcome_title"
             android:textColor="#456778"
-            android:textSize="36dp"
-            app:layout_constraintBottom_toTopOf="@+id/mainIcon"
+            android:textSize="14pt"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/logoIcon" />
-
-
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/mainIcon"
-        android:layout_width="match_parent"
-        android:layout_height="280dp"
-        android:layout_centerVertical="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:scaleType="fitXY"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_launcher_background"
-        tools:ignore="MissingConstraints" />
-
-
-        <Button
-            android:id="@+id/registerB"
-            android:layout_width="200dp"
-            android:layout_height="39dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/rounded_corner"
-            android:fontFamily="@font/montserrat_regular"
-            android:text="@string/register"
-            android:textColor="@color/white"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.497"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/photoLabel" />
+            app:layout_constraintTop_toBottomOf="@+id/guideline" />
 
         <TextView
             android:id="@+id/photoLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-            android:fontFamily="@font/montserrat_regular"
+            android:textSize="12sp"
+            android:fontFamily="@font/nunito_extrabold"
             android:text="@string/dont_have_account"
-            android:textColor="#456778"
+            android:textColor="@color/greyText"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/mainIcon" />
+            app:layout_constraintTop_toBottomOf="@+id/welcomeLabel" />
+
+        <Button
+            android:id="@+id/registerB"
+            android:layout_width="200dp"
+            android:layout_height="39dp"
+            android:background="@drawable/button_purple_rounded"
+            android:fontFamily="@font/nunito_extrabold"
+            android:text="@string/register"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/loginB" />
+
+        <Button
+            android:id="@+id/loginB"
+            android:layout_width="200dp"
+            android:layout_height="39dp"
+            android:backgroundTint="@color/purpleLight"
+            android:background="@drawable/button_purple_rounded"
+            android:fontFamily="@font/nunito_extrabold"
+            android:text="@string/sign_in"
+            android:textColor="@color/black"
+            android:layout_marginTop="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/photoLabel" />
 
         <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.92" />
+            android:id="@+id/guideline"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.5" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
