@@ -3,20 +3,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:clickable="true"
-    android:focusable="true"
+    android:layout_height="match_parent"
     android:background="@color/white"
-    android:layout_height="match_parent">
+    android:clickable="true"
+    android:focusable="true">
 
     <TextView
         android:id="@+id/textview_first"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:fontFamily="@font/montserrat_bold"
-        android:text="Which one are you?"
-        android:textSize="30dp"
         android:layout_marginTop="40dp"
+        android:fontFamily="@font/nunito_black"
+        android:gravity="center"
+        android:text="Which one are you?"
+        android:textColor="@color/greyDark"
+        android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/stepper" />
@@ -25,12 +26,11 @@
         android:id="@+id/description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/montserrat_regular"
+        android:fontFamily="@font/nunito_semibold"
         android:gravity="center"
-        android:layout_marginBottom="20dp"
-        android:layout_marginTop="20dp"
         android:lines="2"
-        android:text="To give your personalize profile \nwe need to know your gender"
+        android:text="Click on icon to choose your gender"
+        android:textColor="@color/greyText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textview_first" />
@@ -42,53 +42,99 @@
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.5" />
 
-    <RadioGroup
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        app:layout_constraintEnd_toStartOf="@+id/guideline"
-        android:orientation="horizontal"
-        android:gravity="center_horizontal"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/description">
-
-    <androidx.appcompat.widget.AppCompatRadioButton
-        android:id="@+id/male"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:text="MALE"
-        android:checked="true"
-        android:src="@drawable/ic_launcher_background" />
-
-    <androidx.appcompat.widget.AppCompatRadioButton
-        android:id="@+id/female"
-        android:text="FEMALE"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:src="@drawable/ic_launcher_background" />
-    </RadioGroup>
-
     <include
         android:id="@+id/stepper"
         layout="@layout/step_gender"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="30dp"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineEnd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.75" />
 
     <Button
         android:id="@+id/continueB"
         android:layout_width="200dp"
         android:layout_height="39dp"
-        android:background="@drawable/rounded_button"
-        android:fontFamily="@font/montserrat_regular"
+        android:background="@drawable/button_purple"
+        android:enabled="false"
+        android:fontFamily="@font/nunito_extrabold"
         android:text="Continue"
-        android:layout_marginBottom="40dp"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guidelineEnd" />
+
+    <LinearLayout
+        android:id="@+id/maleBackgroundLL"
+        android:layout_width="127dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/button_purple_disabled"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/guidelineEnd"
+        app:layout_constraintEnd_toStartOf="@+id/guideline"
+        app:layout_constraintHeight_max="250dp"
+        app:layout_constraintTop_toBottomOf="@+id/description">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/male"
+            android:layout_width="104dp"
+            android:layout_height="124dp"
+            android:checked="true"
+            android:src="@drawable/icon_male" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/nunito_extrabold"
+            android:text="Male"
+            android:textColor="@color/greyDark" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/femaleBackgroundLL"
+        android:layout_width="127dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="60dp"
+        android:background="@drawable/button_purple_disabled"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/guidelineEnd"
+        app:layout_constraintHeight_max="250dp"
+        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintTop_toBottomOf="@+id/description">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/female"
+            android:layout_width="104dp"
+            android:layout_height="124dp"
+            android:checked="true"
+            android:src="@drawable/ic_female" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/nunito_extrabold"
+            android:text="Female"
+            android:textColor="@color/greyDark" />
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

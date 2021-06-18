@@ -301,7 +301,6 @@ class StatisticViewModel(useCase: GetFitDataUseCase) : BaseViewModel() {
 
     private fun getMonthDates(monthOffset: Int): Pair<Date, Date> {
         val startDate = Calendar.getInstance().apply {
-            set(Calendar.MONTH, getMinimum(Calendar.MONTH))
             set(Calendar.DAY_OF_MONTH, getMinimum(Calendar.DAY_OF_MONTH))
             set(Calendar.HOUR_OF_DAY, 0)
             set(Calendar.MINUTE, 0)
@@ -309,7 +308,6 @@ class StatisticViewModel(useCase: GetFitDataUseCase) : BaseViewModel() {
             add(Calendar.MONTH, monthOffset)
         }.time
         val endDate = Calendar.getInstance().apply {
-            set(Calendar.MONTH, getMinimum(Calendar.MONTH))
             set(Calendar.DAY_OF_MONTH, getMaximum(Calendar.DAY_OF_MONTH))
             set(Calendar.HOUR_OF_DAY, 23)
             set(Calendar.MINUTE, 59)
