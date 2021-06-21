@@ -1,16 +1,16 @@
+@file:SuppressLint("SetTextI18n")
+
 package com.feelsoftware.feelfine.ui.score
 
-import android.widget.TextView
-import androidx.appcompat.content.res.AppCompatResources
+import android.annotation.SuppressLint
 import androidx.lifecycle.MutableLiveData
 import com.feelsoftware.feelfine.R
 import com.feelsoftware.feelfine.extension.onClick
-import com.feelsoftware.feelfine.extension.subscribeBy
+import com.feelsoftware.feelfine.fit.model.toHours
 import com.feelsoftware.feelfine.fit.model.total
 import com.feelsoftware.feelfine.fit.usecase.*
 import com.feelsoftware.feelfine.ui.base.BaseFragment
 import com.feelsoftware.feelfine.ui.base.BaseViewModel
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import kotlinx.android.synthetic.main.fragment_current_score.*
 
@@ -23,20 +23,20 @@ class CurrentScoreFragment : BaseFragment<CurrentScoreViewModel>(R.layout.fragme
             stepsView.text = "Steps\n$it"
         }
         viewModel.sleepData.observe {
-            sleepView.text = "Sleep\n$it hours"
+            sleepView.text = "Sleep\n$it"
         }
         viewModel.activityData.observe {
-            activityView.text = "Activity\n$it hours"
+            activityView.text = "Activity\n$it"
         }
 
         viewModel.stepsPercents.observe {
-            manageScorePercents(stepsPercentTV, it)
+            stepsPercentTV.applyPercentData(it)
         }
         viewModel.sleepPercents.observe {
-            manageScorePercents(sleepPercentTV, it)
+            sleepPercentTV.applyPercentData(it)
         }
         viewModel.activityPercents.observe {
-            manageScorePercents(activityPercentTV, it)
+            activityPercentTV.applyPercentData(it)
         }
         stepsView.onClick { viewModel.navigate(R.id.toStepScoreFragment) }
         sleepView.onClick { viewModel.navigate(R.id.toSleepScoreFragment) }
@@ -44,66 +44,29 @@ class CurrentScoreFragment : BaseFragment<CurrentScoreViewModel>(R.layout.fragme
         // TODO temporary navigation
         moodView.onClick { viewModel.navigate(R.id.toStatisticFragment) }
     }
-
-    private fun manageScorePercents(scoreView: TextView, scorePercent: Int) {
-        if (scorePercent >= 0) {
-            scoreView.text = "$scorePercent%"
-            scoreView.background =
-                AppCompatResources.getDrawable(requireContext(),R.drawable.outline_trending_up_24)
-        } else {
-            scoreView.text = "-$scorePercent%"
-            scoreView.background =
-            AppCompatResources.getDrawable(requireContext(),R.drawable.outline_trending_down_24)
-        }
-    }
 }
 
-class CurrentScoreViewModel(
-    useCase: GetFitDataUseCase
-) : BaseViewModel() {
+class CurrentScoreViewModel(useCase: GetFitDataUseCase) : BaseViewModel() {
 
     val stepsData = MutableLiveData<String>()
     val sleepData = MutableLiveData<String>()
     val activityData = MutableLiveData<String>()
-    val stepsPercents = MutableLiveData<Int>()
-    val sleepPercents = MutableLiveData<Int>()
-    val activityPercents = MutableLiveData<Int>()
+    val stepsPercents = MutableLiveData<PercentData>()
+    val sleepPercents = MutableLiveData<PercentData>()
+    val activityPercents = MutableLiveData<PercentData>()
 
     init {
-        useCase.getCurrentSteps()
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeBy(onSuccess = {
-                stepsData.value = it.count.toString()
-            }).disposeOnInActive()
-        useCase.getCurrentSleep()
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeBy(onSuccess = {
-                sleepData.value = it.total.hours.toString()
-            }).disposeOnInActive()
-        useCase.getCurrentActivity()
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeBy(onSuccess = {
-                activityData.value = it.total.hours.toString()
-            }).disposeOnInActive()
-        useCase.getPercentSteps()
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeBy(onSuccess = {
-                stepsPercents.value = it
-            }).disposeOnInActive()
-        useCase.getPercentSleep()
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeBy(onSuccess = {
-                sleepPercents.value = it
-            }).disposeOnInActive()
-        useCase.getPercentSteps()
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeBy(onSuccess = {
-                stepsPercents.value = it
-            }).disposeOnInActive()
-        useCase.getPercentActivity()
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeBy(onSuccess = {
-                activityPercents.value = it
-            }).disposeOnInActive()
+        stepsData.combine(useCase.getCurrentSteps()) {
+            it.count.toString()
+        }
+        sleepData.combine(useCase.getCurrentSleep()) {
+            it.total.toHours()
+        }
+        activityData.combine(useCase.getCurrentActivity()) {
+            it.total.toHours()
+        }
+        managePercentData(useCase.getPercentSteps(), stepsPercents).disposeOnInActive()
+        managePercentData(useCase.getPercentSleep(), sleepPercents).disposeOnInActive()
+        managePercentData(useCase.getPercentActivity(), activityPercents).disposeOnInActive()
     }
 }

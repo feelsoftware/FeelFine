@@ -2,93 +2,104 @@
 
 package com.feelsoftware.feelfine.fit.usecase
 
+import com.feelsoftware.feelfine.data.repository.ActivityDataRepository
+import com.feelsoftware.feelfine.data.repository.SleepDataRepository
+import com.feelsoftware.feelfine.data.repository.StepsDataRepository
 import com.feelsoftware.feelfine.fit.FitRepository
 import com.feelsoftware.feelfine.fit.model.*
-import io.reactivex.rxjava3.core.Single
+import io.reactivex.rxjava3.core.Observable
 import org.koin.core.component.KoinComponent
 import java.util.*
 import kotlin.math.roundToInt
 
 class GetFitDataUseCase(
-    private val fitRepository: FitRepository
+    private val stepsRepository: StepsDataRepository,
+    private val sleepRepository: SleepDataRepository,
+    private val activityRepository: ActivityDataRepository,
 ) : KoinComponent {
 
-    fun getSteps(startTime: Date, endTime: Date): Single<List<StepsInfo>> =
-        fitRepository.getSteps(startTime, endTime)
+    fun getSteps(startTime: Date, endTime: Date): Observable<List<StepsInfo>> =
+        stepsRepository.get(startTime, endTime)
 
-    fun getSleep(startTime: Date, endTime: Date): Single<List<SleepInfo>> =
-        fitRepository.getSleep(startTime, endTime)
+    fun getSleep(startTime: Date, endTime: Date): Observable<List<SleepInfo>> =
+        sleepRepository.get(startTime, endTime)
 
-    fun getActivity(startTime: Date, endTime: Date): Single<List<ActivityInfo>> =
-        fitRepository.getActivity(startTime, endTime)
+    fun getActivity(startTime: Date, endTime: Date): Observable<List<ActivityInfo>> =
+        activityRepository.get(startTime, endTime)
 }
 
 // region Current date
-fun GetFitDataUseCase.getCurrentSteps(): Single<StepsInfo> {
+fun GetFitDataUseCase.getCurrentSteps(): Observable<StepsInfo> {
     val (startTime, endTime) = currentDates()
     return getSteps(startTime, endTime).oneItem(startTime)
 }
 
-fun GetFitDataUseCase.getCurrentSleep(): Single<SleepInfo> {
+fun GetFitDataUseCase.getCurrentSleep(): Observable<SleepInfo> {
     val (startTime, endTime) = currentDates(forSleep = true)
     return getSleep(startTime, endTime).oneItem(startTime)
 }
 
-fun GetFitDataUseCase.getCurrentActivity(): Single<ActivityInfo> {
+fun GetFitDataUseCase.getCurrentActivity(): Observable<ActivityInfo> {
     val (startTime, endTime) = currentDates()
     return getActivity(startTime, endTime).oneItem(startTime)
 }
 // endregion
 
 // region Percent data
-fun GetFitDataUseCase.getPercentSteps(): Single<Int> {
+fun GetFitDataUseCase.getPercentSteps(): Observable<Int> {
     val currentData = getCurrentSteps()
 
     val (startTime, endTime) = yesterdayDates()
     val yesterdayData = getSteps(startTime, endTime).oneItem(startTime)
 
-    return Single.zip(currentData, yesterdayData, { current, yesterday ->
+    return Observable.zip(currentData, yesterdayData, { current, yesterday ->
         (current.count * 100f / yesterday.count.coerceAtLeast(1)).roundToInt() - 100
     })
 }
 
-fun GetFitDataUseCase.getPercentSleep(): Single<Int> {
+fun GetFitDataUseCase.getPercentSleep(): Observable<Int> {
     val currentData = getCurrentSleep()
 
     val (startTime, endTime) = yesterdayDates(forSleep = true)
     val yesterdayData = getSleep(startTime, endTime).oneItem(startTime)
 
-    return Single.zip(currentData, yesterdayData, { current, yesterday ->
+    return Observable.zip(currentData, yesterdayData, { current, yesterday ->
         (current.total.minutes * 100f / yesterday.total.minutes.coerceAtLeast(1)).roundToInt() - 100
     })
 }
 
-fun GetFitDataUseCase.getPercentActivity(): Single<Int> {
+fun GetFitDataUseCase.getPercentActivity(): Observable<Int> {
     val currentData = getCurrentActivity()
 
     val (startTime, endTime) = yesterdayDates()
     val yesterdayData = getActivity(startTime, endTime).oneItem(startTime)
 
-    return Single.zip(currentData, yesterdayData, { current, yesterday ->
+    return Observable.zip(currentData, yesterdayData, { current, yesterday ->
         (current.total.minutes * 100f / yesterday.total.minutes.coerceAtLeast(1)).roundToInt() - 100
     })
 }
 // endregion
 
 @JvmName("OneItemSteps")
-private fun Single<List<StepsInfo>>.oneItem(date: Date): Single<StepsInfo> = map { list ->
+private fun Observable<List<StepsInfo>>.oneItem(
+    date: Date
+): Observable<StepsInfo> = map { list ->
     list.firstOrNull() ?: StepsInfo(date, 0)
 }
 
 @JvmName("OneItemSleep")
-private fun Single<List<SleepInfo>>.oneItem(date: Date): Single<SleepInfo> = map { list ->
+private fun Observable<List<SleepInfo>>.oneItem(
+    date: Date
+): Observable<SleepInfo> = map { list ->
     list.firstOrNull() ?: SleepInfo(
         date, Duration(0), Duration(0), Duration(0), Duration(0)
     )
 }
 
 @JvmName("OneItemActivity")
-private fun Single<List<ActivityInfo>>.oneItem(date: Date): Single<ActivityInfo> = map { list ->
+private fun Observable<List<ActivityInfo>>.oneItem(
+    date: Date
+): Observable<ActivityInfo> = map { list ->
     list.firstOrNull() ?: ActivityInfo(
         date, Duration(0), Duration(0), Duration(0)
     )
