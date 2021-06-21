@@ -5,6 +5,7 @@ package com.feelsoftware.feelfine.di
 import com.feelsoftware.feelfine.fit.usecase.GetFitDataUseCase
 import com.feelsoftware.feelfine.ui.EntryPointViewModel
 import com.feelsoftware.feelfine.ui.base.EmptyViewModel
+import com.feelsoftware.feelfine.ui.home.HomeViewModel
 import com.feelsoftware.feelfine.ui.onboarding.AgeViewModel
 import com.feelsoftware.feelfine.ui.onboarding.GenderViewModel
 import com.feelsoftware.feelfine.ui.onboarding.NickNameViewModel
@@ -21,6 +22,9 @@ val presentationModule = module {
     }
     viewModel {
         EntryPointViewModel(get<OnBoardingFlowManager>())
+    }
+    viewModel {
+        HomeViewModel()
     }
     viewModel {
         NickNameViewModel(get<OnBoardingFlowManager>())

@@ -38,11 +38,11 @@ class CurrentScoreFragment : BaseFragment<CurrentScoreViewModel>(R.layout.fragme
         viewModel.activityPercents.observe {
             activityPercentTV.applyPercentData(it)
         }
-        stepsView.onClick { viewModel.navigate(R.id.toStepScoreFragment) }
-        sleepView.onClick { viewModel.navigate(R.id.toSleepScoreFragment) }
-        activityView.onClick { viewModel.navigate(R.id.toActivityScoreFragment) }
+        stepsView.onClick { viewModel.navigate(R.id.stepScoreFragment) }
+        sleepView.onClick { viewModel.navigate(R.id.sleepScoreFragment) }
+        activityView.onClick { viewModel.navigate(R.id.activityScoreFragment) }
         // TODO temporary navigation
-        moodView.onClick { viewModel.navigate(R.id.toStatisticFragment) }
+        moodView.onClick { viewModel.navigate(R.id.stepScoreFragment) }
     }
 }
 

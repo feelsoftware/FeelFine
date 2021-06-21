@@ -1,6 +1,5 @@
 package com.feelsoftware.feelfine.ui.onboarding
 
-import android.widget.DatePicker.OnDateChangedListener
 import com.feelsoftware.feelfine.R
 import com.feelsoftware.feelfine.extension.onClick
 import com.feelsoftware.feelfine.extension.subscribeBy
@@ -10,7 +9,6 @@ import com.feelsoftware.feelfine.utils.OnBoardingFlowManager
 import kotlinx.android.synthetic.main.fragment_age.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
-
 
 class AgeFragment : BaseFragment<AgeViewModel>(R.layout.fragment_age) {
 
@@ -40,7 +38,7 @@ class AgeViewModel(
         flowManager.age = Calendar.getInstance().get(Calendar.YEAR) - age
         flowManager.markAsPassed(flowManager.buildUserProfile() ?: return)
             .subscribeBy(onComplete = {
-                navigate(R.id.toCurrentScoreFragment)
+                navigate(R.id.toHomeFragment)
             }, onError = {
                 print("error")
             })
