@@ -23,7 +23,6 @@
     <TextView
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:background="@drawable/outline_trending_up_24"
         android:text="30%"
         app:layout_constraintEnd_toEndOf="@+id/scoreView"
         app:layout_constraintTop_toTopOf="@+id/scoreView" />
@@ -97,7 +96,6 @@
         android:id="@+id/stepsPercentTV"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:background="@drawable/outline_trending_up_24"
         android:text="10%"
         android:translationX="20dp"
         android:translationY="-20dp"
@@ -124,7 +122,6 @@
         android:id="@+id/sleepPercentTV"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:background="@drawable/outline_trending_down_24"
         android:text="70%"
         android:translationX="20dp"
         android:translationY="-20dp"
@@ -150,7 +147,6 @@
         android:id="@+id/activityPercentTV"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:background="@drawable/outline_trending_up_24"
         android:text="30%"
         android:translationX="20dp"
         android:translationY="-20dp"
@@ -175,7 +171,6 @@
     <TextView
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:background="@drawable/outline_trending_up_24"
         android:text="70%"
         android:translationX="20dp"
         android:translationY="-20dp"

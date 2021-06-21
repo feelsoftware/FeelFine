@@ -1,8 +1,8 @@
+@file:SuppressLint("SetTextI18n")
+
 package com.feelsoftware.feelfine.ui.score
 
-import android.content.Context
-import android.graphics.drawable.Drawable
-import androidx.appcompat.content.res.AppCompatResources
+import android.annotation.SuppressLint
 import androidx.lifecycle.MutableLiveData
 import com.feelsoftware.feelfine.R
 import com.feelsoftware.feelfine.extension.subscribeBy
@@ -33,31 +33,22 @@ class ActivityScoreFragment :
             otherTV.text = "Other: " + it.activityUnknown.toHoursMinutes()
         }
         viewModel.activityPercents.observe {
-            scorePercentTV.text = it.first
-            scorePercentTV.background = it.second
+            scorePercentTV.applyPercentData(it)
         }
     }
 }
 
-class ActivityScoreViewModel(context: Context, useCase: GetFitDataUseCase) : BaseViewModel() {
+class ActivityScoreViewModel(useCase: GetFitDataUseCase) : BaseViewModel() {
 
     val activityData = MutableLiveData<ActivityInfo>()
-    val activityPercents = MutableLiveData<Pair<String, Drawable?>>()
+    val activityPercents = MutableLiveData<PercentData>()
 
     init {
         useCase.getCurrentActivity()
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribeBy(onSuccess = {
+            .subscribeBy(onNext = {
                 activityData.value = it
             }).disposeOnInActive()
-        useCase.getPercentActivity()
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeBy(onSuccess = { percent ->
-                val text = if (percent >= 0) "+$percent%" else "$percent%"
-                val drawableResId =
-                    if (percent >= 0) R.drawable.outline_trending_up_24 else R.drawable.outline_trending_down_24
-                activityPercents.value =
-                    text to AppCompatResources.getDrawable(context, drawableResId)
-            }).disposeOnInActive()
+        managePercentData(useCase.getPercentActivity(), activityPercents).disposeOnInActive()
     }
 }

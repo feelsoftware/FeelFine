@@ -3,9 +3,13 @@ package com.feelsoftware.feelfine.ui.base
 import android.os.Bundle
 import androidx.annotation.CallSuper
 import androidx.annotation.IdRes
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.navigation.ActionOnlyNavDirections
 import androidx.navigation.NavDirections
+import com.feelsoftware.feelfine.extension.subscribeBy
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.disposables.Disposable
 
@@ -25,6 +29,14 @@ open class BaseViewModel : ViewModel() {
 
     protected fun Disposable.disposeOnInActive() {
         disposableInActive.add(this)
+    }
+
+    protected fun <V, T> MutableLiveData<V>.combine(source: Observable<T>, mapper: (T) -> V) {
+        source.observeOn(AndroidSchedulers.mainThread())
+            .subscribeBy(onNext = {
+                value = mapper.invoke(it)
+            })
+            .disposeOnInActive()
     }
     // endregion
 
