@@ -13,9 +13,10 @@
         android:id="@+id/textview_first"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/montserrat_bold"
+        android:textColor="@color/greyDark"
+        android:fontFamily="@font/nunito_black"
         android:text="What is your weight?"
-        android:textSize="30dp"
+        android:textSize="30sp"
         android:layout_marginTop="40dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -25,56 +26,98 @@
         android:id="@+id/description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/montserrat_regular"
+        android:fontFamily="@font/nunito_semibold"
         android:gravity="center"
+        android:textColor="@color/greyText"
         android:layout_marginTop="40dp"
         android:lines="2"
-        android:text="To create the best value for you \nto indicate your parameters"
+        android:text="To create the best value for you \nto please indicate your parameters"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textview_first" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.5" />
-
-
-    <SeekBar
-        android:id="@+id/simpleSeekBar"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:max="200"
-        android:layout_marginTop="40dp"
-        android:progress="1"
-        app:layout_constraintTop_toBottomOf="@+id/description"
-        tools:ignore="MissingConstraints" />
-
-    <TextView
-        android:id="@+id/wageLabel"
+    <androidx.appcompat.widget.AppCompatImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:textColor="@color/greenMain"
-        android:src="@drawable/ic_launcher_background"
+        android:src="@drawable/ic_wage"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/scoreContainer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/simpleSeekBar"
-        android:text="Wage: " />
+        app:layout_constraintTop_toBottomOf="@+id/description" />
 
-    <TextView
-        android:id="@+id/wageValue"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:layout_marginStart="10dp"
-        android:src="@drawable/ic_launcher_background"
-        android:textColor="@color/greenMain"
-        app:layout_constraintStart_toEndOf="@+id/wageLabel"
-        app:layout_constraintTop_toBottomOf="@+id/simpleSeekBar"
-        tools:text="50" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/scoreContainer"
+        android:layout_width="match_parent"
+        android:layout_height="57dp"
+        android:layout_marginTop="20dp"
+        android:entries="@array/score_values"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/startTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:fontFamily="@font/nunito_extrabold"
+            android:textColor="#ABACAE"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/middleTV"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="56" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/startIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_minus"
+            android:layout_marginEnd="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/startTV"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/middleTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="24sp"
+            android:fontFamily="@font/nunito_black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="57" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/endIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_plus"
+            android:layout_marginStart="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/endTV"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/endTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:textColor="#ABACAE"
+            android:textSize="18sp"
+            android:fontFamily="@font/nunito_extrabold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/middleTV"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="55" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     <include
         android:id="@+id/stepper"
@@ -86,17 +129,24 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineEnd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.75" />
+
     <Button
         android:id="@+id/continueB"
         android:layout_width="200dp"
         android:layout_height="39dp"
-        android:background="@drawable/rounded_button"
-        android:fontFamily="@font/montserrat_regular"
+        android:background="@drawable/button_purple"
+        android:fontFamily="@font/nunito_extrabold"
         android:text="Continue"
-        android:enabled="false"
-        android:layout_marginBottom="40dp"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guidelineEnd" />
 </androidx.constraintlayout.widget.ConstraintLayout>
