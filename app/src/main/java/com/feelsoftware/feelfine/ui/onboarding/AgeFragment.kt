@@ -1,6 +1,6 @@
 package com.feelsoftware.feelfine.ui.onboarding
 
-import android.widget.SeekBar
+import android.widget.DatePicker.OnDateChangedListener
 import com.feelsoftware.feelfine.R
 import com.feelsoftware.feelfine.extension.onClick
 import com.feelsoftware.feelfine.extension.subscribeBy
@@ -9,26 +9,26 @@ import com.feelsoftware.feelfine.ui.base.BaseViewModel
 import com.feelsoftware.feelfine.utils.OnBoardingFlowManager
 import kotlinx.android.synthetic.main.fragment_age.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.util.*
+
 
 class AgeFragment : BaseFragment<AgeViewModel>(R.layout.fragment_age) {
 
     override val viewModel: AgeViewModel by viewModel()
 
+    private val today = Calendar.getInstance()
+
     override fun onReady() {
-        getStartedB.onClick { viewModel.setAge(simpleSeekBar.progress) }
-        simpleSeekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
-            var progressChangedValue = 0
-            override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
-                progressChangedValue = progress
-                ageValue.text = progressChangedValue.toString()
-            }
+        var selectedYear = 0
+        calendarView.init(
+            today.get(Calendar.YEAR),
+            today.get(Calendar.MONTH),
+            today.get(Calendar.DAY_OF_MONTH)
+        ) { _, year, _, _ ->
+            selectedYear = year
+        }
 
-            override fun onStartTrackingTouch(seekBar: SeekBar) {
-                getStartedB.isEnabled = true
-            }
-
-            override fun onStopTrackingTouch(seekBar: SeekBar) {}
-        })
+        getStartedB.onClick { viewModel.setAge(selectedYear) }
     }
 }
 
@@ -37,10 +37,9 @@ class AgeViewModel(
 ) : BaseViewModel() {
 
     fun setAge(age: Int) {
-        flowManager.age = age
+        flowManager.age = Calendar.getInstance().get(Calendar.YEAR) - age
         flowManager.markAsPassed(flowManager.buildUserProfile() ?: return)
             .subscribeBy(onComplete = {
-                print("success")
                 navigate(R.id.toCurrentScoreFragment)
             }, onError = {
                 print("error")
