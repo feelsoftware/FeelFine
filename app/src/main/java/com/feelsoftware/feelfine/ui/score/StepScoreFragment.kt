@@ -1,8 +1,8 @@
+@file:SuppressLint("SetTextI18n")
+
 package com.feelsoftware.feelfine.ui.score
 
-import android.content.Context
-import android.graphics.drawable.Drawable
-import androidx.appcompat.content.res.AppCompatResources
+import android.annotation.SuppressLint
 import androidx.lifecycle.MutableLiveData
 import com.feelsoftware.feelfine.R
 import com.feelsoftware.feelfine.extension.subscribeBy
@@ -30,30 +30,23 @@ class StepScoreFragment : BaseFragment<StepScoreViewModel>(R.layout.fragment_ste
             distanceTV.text = "Distance: " + it.distance + " kilometers"
         }
         viewModel.stepsPercents.observe {
-            scorePercentTV.text = it.first
-            scorePercentTV.background = it.second
+            scorePercentTV.applyPercentData(it)
         }
     }
 
 }
 
-class StepScoreViewModel(context: Context, useCase: GetFitDataUseCase) : BaseViewModel() {
+class StepScoreViewModel(useCase: GetFitDataUseCase) : BaseViewModel() {
+
     val stepsData = MutableLiveData<StepsInfo>()
-    val stepsPercents = MutableLiveData<Pair<String, Drawable?>>()
+    val stepsPercents = MutableLiveData<PercentData>()
 
     init {
         useCase.getCurrentSteps()
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribeBy(onSuccess = {
+            .subscribeBy(onNext = {
                 stepsData.value = it
             }).disposeOnInActive()
-        useCase.getPercentSteps()
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeBy(onSuccess = { percent ->
-                val text = if (percent >= 0) "+$percent%" else "$percent%"
-                val drawableResId =
-                    if (percent >= 0) R.drawable.outline_trending_up_24 else R.drawable.outline_trending_down_24
-                stepsPercents.value = text to AppCompatResources.getDrawable(context, drawableResId)
-            }).disposeOnInActive()
+        managePercentData(useCase.getPercentSteps(), stepsPercents).disposeOnInActive()
     }
 }
