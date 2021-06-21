@@ -72,7 +72,7 @@ class CurrentScoreViewModel(
     init {
         useCase.getCurrentSteps()
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribeBy(onSuccess = {
+            .subscribeBy(onNext = {
                 stepsData.value = it.count.toString()
             }).disposeOnInActive()
         useCase.getCurrentSleep()

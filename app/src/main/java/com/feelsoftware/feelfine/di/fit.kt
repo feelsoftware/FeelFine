@@ -2,6 +2,10 @@
 
 package com.feelsoftware.feelfine.di
 
+import com.feelsoftware.feelfine.data.db.dao.ActivityDao
+import com.feelsoftware.feelfine.data.db.dao.SleepDao
+import com.feelsoftware.feelfine.data.db.dao.StepsDao
+import com.feelsoftware.feelfine.data.repository.*
 import com.feelsoftware.feelfine.fit.FitPermissionManager
 import com.feelsoftware.feelfine.fit.FitRepository
 import com.feelsoftware.feelfine.fit.GoogleFitPermissionManager
@@ -19,6 +23,28 @@ val fitModule = module {
         GoogleFitPermissionManager(get<ActivityEngine>())
     }
     factory<GetFitDataUseCase> {
-        GetFitDataUseCase(get<FitRepository>())
+        GetFitDataUseCase(
+            get<StepsDataRepository>(),
+            get<SleepDataRepository>(),
+            get<ActivityDataRepository>(),
+        )
+    }
+    factory<StepsDataRepository> {
+        StepsDataRepository(
+            get<StepsDao>(),
+            StepsRemoteDataSource(get<FitRepository>())
+        )
+    }
+    factory<SleepDataRepository> {
+        SleepDataRepository(
+            get<SleepDao>(),
+            SleepRemoteDataSource(get<FitRepository>())
+        )
+    }
+    factory<ActivityDataRepository> {
+        ActivityDataRepository(
+            get<ActivityDao>(),
+            ActivityRemoteDataSource(get<FitRepository>())
+        )
     }
 }
