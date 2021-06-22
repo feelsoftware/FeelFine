@@ -1,8 +1,8 @@
+@file:SuppressLint("SetTextI18n")
+
 package com.feelsoftware.feelfine.ui.score
 
-import android.content.Context
-import android.graphics.drawable.Drawable
-import androidx.appcompat.content.res.AppCompatResources
+import android.annotation.SuppressLint
 import androidx.lifecycle.MutableLiveData
 import com.feelsoftware.feelfine.R
 import com.feelsoftware.feelfine.extension.subscribeBy
@@ -36,30 +36,22 @@ class SleepScoreFragment : BaseFragment<SleepScoreViewModel>(R.layout.fragment_s
                 "Out of bed: " + it.outOfBed.toHoursMinutes()
         }
         viewModel.sleepPercents.observe {
-            scorePercentTV.text = it.first
-            scorePercentTV.background = it.second
+            scorePercentTV.applyPercentData(it)
         }
     }
 }
 
-class SleepScoreViewModel(context: Context, useCase: GetFitDataUseCase) : BaseViewModel() {
+class SleepScoreViewModel(useCase: GetFitDataUseCase) : BaseViewModel() {
 
     val sleepData = MutableLiveData<SleepInfo>()
-    val sleepPercents = MutableLiveData<Pair<String, Drawable?>>()
+    val sleepPercents = MutableLiveData<PercentData>()
 
     init {
         useCase.getCurrentSleep()
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribeBy(onSuccess = {
+            .subscribeBy(onNext = {
                 sleepData.value = it
             }).disposeOnInActive()
-        useCase.getPercentSleep()
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeBy(onSuccess = { percent ->
-                val text = if (percent >= 0) "+$percent%" else "$percent%"
-                val drawableResId =
-                    if (percent >= 0) R.drawable.outline_trending_up_24 else R.drawable.outline_trending_down_24
-                sleepPercents.value = text to AppCompatResources.getDrawable(context, drawableResId)
-            }).disposeOnInActive()
+        managePercentData(useCase.getPercentSleep(), sleepPercents).disposeOnInActive()
     }
 }
