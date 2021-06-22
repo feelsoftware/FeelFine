@@ -15,7 +15,6 @@ data class Duration(
 fun Duration.toHoursMinutes() =
     this.hours.toString() + " hours " + this.minutes + " minutes"
 
-
 fun Duration.toHours() =
     this.hours.toString() + " hours"
 

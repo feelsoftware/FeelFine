@@ -3,7 +3,6 @@ package com.feelsoftware.feelfine.ui.statistic
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.lifecycle.MutableLiveData
 import com.feelsoftware.feelfine.R
-import com.feelsoftware.feelfine.extension.subscribeBy
 import com.feelsoftware.feelfine.fit.model.ActivityInfo
 import com.feelsoftware.feelfine.fit.model.SleepInfo
 import com.feelsoftware.feelfine.fit.model.StepsInfo
@@ -19,14 +18,13 @@ import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.fragment_statistic.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
 
-const val SCORE_ACTIVITY = 0
-const val SCORE_STEP = 1
-const val SCORE_SLEEP = 2
+private const val SCORE_ACTIVITY = 0
+private const val SCORE_STEP = 1
+private const val SCORE_SLEEP = 2
 
 class StatisticFragment : BaseFragment<StatisticViewModel>(R.layout.fragment_statistic) {
 
@@ -60,29 +58,29 @@ class StatisticFragment : BaseFragment<StatisticViewModel>(R.layout.fragment_sta
         }
         weekB.setOnClickListener {
             if (activeWeek) return@setOnClickListener
-                activeWeek = true
-                weekB.setTextColor(resources.getColor(R.color.white))
-                monthB.setTextColor(resources.getColor(R.color.black))
-                weekB.background =
-                    AppCompatResources.getDrawable(requireContext(), R.drawable.rounded_button)
-                monthB.background = AppCompatResources.getDrawable(
-                    requireContext(),
-                    R.drawable.rounded_period_background
-                )
-                manageData()
+            activeWeek = true
+            weekB.setTextColor(resources.getColor(R.color.white))
+            monthB.setTextColor(resources.getColor(R.color.black))
+            weekB.background =
+                AppCompatResources.getDrawable(requireContext(), R.drawable.rounded_button)
+            monthB.background = AppCompatResources.getDrawable(
+                requireContext(),
+                R.drawable.rounded_period_background
+            )
+            manageData()
         }
         monthB.setOnClickListener {
             if (!activeWeek) return@setOnClickListener
-                activeWeek = false
-                monthB.setTextColor(resources.getColor(R.color.white))
-                weekB.setTextColor(resources.getColor(R.color.black))
-                monthB.background =
-                    AppCompatResources.getDrawable(requireContext(), R.drawable.rounded_button)
-                weekB.background = AppCompatResources.getDrawable(
-                    requireContext(),
-                    R.drawable.rounded_period_background
-                )
-                manageData()
+            activeWeek = false
+            monthB.setTextColor(resources.getColor(R.color.white))
+            weekB.setTextColor(resources.getColor(R.color.black))
+            monthB.background =
+                AppCompatResources.getDrawable(requireContext(), R.drawable.rounded_button)
+            weekB.background = AppCompatResources.getDrawable(
+                requireContext(),
+                R.drawable.rounded_period_background
+            )
+            manageData()
         }
 
     }
@@ -243,42 +241,24 @@ class StatisticViewModel(useCase: GetFitDataUseCase) : BaseViewModel() {
         val (startDate, endDate) = getWeekDates(weekOffset = 0)
         val (startMonthDate, endMonthDate) = getMonthDates(monthOffset = 0)
 
-        useCase.getSteps(startDate, endDate)
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeBy(onSuccess = {
-                stepsWeekData.value = it
-            }).disposeOnInActive()
-
-        useCase.getSteps(startMonthDate, endMonthDate)
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeBy(onSuccess = {
-                stepsMonthData.value = it
-            }).disposeOnInActive()
-
-        useCase.getSleep(startDate, endDate)
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeBy(onSuccess = {
-                sleepWeekData.value = it
-            }).disposeOnInActive()
-
-        useCase.getSleep(startMonthDate, endMonthDate)
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeBy(onSuccess = {
-                sleepMonthData.value = it
-            }).disposeOnInActive()
-
-        useCase.getActivity(startDate, endDate)
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeBy(onSuccess = {
-                activityWeekData.value = it
-            }).disposeOnInActive()
-
-        useCase.getActivity(startMonthDate, endMonthDate)
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeBy(onSuccess = {
-                activityMonthData.value = it
-            }).disposeOnInActive()
-
+        stepsWeekData.combine(useCase.getSteps(startDate, endDate)) {
+            it
+        }
+        stepsMonthData.combine(useCase.getSteps(startMonthDate, endMonthDate)) {
+            it
+        }
+        sleepWeekData.combine(useCase.getSleep(startDate, endDate)) {
+            it
+        }
+        sleepMonthData.combine(useCase.getSleep(startMonthDate, endMonthDate)) {
+            it
+        }
+        activityWeekData.combine(useCase.getActivity(startDate, endDate)) {
+            it
+        }
+        activityMonthData.combine(useCase.getActivity(startMonthDate, endMonthDate)) {
+            it
+        }
     }
 
     private fun getWeekDates(weekOffset: Int): Pair<Date, Date> {

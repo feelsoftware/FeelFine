@@ -5,7 +5,9 @@ import android.view.View
 import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import com.feelsoftware.feelfine.R
 
 abstract class BaseFragment<VM : BaseViewModel>(
     @LayoutRes contentLayoutId: Int
@@ -19,7 +21,12 @@ abstract class BaseFragment<VM : BaseViewModel>(
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.navigation.observe {
-            findNavController().navigate(it)
+            // A hack to support internal and external navigations
+            try {
+                findNavController().navigate(it)
+            } catch (error: Throwable) {
+                requireActivity().findNavController(R.id.nav_host_fragment).navigate(it)
+            }
         }
         onReady()
     }

@@ -6,6 +6,7 @@ import com.feelsoftware.feelfine.ui.base.BaseFragment
 import com.feelsoftware.feelfine.ui.base.BaseViewModel
 import com.feelsoftware.feelfine.utils.OnBoardingFlowManager
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import timber.log.Timber
 
 class EntryPointFragment : BaseFragment<EntryPointViewModel>(R.layout.fragment_entry_point) {
 
@@ -22,10 +23,12 @@ class EntryPointViewModel(
         flowManager.isPassed()
             .subscribeBy(onSuccess = { isPassed ->
                 if (isPassed) {
-                    navigate(R.id.toCurrentScoreFragment)
+                    navigate(R.id.toHomeFragment)
                 } else {
                     navigate(R.id.toOnboarding)
                 }
+            }, onError = {
+                Timber.e(it, "Failed to check if onboarding is passed")
             }).disposeOnInActive()
     }
 }
