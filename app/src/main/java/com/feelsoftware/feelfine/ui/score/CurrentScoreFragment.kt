@@ -20,13 +20,13 @@ class CurrentScoreFragment : BaseFragment<CurrentScoreViewModel>(R.layout.fragme
 
     override fun onReady() {
         viewModel.stepsData.observe {
-            stepsView.text = "Steps\n$it"
+            stepsText.text = "$it /15000 steps"
         }
         viewModel.sleepData.observe {
-            sleepView.text = "Sleep\n$it"
+            sleepText.text = "$it /8 hours"
         }
         viewModel.activityData.observe {
-            activityView.text = "Activity\n$it"
+            activityText.text = "$it /4 hours"
         }
 
         viewModel.stepsPercents.observe {
@@ -38,15 +38,17 @@ class CurrentScoreFragment : BaseFragment<CurrentScoreViewModel>(R.layout.fragme
         viewModel.activityPercents.observe {
             activityPercentTV.applyPercentData(it)
         }
-        stepsView.onClick { viewModel.navigate(R.id.stepScoreFragment) }
-        sleepView.onClick { viewModel.navigate(R.id.sleepScoreFragment) }
-        activityView.onClick { viewModel.navigate(R.id.activityScoreFragment) }
+        stepLayout.onClick { viewModel.navigate(R.id.stepScoreFragment) }
+        sleepLayout.onClick { viewModel.navigate(R.id.sleepScoreFragment) }
+        activityLayout.onClick { viewModel.navigate(R.id.activityScoreFragment) }
         // TODO temporary navigation
-        moodView.onClick { viewModel.navigate(R.id.stepScoreFragment) }
+        moodLayout.onClick { viewModel.navigate(R.id.stepScoreFragment) }
     }
 }
 
-class CurrentScoreViewModel(useCase: GetFitDataUseCase) : BaseViewModel() {
+class CurrentScoreViewModel(
+    useCase: GetFitDataUseCase
+) : BaseViewModel() {
 
     val stepsData = MutableLiveData<String>()
     val sleepData = MutableLiveData<String>()
