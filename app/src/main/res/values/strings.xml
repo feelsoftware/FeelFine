@@ -5,6 +5,7 @@
     <string name="sign_in">Sign in</string>
     <string name="dont_have_account">Let\' s get started!</string>
     <string name="nick_fill_error">Fill nick name</string>
+    <string name="today_score">Today score</string>
     <string-array name="score_values">
         <item>Steps</item>
         <item>Sleep</item>

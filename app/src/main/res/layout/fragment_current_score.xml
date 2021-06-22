@@ -3,183 +3,615 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:layout_marginStart="38dp"
+    android:layout_marginTop="20dp"
+    android:layout_marginEnd="38dp">
 
-    <TextView
-        android:id="@+id/scoreView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_margin="10dp"
-        android:background="@drawable/full_circle_shape"
-        android:fontFamily="@font/montserrat_bold"
-        android:gravity="center"
-        android:text="93"
-        android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline"
-        app:layout_constraintDimensionRatio="1:1"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:background="@drawable/outline_trending_up_24"
-        android:text="30%"
-        app:layout_constraintEnd_toEndOf="@+id/scoreView"
-        app:layout_constraintTop_toTopOf="@+id/scoreView" />
-
-    <TextView
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:fontFamily="@font/montserrat_regular"
-        android:gravity="center"
-        android:text="This is you current score, \n depends on your activity, steps, \nmood and sleep quality "
-        app:layout_constraintBottom_toTopOf="@+id/guideline"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/scoreView"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.518" />
-
-    <View
-        android:id="@+id/view"
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/centerGL"
         android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="@color/greenMain"
-        app:layout_constraintBottom_toTopOf="@+id/guideline" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@drawable/background_score"
+        app:layout_constraintBottom_toTopOf="@id/todayTV"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/scoreTV"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="24dp"
+            android:background="@drawable/full_circle_shape"
+            android:backgroundTint="@color/white"
+            android:fontFamily="@font/nunito_black"
+            android:gravity="center"
+            android:text="86"
+            android:textColor="@color/blueMain"
+            android:textSize="26sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.mikhaellopez.circularprogressbar.CircularProgressBar
+            android:id="@+id/circularProgressBar"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="8dp"
+            app:cpb_background_progressbar_color="#b6bbd8"
+            app:cpb_background_progressbar_color_end="@color/white"
+            app:cpb_background_progressbar_color_start="@color/white"
+            app:cpb_background_progressbar_width="7dp"
+            app:cpb_progress="86"
+            app:cpb_progress_direction="to_left"
+            app:cpb_progressbar_color="@color/purpleDark"
+            app:cpb_progressbar_width="8dp"
+            app:cpb_round_border="true"
+            app:layout_constraintBottom_toBottomOf="@id/scoreTV"
+            app:layout_constraintEnd_toEndOf="@id/scoreTV"
+            app:layout_constraintStart_toStartOf="@id/scoreTV"
+            app:layout_constraintTop_toTopOf="@id/scoreTV" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableRight="@drawable/ic_info"
+            android:drawablePadding="4dp"
+            android:fontFamily="@font/nunito_black"
+            android:gravity="center"
+            android:text="@string/today_score"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/circularProgressBar"
+            app:layout_constraintTop_toTopOf="@+id/scoreTV" />
+
+        <TextView
+            android:id="@+id/scoreProgressTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/nunito_black"
+            android:gravity="center"
+            android:textColor="@color/greyDark"
+            android:textSize="13sp"
+            app:layout_constraintEnd_toEndOf="@+id/textView2"
+            app:layout_constraintTop_toBottomOf="@id/textView2"
+            android:text="+15%" />
+
+        <com.google.android.material.progressindicator.CircularProgressIndicator
+            android:id="@+id/scoreView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="10dp"
+            android:fontFamily="@font/montserrat_bold"
+            android:gravity="center"
+            android:progress="90"
+            android:text="93"
+            android:textSize="30sp"
+            app:indicatorColor="@color/purpleDark"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.25" />
+        app:layout_constraintGuide_percent="0.33" />
 
     <TextView
         android:id="@+id/todayTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:text="Current data (for yesterday):"
+        android:layout_margin="8dp"
+        android:paddingTop="8dp"
+        android:fontFamily="@font/nunito_black"
+        android:gravity="center"
+        android:text="Details"
+        android:textColor="@color/greyDark"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="@+id/view"
-        app:layout_constraintTop_toTopOf="@+id/guideline" />
+        app:layout_constraintBottom_toTopOf="@+id/guideline" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/secondGL"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.625" />
+        app:layout_constraintGuide_percent="0.67" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/thirdGL"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.5" />
 
-    <TextView
-        android:id="@+id/stepsView"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:layout_marginStart="20dp"
-        android:background="@drawable/circle_with_hall"
-        android:fontFamily="@font/montserrat_bold"
-        android:foregroundGravity="center"
-        android:gravity="center"
-        android:text="Steps\n..."
-        android:textSize="20sp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/stepLayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginBottom="12dp"
+        android:background="@drawable/background_score"
+        android:backgroundTint="@color/lavenderBlue"
         app:layout_constraintBottom_toTopOf="@+id/secondGL"
-        app:layout_constraintEnd_toStartOf="@+id/thirdGL"
+        app:layout_constraintEnd_toStartOf="@+id/centerGL"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline" />
+        app:layout_constraintTop_toBottomOf="@id/todayTV">
 
-    <TextView
-        android:id="@+id/stepsPercentTV"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:background="@drawable/outline_trending_up_24"
-        android:text="10%"
-        android:translationX="20dp"
-        android:translationY="-20dp"
-        app:layout_constraintEnd_toEndOf="@+id/stepsView"
-        app:layout_constraintTop_toTopOf="@+id/stepsView" />
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:layout_marginStart="16dp"
+            android:fontFamily="@font/nunito_black"
+            android:text="Steps"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toTopOf="@+id/stepsView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/sleepView"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:background="@drawable/circle_with_hall_red"
-        android:fontFamily="@font/montserrat_bold"
-        android:foregroundGravity="center"
-        android:gravity="center"
-        android:text="Sleep\n..."
-        android:textSize="20sp"
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/stepDetailsIV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:clickable="false"
+            android:focusable="false"
+            android:backgroundTint="@color/white"
+            android:src="@drawable/ic_arrow"
+            app:layout_constraintBottom_toTopOf="@+id/stepsView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/circularProgressBar2"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/stepsView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="20dp"
+            android:background="@drawable/full_circle_shape"
+            android:backgroundTint="@color/white"
+            android:foregroundGravity="center"
+            android:gravity="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.mikhaellopez.circularprogressbar.CircularProgressBar
+            android:id="@+id/circularProgressBar2"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="8dp"
+            app:cpb_background_progressbar_color="#b6bbd8"
+            app:cpb_background_progressbar_color_end="@color/white"
+            app:cpb_background_progressbar_color_start="@color/white"
+            app:cpb_background_progressbar_width="5dp"
+            app:cpb_progress="86"
+            app:cpb_progress_direction="to_left"
+            app:cpb_progressbar_color="@color/purpleDark"
+            app:cpb_progressbar_width="4dp"
+            app:cpb_round_border="true"
+            app:layout_constraintBottom_toBottomOf="@id/stepsView"
+            app:layout_constraintEnd_toEndOf="@id/stepsView"
+            app:layout_constraintStart_toStartOf="@id/stepsView"
+            app:layout_constraintTop_toTopOf="@id/stepsView" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="24dp"
+            android:background="@drawable/full_circle_shape"
+            android:backgroundTint="@color/white"
+            android:fontFamily="@font/montserrat_bold"
+            android:foregroundGravity="center"
+            android:gravity="center"
+            android:src="@drawable/ic_step"
+            app:layout_constraintBottom_toBottomOf="@id/circularProgressBar2"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="@id/circularProgressBar2"
+            app:layout_constraintStart_toStartOf="@id/circularProgressBar2"
+            app:layout_constraintTop_toTopOf="@id/circularProgressBar2" />
+
+        <TextView
+            android:id="@+id/stepsText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/nunito_black"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/stepsView"
+            tools:text="12000/15000 steps" />
+
+        <TextView
+            android:id="@+id/stepsPercentTV"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:background="@drawable/full_circle_shape"
+            android:backgroundTint="@color/greyProgress"
+            android:fontFamily="@font/nunito_black"
+            android:gravity="center"
+            android:textColor="@color/greyDark"
+            android:textSize="8sp"
+            app:layout_constraintStart_toStartOf="@+id/stepsView"
+            app:layout_constraintTop_toTopOf="@+id/stepsView"
+            tools:text="+10%" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/sleepLayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="12dp"
+        android:background="@drawable/background_score"
+        android:backgroundTint="@color/lavender"
         app:layout_constraintBottom_toTopOf="@+id/secondGL"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/thirdGL"
-        app:layout_constraintTop_toTopOf="@+id/guideline" />
+        app:layout_constraintStart_toEndOf="@id/centerGL"
+        app:layout_constraintTop_toBottomOf="@id/todayTV">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/sleepView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="20dp"
+            android:background="@drawable/full_circle_shape"
+            android:backgroundTint="@color/white"
+            android:foregroundGravity="center"
+            android:gravity="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.mikhaellopez.circularprogressbar.CircularProgressBar
+            android:id="@+id/circularProgressBarSleep"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="8dp"
+            app:cpb_background_progressbar_color="#b6bbd8"
+            app:cpb_background_progressbar_color_end="@color/white"
+            app:cpb_background_progressbar_color_start="@color/white"
+            app:cpb_background_progressbar_width="5dp"
+            app:cpb_progress="66"
+            app:cpb_progress_direction="to_left"
+            app:cpb_progressbar_color="@color/purpleDark"
+            app:cpb_progressbar_width="4dp"
+            app:cpb_round_border="true"
+            app:layout_constraintBottom_toBottomOf="@id/sleepView"
+            app:layout_constraintEnd_toEndOf="@id/sleepView"
+            app:layout_constraintStart_toStartOf="@id/sleepView"
+            app:layout_constraintTop_toTopOf="@id/sleepView" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="24dp"
+            android:background="@drawable/full_circle_shape"
+            android:backgroundTint="@color/white"
+            android:fontFamily="@font/montserrat_bold"
+            android:foregroundGravity="center"
+            android:gravity="center"
+            android:src="@drawable/ic_sleep"
+            app:layout_constraintBottom_toBottomOf="@id/circularProgressBarSleep"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="@id/circularProgressBarSleep"
+            app:layout_constraintStart_toStartOf="@id/circularProgressBarSleep"
+            app:layout_constraintTop_toTopOf="@id/circularProgressBarSleep" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:layout_marginStart="16dp"
+            android:fontFamily="@font/nunito_black"
+            android:text="Sleep"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toTopOf="@+id/sleepView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/sleepDetailsIV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:backgroundTint="@color/white"
+            android:fontFamily="@font/nunito_black"
+            android:src="@drawable/ic_arrow"
+            android:text="Steps"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toTopOf="@+id/sleepView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/circularProgressBarSleep"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/sleepText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/nunito_black"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/sleepView"
+            tools:text="5/8 hours" />
+
+        <TextView
+            android:id="@+id/sleepPercentTV"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:background="@drawable/full_circle_shape"
+            android:backgroundTint="@color/greyProgress"
+            android:fontFamily="@font/nunito_black"
+            android:gravity="center"
+            android:textColor="@color/greyDark"
+            android:textSize="8sp"
+            app:layout_constraintStart_toStartOf="@+id/sleepView"
+            app:layout_constraintTop_toTopOf="@+id/sleepView"
+            tools:text="+15%" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-    <TextView
-        android:id="@+id/sleepPercentTV"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:background="@drawable/outline_trending_down_24"
-        android:text="70%"
-        android:translationX="20dp"
-        android:translationY="-20dp"
-        app:layout_constraintEnd_toEndOf="@+id/sleepView"
-        app:layout_constraintTop_toTopOf="@+id/sleepView" />
-
-    <TextView
-        android:id="@+id/activityView"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:background="@drawable/circle_with_hall"
-        android:fontFamily="@font/montserrat_bold"
-        android:foregroundGravity="center"
-        android:gravity="center"
-        android:text="Activity\n..."
-        android:textSize="20sp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/activityLayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="12dp"
+        android:layout_marginEnd="4dp"
+        android:background="@drawable/background_score"
+        android:backgroundTint="@color/powerPink"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/thirdGL"
+        app:layout_constraintEnd_toStartOf="@+id/centerGL"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/secondGL" />
+        app:layout_constraintTop_toTopOf="@+id/secondGL">
 
-    <TextView
-        android:id="@+id/activityPercentTV"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:background="@drawable/outline_trending_up_24"
-        android:text="30%"
-        android:translationX="20dp"
-        android:translationY="-20dp"
-        app:layout_constraintEnd_toEndOf="@+id/activityView"
-        app:layout_constraintTop_toTopOf="@+id/activityView" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:layout_marginStart="16dp"
+            android:fontFamily="@font/nunito_black"
+            android:text="Activity"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toTopOf="@id/activityView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/moodView"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:background="@drawable/circle_with_hall"
-        android:fontFamily="@font/montserrat_bold"
-        android:foregroundGravity="center"
-        android:gravity="center"
-        android:text="Mood\n..."
-        android:textSize="20sp"
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/activityDetailsIV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:backgroundTint="@color/white"
+            android:src="@drawable/ic_arrow"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toTopOf="@id/activityView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/activityCircularProgressBar"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/activityView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="20dp"
+            android:background="@drawable/full_circle_shape"
+            android:backgroundTint="@color/white"
+            android:foregroundGravity="center"
+            android:gravity="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.mikhaellopez.circularprogressbar.CircularProgressBar
+            android:id="@+id/activityCircularProgressBar"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="8dp"
+            app:cpb_background_progressbar_color="#b6bbd8"
+            app:cpb_background_progressbar_color_end="@color/white"
+            app:cpb_background_progressbar_color_start="@color/white"
+            app:cpb_background_progressbar_width="5dp"
+            app:cpb_progress="100"
+            app:cpb_progress_direction="to_left"
+            app:cpb_progressbar_color="@color/purpleDark"
+            app:cpb_progressbar_width="4dp"
+            app:cpb_round_border="true"
+            app:layout_constraintBottom_toBottomOf="@id/activityView"
+            app:layout_constraintEnd_toEndOf="@id/activityView"
+            app:layout_constraintStart_toStartOf="@id/activityView"
+            app:layout_constraintTop_toTopOf="@id/activityView" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="24dp"
+            android:background="@drawable/full_circle_shape"
+            android:backgroundTint="@color/white"
+            android:fontFamily="@font/montserrat_bold"
+            android:foregroundGravity="center"
+            android:gravity="center"
+            android:src="@drawable/ic_activity"
+            app:layout_constraintBottom_toBottomOf="@id/activityCircularProgressBar"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="@id/activityCircularProgressBar"
+            app:layout_constraintStart_toStartOf="@id/activityCircularProgressBar"
+            app:layout_constraintTop_toTopOf="@id/activityCircularProgressBar" />
+
+        <TextView
+            android:id="@+id/activityPercentTV"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:background="@drawable/full_circle_shape"
+            android:backgroundTint="@color/greyProgress"
+            android:fontFamily="@font/nunito_black"
+            android:gravity="center"
+            android:text="30%"
+            android:textColor="@color/greyDark"
+            android:textSize="8sp"
+            app:layout_constraintStart_toStartOf="@+id/activityView"
+            app:layout_constraintTop_toTopOf="@+id/activityView" />
+
+        <TextView
+            android:id="@+id/activityText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/nunito_black"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/activityView"
+            tools:text="4/4 hours" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/moodLayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="12dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="2dp"
+        android:background="@drawable/background_score"
+        android:backgroundTint="@color/sand"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/thirdGL"
-        app:layout_constraintTop_toTopOf="@+id/secondGL" />
+        app:layout_constraintStart_toEndOf="@id/centerGL"
+        app:layout_constraintTop_toTopOf="@+id/secondGL">
 
-    <TextView
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:background="@drawable/outline_trending_up_24"
-        android:text="70%"
-        android:translationX="20dp"
-        android:translationY="-20dp"
-        app:layout_constraintEnd_toEndOf="@+id/moodView"
-        app:layout_constraintTop_toTopOf="@+id/moodView" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:fontFamily="@font/nunito_black"
+            android:text="Mood"
+            android:textColor="@color/white"
+            android:layout_marginStart="16dp"
+            app:layout_constraintBottom_toTopOf="@+id/moodView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/moodDetailsIV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:backgroundTint="@color/white"
+            android:src="@drawable/ic_arrow"
+            app:layout_constraintBottom_toTopOf="@+id/moodView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/moodCircularProgressBar"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/moodView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="20dp"
+            android:background="@drawable/full_circle_shape"
+            android:backgroundTint="@color/white"
+            android:foregroundGravity="center"
+            android:gravity="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.mikhaellopez.circularprogressbar.CircularProgressBar
+            android:id="@+id/moodCircularProgressBar"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="8dp"
+            app:cpb_background_progressbar_color="#b6bbd8"
+            app:cpb_background_progressbar_color_end="@color/white"
+            app:cpb_background_progressbar_color_start="@color/white"
+            app:cpb_background_progressbar_width="5dp"
+            app:cpb_progress="89"
+            app:cpb_progress_direction="to_left"
+            app:cpb_progressbar_color="@color/purpleDark"
+            app:cpb_progressbar_width="4dp"
+            app:cpb_round_border="true"
+            app:layout_constraintBottom_toBottomOf="@id/moodView"
+            app:layout_constraintEnd_toEndOf="@id/moodView"
+            app:layout_constraintStart_toStartOf="@id/moodView"
+            app:layout_constraintTop_toTopOf="@id/moodView" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="24dp"
+            android:background="@drawable/full_circle_shape"
+            android:backgroundTint="@color/white"
+            android:fontFamily="@font/montserrat_bold"
+            android:foregroundGravity="center"
+            android:gravity="center"
+            android:src="@drawable/ic_mood"
+            app:layout_constraintBottom_toBottomOf="@id/moodCircularProgressBar"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="@id/moodCircularProgressBar"
+            app:layout_constraintStart_toStartOf="@id/moodCircularProgressBar"
+            app:layout_constraintTop_toTopOf="@id/moodCircularProgressBar" />
+
+        <TextView
+            android:id="@+id/moodPercentTV"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:background="@drawable/full_circle_shape"
+            android:backgroundTint="@color/greyProgress"
+            android:fontFamily="@font/nunito_black"
+            android:gravity="center"
+            android:text="30%"
+            android:textColor="@color/greyDark"
+            android:textSize="8sp"
+            app:layout_constraintStart_toStartOf="@+id/moodView"
+            app:layout_constraintTop_toTopOf="@+id/moodView" />
+
+        <TextView
+            android:id="@+id/moodText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/nunito_black"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/moodView"
+            tools:text="40/100 points" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

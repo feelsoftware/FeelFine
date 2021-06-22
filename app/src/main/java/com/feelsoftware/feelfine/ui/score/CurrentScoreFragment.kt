@@ -1,7 +1,6 @@
 package com.feelsoftware.feelfine.ui.score
 
 import android.widget.TextView
-import androidx.appcompat.content.res.AppCompatResources
 import androidx.lifecycle.MutableLiveData
 import com.feelsoftware.feelfine.R
 import com.feelsoftware.feelfine.extension.onClick
@@ -20,13 +19,13 @@ class CurrentScoreFragment : BaseFragment<CurrentScoreViewModel>(R.layout.fragme
 
     override fun onReady() {
         viewModel.stepsData.observe {
-            stepsView.text = "Steps\n$it"
+            stepsText.text = "$it /15000 steps"
         }
         viewModel.sleepData.observe {
-            sleepView.text = "Sleep\n$it hours"
+            sleepText.text = "$it /8 hours"
         }
         viewModel.activityData.observe {
-            activityView.text = "Activity\n$it hours"
+            activityText.text = "$it /4 hours"
         }
 
         viewModel.stepsPercents.observe {
@@ -38,22 +37,18 @@ class CurrentScoreFragment : BaseFragment<CurrentScoreViewModel>(R.layout.fragme
         viewModel.activityPercents.observe {
             manageScorePercents(activityPercentTV, it)
         }
-        stepsView.onClick { viewModel.navigate(R.id.toStepScoreFragment) }
-        sleepView.onClick { viewModel.navigate(R.id.toSleepScoreFragment) }
-        activityView.onClick { viewModel.navigate(R.id.toActivityScoreFragment) }
+        stepLayout.onClick { viewModel.navigate(R.id.toStepScoreFragment) }
+        sleepLayout.onClick { viewModel.navigate(R.id.toSleepScoreFragment) }
+        activityLayout.onClick { viewModel.navigate(R.id.toActivityScoreFragment) }
         // TODO temporary navigation
-        moodView.onClick { viewModel.navigate(R.id.toStatisticFragment) }
+        moodLayout.onClick { viewModel.navigate(R.id.toStatisticFragment) }
     }
 
     private fun manageScorePercents(scoreView: TextView, scorePercent: Int) {
         if (scorePercent >= 0) {
             scoreView.text = "$scorePercent%"
-            scoreView.background =
-                AppCompatResources.getDrawable(requireContext(),R.drawable.outline_trending_up_24)
         } else {
-            scoreView.text = "-$scorePercent%"
-            scoreView.background =
-            AppCompatResources.getDrawable(requireContext(),R.drawable.outline_trending_down_24)
+            scoreView.text = "$scorePercent%"
         }
     }
 }
