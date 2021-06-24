@@ -15,7 +15,7 @@
         android:fontFamily="@font/nunito_black"
         android:text="What is date of birth?"
         android:layout_marginTop="40dp"
-        android:textColor="@color/greyDark"
+        android:textColor="@color/greyishBrown"
         android:textSize="30sp"
         android:gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
