@@ -13,7 +13,7 @@
         android:id="@+id/textview_first"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/greyDark"
+        android:textColor="@color/greyishBrown"
         android:fontFamily="@font/nunito_black"
         android:text="What is your weight?"
         android:textSize="30sp"
