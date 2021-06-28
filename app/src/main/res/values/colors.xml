@@ -12,14 +12,16 @@
     <color name="greenMain">#00CA9D</color>
 
     <!-- Grey-->
+
     <color name="greyText">#CDAEAEC0</color>
-    <color name="greyDark">#4d4d4d</color>
-    <color name="greyProgress">#ede5f0</color>
+    <color name="greyishBrown">#4d4d4d</color>
+
+    <color name="paleGrey">#ede5f0</color>
 
     <color name="redMain">#FFA990</color>
     <color name="sand">#cbd859</color>
     <color name="powerPink">#ffa9c4</color>
-    <color name="purpleDark">#a77bb5</color>
+    <color name="softPurple">#a77bb5</color>
     <color name="lavender">#aca8ee</color>
     <color name="purpleLight">#ede5f0</color>
     <color name="blueMain">#71c7d3</color>
