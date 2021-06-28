@@ -16,7 +16,7 @@
         android:fontFamily="@font/nunito_black"
         android:gravity="center"
         android:text="Which one are you?"
-        android:textColor="@color/greyDark"
+        android:textColor="@color/greyishBrown"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -102,7 +102,7 @@
             android:layout_marginTop="16dp"
             android:fontFamily="@font/nunito_extrabold"
             android:text="Male"
-            android:textColor="@color/greyDark" />
+            android:textColor="@color/greyishBrown" />
 
     </LinearLayout>
 
@@ -135,6 +135,6 @@
             android:layout_marginTop="16dp"
             android:fontFamily="@font/nunito_extrabold"
             android:text="Female"
-            android:textColor="@color/greyDark" />
+            android:textColor="@color/greyishBrown" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

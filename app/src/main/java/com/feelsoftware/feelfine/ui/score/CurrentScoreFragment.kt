@@ -41,8 +41,6 @@ class CurrentScoreFragment : BaseFragment<CurrentScoreViewModel>(R.layout.fragme
         stepLayout.onClick { viewModel.navigate(R.id.stepScoreFragment) }
         sleepLayout.onClick { viewModel.navigate(R.id.sleepScoreFragment) }
         activityLayout.onClick { viewModel.navigate(R.id.activityScoreFragment) }
-        // TODO temporary navigation
-        moodLayout.onClick { viewModel.navigate(R.id.stepScoreFragment) }
     }
 }
 
