@@ -14,6 +14,7 @@
         android:title="statistic" />
 
     <item
+        android:id="@id/profileFragment"
         android:icon="@drawable/ic_profile"
         android:title="profile" />
 
