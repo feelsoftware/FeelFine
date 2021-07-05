@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:paddingStart="40dp"
+    android:paddingEnd="40dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/centerGL"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <TextView
+        android:id="@+id/nameTV"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/nunito_extrabold"
+        android:gravity="center"
+        android:text="Maria"
+        android:textColor="@color/blueMain"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="10dp"
+        android:background="@drawable/background_score"
+        android:backgroundTint="@color/paleGrey"
+        app:layout_constraintBottom_toTopOf="@+id/textView5"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nameTV">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/male"
+            android:layout_margin="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:checked="true"
+            android:src="@drawable/ic_profile_background" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="16dp"
+        android:fontFamily="@font/nunito_extrabold"
+        android:gravity="center"
+        android:text="Choose your photo"
+        android:textColor="@color/cloudyBlue"
+        android:textSize="13sp"
+        app:layout_constraintBottom_toTopOf="@+id/wageCL"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/wageCL"
+        android:layout_width="104dp"
+        android:layout_height="84dp"
+        android:layout_marginEnd="10dp"
+        android:orientation="vertical"
+        android:padding="8dp"
+        android:backgroundTint="@color/lightTeal"
+        android:background="@drawable/background_score"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/centerGL"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/editWageIV"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:tint="@color/white"
+            android:layout_gravity="end|top"
+            android:fontFamily="@font/montserrat_bold"
+            android:foregroundGravity="center"
+            android:gravity="center"
+            android:src="@drawable/ic_edit" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/wageIV"
+            android:layout_width="40dp"
+            android:layout_height="20dp"
+            android:tint="@color/white"
+           android:layout_gravity="center"
+            android:layout_marginTop="6dp"
+            android:fontFamily="@font/montserrat_bold"
+            android:foregroundGravity="center"
+            android:gravity="center"
+            android:src="@drawable/ic_wage" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/nunito_black"
+            android:layout_gravity="center"
+            android:text="57 kg"
+            android:textColor="@color/greyishBrown"
+            android:textSize="13sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ageCL"
+        android:layout_width="104dp"
+        android:layout_height="84dp"
+        android:layout_marginStart="10dp"
+        android:orientation="vertical"
+        android:padding="8dp"
+        android:backgroundTint="@color/lightTeal"
+        android:background="@drawable/background_score"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/centerGL"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ageWageIV"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:tint="@color/white"
+            android:layout_gravity="end|top"
+            android:fontFamily="@font/montserrat_bold"
+            android:foregroundGravity="center"
+            android:gravity="center"
+            android:src="@drawable/ic_edit" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ageIV"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:tint="@color/white"
+            android:layout_gravity="center"
+            android:fontFamily="@font/montserrat_bold"
+            android:foregroundGravity="center"
+            android:gravity="center"
+            android:src="@drawable/ic_calendar" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/nunito_black"
+            android:layout_gravity="center"
+            android:text="22 y.o."
+            android:textColor="@color/greyishBrown"
+            android:textSize="13sp" />
+
+    </LinearLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="26dp"
+        android:background="@drawable/background_score"
+        android:backgroundTint="@color/paleGrey"
+        android:padding="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/wageCL"
+        app:layout_constraintVertical_bias="0.0">
+
+        <TextView
+            android:id="@+id/goalsTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:fontFamily="@font/nunito_extrabold"
+            android:gravity="center"
+            android:text="Your goals: "
+            android:textColor="@color/softPurple"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/updateTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:fontFamily="@font/nunito_black"
+            android:gravity="center"
+            android:text="update"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/stepsTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginTop="10dp"
+            android:drawableLeft="@drawable/ic_profile_step"
+            android:drawablePadding="8dp"
+            android:fontFamily="@font/nunito_extrabold"
+            android:gravity="center"
+            android:text="Steps: 12000"
+            android:textColor="@color/greyishBrown"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/goalsTV" />
+
+        <TextView
+            android:id="@+id/sleepTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginTop="10dp"
+            android:drawableStart="@drawable/ic_profile_sleep"
+            android:drawablePadding="8dp"
+            android:fontFamily="@font/nunito_extrabold"
+            android:gravity="center"
+            android:text="Sleep: 4h"
+            android:textColor="@color/greyishBrown"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/stepsTV" />
+
+        <TextView
+            android:id="@+id/activityTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginTop="10dp"
+            android:drawableLeft="@drawable/ic_profile_activity"
+            android:drawablePadding="8dp"
+            android:fontFamily="@font/nunito_extrabold"
+            android:gravity="center"
+            android:text="Activity: 4h"
+            android:textColor="@color/greyishBrown"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/sleepTV" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
