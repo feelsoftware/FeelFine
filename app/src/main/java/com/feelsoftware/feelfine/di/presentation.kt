@@ -10,6 +10,7 @@ import com.feelsoftware.feelfine.ui.onboarding.AgeViewModel
 import com.feelsoftware.feelfine.ui.onboarding.GenderViewModel
 import com.feelsoftware.feelfine.ui.onboarding.NickNameViewModel
 import com.feelsoftware.feelfine.ui.onboarding.WeightViewModel
+import com.feelsoftware.feelfine.ui.profile.ProfileViewModel
 import com.feelsoftware.feelfine.ui.score.*
 import com.feelsoftware.feelfine.ui.statistic.StatisticViewModel
 import com.feelsoftware.feelfine.utils.OnBoardingFlowManager
@@ -52,5 +53,9 @@ val presentationModule = module {
     }
     viewModel {
         StatisticViewModel(get<GetFitDataUseCase>())
+    }
+
+    viewModel {
+        ProfileViewModel(get<GetFitDataUseCase>())
     }
 }

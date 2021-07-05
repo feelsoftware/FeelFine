@@ -26,4 +26,6 @@
     <color name="purpleLight">#ede5f0</color>
     <color name="blueMain">#71c7d3</color>
     <color name="lavenderBlue">#7e9df4</color>
+    <color name="lightTeal">#9cd8e0</color>
+    <color name="cloudyBlue">#bebecd</color>
 </resources>
