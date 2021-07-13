@@ -175,7 +175,7 @@
             android:src="@drawable/ic_arrow"
             app:layout_constraintBottom_toTopOf="@+id/stepsView"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/circularProgressBar2"
+            app:layout_constraintStart_toEndOf="@+id/circularProgressBar"
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.AppCompatImageView
@@ -194,7 +194,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.mikhaellopez.circularprogressbar.CircularProgressBar
-            android:id="@+id/circularProgressBar2"
+            android:id="@+id/circularProgressBar"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_margin="8dp"
@@ -222,11 +222,11 @@
             android:foregroundGravity="center"
             android:gravity="center"
             android:src="@drawable/ic_step"
-            app:layout_constraintBottom_toBottomOf="@id/circularProgressBar2"
+            app:layout_constraintBottom_toBottomOf="@id/circularProgressBar"
             app:layout_constraintDimensionRatio="1:1"
-            app:layout_constraintEnd_toEndOf="@id/circularProgressBar2"
-            app:layout_constraintStart_toStartOf="@id/circularProgressBar2"
-            app:layout_constraintTop_toTopOf="@id/circularProgressBar2" />
+            app:layout_constraintEnd_toEndOf="@id/circularProgressBar"
+            app:layout_constraintStart_toStartOf="@id/circularProgressBar"
+            app:layout_constraintTop_toTopOf="@id/circularProgressBar" />
 
         <TextView
             android:id="@+id/stepsText"
