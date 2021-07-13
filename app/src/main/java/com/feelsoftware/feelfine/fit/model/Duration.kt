@@ -13,10 +13,10 @@ data class Duration(
 }
 
 fun Duration.toHoursMinutes() =
-    this.hours.toString() + " hours " + this.minutes + " minutes"
+    this.hours.toString() + " h " + this.minutes + " m"
 
 fun Duration.toHours() =
-    this.hours.toString() + " hours"
+    this.hours.toString() + " h"
 
 operator fun Duration.plus(duration: Duration): Duration =
     Duration(hours * 60 + minutes + duration.hours * 60 + duration.minutes)

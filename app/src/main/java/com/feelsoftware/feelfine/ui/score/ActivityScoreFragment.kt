@@ -17,8 +17,8 @@ import com.feelsoftware.feelfine.ui.base.BaseFragment
 import com.feelsoftware.feelfine.ui.base.BaseViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.fragment_activity_score.*
-import kotlinx.android.synthetic.main.fragment_activity_score.scoreView
 import org.koin.androidx.viewmodel.ext.android.viewModel
+
 
 class ActivityScoreFragment :
     BaseFragment<ActivityScoreViewModel>(R.layout.fragment_activity_score) {
@@ -27,7 +27,7 @@ class ActivityScoreFragment :
 
     override fun onReady() {
         viewModel.activityData.observe {
-            scoreView.text = "Activity\n" + it.total.toHours()
+            stepsText.text = resources.getString(R.string.activity_placeholder, it.total.toHours())
             walkingTV.text = "Walking: " + it.activityWalking.toHoursMinutes()
             runningTV.text = "Running: " + it.activityRunning.toHoursMinutes()
             otherTV.text = "Other: " + it.activityUnknown.toHoursMinutes()
@@ -35,6 +35,7 @@ class ActivityScoreFragment :
         viewModel.activityPercents.observe {
             scorePercentTV.applyPercentData(it)
         }
+        backIV.setOnClickListener { requireActivity().onBackPressed() }
     }
 }
 
