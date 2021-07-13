@@ -28,4 +28,10 @@
     <color name="lavenderBlue">#7e9df4</color>
     <color name="lightTeal">#9cd8e0</color>
     <color name="cloudyBlue">#bebecd</color>
+    <color name="powderBlue">#a5bbf8</color>
+    <color name="coolGrey">#acafbc</color>
+    <color name="lavenderTwo">#c5c3f4</color>
+    <color name="darkishPink">#e94667</color>
+    <color name="palePurple">#d1bad8</color>
+    <color name="pastelPink">#ffc3d6</color>
 </resources>
