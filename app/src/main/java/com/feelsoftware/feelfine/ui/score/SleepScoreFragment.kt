@@ -16,8 +16,10 @@ import com.feelsoftware.feelfine.fit.usecase.getPercentSleep
 import com.feelsoftware.feelfine.ui.base.BaseFragment
 import com.feelsoftware.feelfine.ui.base.BaseViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import kotlinx.android.synthetic.main.fragment_activity_score.*
 import kotlinx.android.synthetic.main.fragment_sleep_score.*
-import kotlinx.android.synthetic.main.fragment_sleep_score.scoreView
+import kotlinx.android.synthetic.main.fragment_sleep_score.backIV
+import kotlinx.android.synthetic.main.fragment_sleep_score.scorePercentTV
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SleepScoreFragment : BaseFragment<SleepScoreViewModel>(R.layout.fragment_sleep_score) {
@@ -26,7 +28,7 @@ class SleepScoreFragment : BaseFragment<SleepScoreViewModel>(R.layout.fragment_s
 
     override fun onReady() {
         viewModel.sleepData.observe {
-            scoreView.text = "Sleep\n" + it.total.toHours()
+            sleepText.text = resources.getString(R.string.activity_placeholder, it.total.toHours())
             awakeTV.text = "Awake: " + it.awake.toHoursMinutes()
             lightSleepTV.text =
                 "Light sleep: " + it.lightSleep.toHoursMinutes()
@@ -38,6 +40,7 @@ class SleepScoreFragment : BaseFragment<SleepScoreViewModel>(R.layout.fragment_s
         viewModel.sleepPercents.observe {
             scorePercentTV.applyPercentData(it)
         }
+        backIV.setOnClickListener { requireActivity().onBackPressed() }
     }
 }
 
