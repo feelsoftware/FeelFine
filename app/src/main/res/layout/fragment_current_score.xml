@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -65,7 +66,7 @@
             app:layout_constraintTop_toTopOf="@id/scoreTV" />
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/todayScoreTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:drawableRight="@drawable/ic_info"
@@ -88,8 +89,8 @@
             android:text="+15%"
             android:textColor="@color/greyishBrown"
             android:textSize="13sp"
-            app:layout_constraintEnd_toEndOf="@+id/textView2"
-            app:layout_constraintTop_toBottomOf="@id/textView2" />
+            app:layout_constraintEnd_toEndOf="@+id/todayScoreTV"
+            app:layout_constraintTop_toBottomOf="@id/todayScoreTV" />
 
         <com.google.android.material.progressindicator.CircularProgressIndicator
             android:id="@+id/scoreView"
@@ -119,7 +120,6 @@
         android:id="@+id/todayTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
         android:fontFamily="@font/nunito_black"
         android:gravity="center"
         android:paddingTop="8dp"
@@ -127,7 +127,7 @@
         android:textColor="@color/greyishBrown"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/guideline"
-        app:layout_constraintStart_toStartOf="@+id/view" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/secondGL"
@@ -175,7 +175,7 @@
             android:src="@drawable/ic_arrow"
             app:layout_constraintBottom_toTopOf="@+id/stepsView"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/circularProgressBar"
+            app:layout_constraintStart_toEndOf="@+id/circularProgressBarSteps"
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.AppCompatImageView
@@ -194,7 +194,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.mikhaellopez.circularprogressbar.CircularProgressBar
-            android:id="@+id/circularProgressBar"
+            android:id="@+id/circularProgressBarSteps"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_margin="8dp"
@@ -222,11 +222,11 @@
             android:foregroundGravity="center"
             android:gravity="center"
             android:src="@drawable/ic_step"
-            app:layout_constraintBottom_toBottomOf="@id/circularProgressBar"
+            app:layout_constraintBottom_toBottomOf="@id/circularProgressBarSteps"
             app:layout_constraintDimensionRatio="1:1"
-            app:layout_constraintEnd_toEndOf="@id/circularProgressBar"
-            app:layout_constraintStart_toStartOf="@id/circularProgressBar"
-            app:layout_constraintTop_toTopOf="@id/circularProgressBar" />
+            app:layout_constraintEnd_toEndOf="@id/circularProgressBarSteps"
+            app:layout_constraintStart_toStartOf="@id/circularProgressBarSteps"
+            app:layout_constraintTop_toTopOf="@id/circularProgressBarSteps" />
 
         <TextView
             android:id="@+id/stepsText"
