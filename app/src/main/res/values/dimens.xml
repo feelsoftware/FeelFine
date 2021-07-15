@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="about_score_margin_horizontal">32dp</dimen>
+</resources>

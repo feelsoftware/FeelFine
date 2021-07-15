@@ -3,11 +3,16 @@
     <string name="welcome_title">Welcome to Feel Fine!</string>
     <string name="register">Sing up</string>
     <string name="sign_in">Sign in</string>
-    <string name="dont_have_account">Let\' s get started!</string>
+    <string name="dont_have_account">Let\'s get started!</string>
     <string name="nick_fill_error">Fill nick name</string>
     <string name="today_score">Today score</string>
-    <string name="activity_placeholder">%s/4 hours \n of your daily goal</string>
-    <string name="steps_placeholder">%s/15’000 steps \n of your daily goal</string>
+    <string name="activity_placeholder">%s/4 hours\nof your daily goal</string>
+    <string name="steps_placeholder">%s/15’000 steps\nof your daily goal</string>
+    <string name="about_score">About score</string>
+    <string name="about_score_text">Score consists of four values: your activity, mood, steps and quality of sleep.
+    Based on them, you have your personalized score between 0 to 100. \n \n
+    Score consists of four values: your activity, mood, steps and quality of sleep.
+    Based on them, you have your personalized score between 0 to 100.</string>
     <string-array name="score_values">
         <item>Steps</item>
         <item>Sleep</item>

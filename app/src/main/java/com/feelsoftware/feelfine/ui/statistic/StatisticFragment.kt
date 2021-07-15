@@ -60,7 +60,7 @@ class StatisticFragment : BaseFragment<StatisticViewModel>(R.layout.fragment_sta
             if (activeWeek) return@setOnClickListener
             activeWeek = true
             weekB.setTextColor(resources.getColor(R.color.white))
-            monthB.setTextColor(resources.getColor(R.color.black))
+            monthB.setTextColor(resources.getColor(R.color.gunmetal))
             weekB.background =
                 AppCompatResources.getDrawable(requireContext(), R.drawable.rounded_button)
             monthB.background = AppCompatResources.getDrawable(
@@ -152,7 +152,7 @@ class StatisticFragment : BaseFragment<StatisticViewModel>(R.layout.fragment_sta
         l.setDrawInside(false)
         l.form = LegendForm.SQUARE
         l.formSize = 9f
-        l.textSize = 11f
+        l.textSize = 13f
         l.xEntrySpace = 4f
     }
 
