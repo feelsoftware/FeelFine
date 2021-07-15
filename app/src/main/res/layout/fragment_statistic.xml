@@ -8,36 +8,25 @@
     android:layout_marginEnd="20dp"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/titleTV"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:fontFamily="@font/montserrat_bold"
-        android:gravity="center"
-        android:text="Choose score:"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/scoreContainer"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="40dp"
         android:entries="@array/score_values"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/titleTV" >
+       app:layout_constraintTop_toTopOf="parent" >
 
         <TextView
             android:id="@+id/startTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="12dp"
-            android:textColor="#ABACAE"
-            android:layout_marginEnd="20dp"
+            android:textSize="14sp"
+            android:fontFamily="@font/nunito_black"
+            android:textColor="@color/cloudyBlue"
+            android:layout_marginEnd="16dp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/startIcon"
@@ -48,6 +37,7 @@
             android:id="@+id/startIcon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+           android:tint="@color/softPurple"
             android:layout_marginEnd="20dp"
             android:src="@drawable/ic_arrow_back"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -58,19 +48,22 @@
             android:id="@+id/middleTV"
             android:layout_width="wrap_content"
             android:textStyle="bold"
-            android:textSize="18dp"
+            android:textSize="20sp"
+            android:textColor="@color/gunmetal"
+            android:fontFamily="@font/nunito_black"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="step" />
+            tools:text="steps" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/endIcon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
+            android:tint="@color/softPurple"
             android:src="@drawable/ic_arrow_forward"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/middleTV"
@@ -80,10 +73,11 @@
             android:id="@+id/endTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="12dp"
-            android:layout_marginStart="20dp"
+            android:textSize="14sp"
+            android:textColor="@color/cloudyBlue"
+            android:layout_marginStart="16dp"
             android:textStyle="bold"
-            android:textColor="#ABACAE"
+            android:fontFamily="@font/nunito_black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/endIcon"
             app:layout_constraintTop_toTopOf="parent"
@@ -95,9 +89,9 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/activityPeriodTV"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="30dp"
         android:orientation="horizontal"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="29dp"
         android:background="@drawable/rounded_period_background"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -115,8 +109,9 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:background="@drawable/rounded_button"
-            android:fontFamily="@font/montserrat_regular"
+            android:fontFamily="@font/nunito_black"
             android:text="week"
+            android:textSize="12sp"
             android:gravity="center"
             android:textAllCaps="false"
             android:textColor="@color/white"
@@ -128,17 +123,67 @@
         <TextView
             android:id="@+id/monthB"
             android:layout_width="0dp"
+            android:fontFamily="@font/nunito_black"
             android:layout_height="match_parent"
             android:background="@drawable/rounded_period_background"
-            android:fontFamily="@font/montserrat_regular"
             android:gravity="center"
             android:text="month"
+            android:textSize="12sp"
             android:textAllCaps="false"
-            android:textColor="@color/black"
+            android:textColor="@color/gunmetal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@id/guidelineCenter"
             tools:layout_editor_absoluteY="0dp" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/dateContainer"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="20dp"
+        android:entries="@array/score_values"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/activityPeriodTV">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/startDateIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:src="@drawable/ic_arrow_back"
+            android:tint="@color/blueMain"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/dateTV"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/dateTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/nunito_black"
+            android:textColor="@color/gunmetal"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="20-27 Jun" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/endDateIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:src="@drawable/ic_arrow_forward"
+            android:tint="@color/blueMain"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/dateTV"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.github.mikephil.charting.charts.BarChart
@@ -150,7 +195,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/activityPeriodTV" />
+        app:layout_constraintTop_toBottomOf="@+id/dateContainer" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
