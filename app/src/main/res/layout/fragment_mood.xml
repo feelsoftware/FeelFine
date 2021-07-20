@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/sandTwo">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/centralGL"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/backIV"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:clickable="false"
+        android:focusable="false"
+        android:src="@drawable/ic_arrow_back"
+        android:tint="@color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/moodTitleTV"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:fontFamily="@font/nunito_black"
+        android:gravity="center"
+        android:text="@string/mood_score"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/moodContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="36dp"
+        android:background="@drawable/background_score"
+        android:backgroundTint="@color/white"
+        android:paddingBottom="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/moodTitleTV">
+
+        <TextView
+            android:id="@+id/moodTV"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:fontFamily="@font/nunito_extrabold"
+            android:gravity="center"
+            android:paddingBottom="20dp"
+            android:text="Choose your today mood"
+            android:textColor="@color/cloudyBlue"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/apathyIV"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:src="@drawable/ic_apathy"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toStartOf="@+id/blameIV"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/moodTV" />
+
+        <TextView
+            android:id="@+id/apathyTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:fontFamily="@font/nunito_extrabold"
+            android:gravity="center"
+            android:text="apathy"
+            android:textColor="@color/greyishBrown"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="@+id/apathyIV"
+            app:layout_constraintStart_toStartOf="@+id/apathyIV"
+            app:layout_constraintTop_toBottomOf="@id/apathyIV" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/blameIV"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:src="@drawable/ic_blame"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/moodTV" />
+
+        <TextView
+            android:id="@+id/blameTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:fontFamily="@font/nunito_extrabold"
+            android:gravity="center"
+            android:text="blame"
+            android:textColor="@color/greyishBrown"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="@+id/blameIV"
+            app:layout_constraintStart_toStartOf="@+id/blameIV"
+            app:layout_constraintTop_toBottomOf="@id/blameIV" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/angryIV"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:src="@drawable/ic_angry"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/blameIV"
+            app:layout_constraintTop_toBottomOf="@+id/moodTV" />
+
+        <TextView
+            android:id="@+id/angryTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:fontFamily="@font/nunito_extrabold"
+            android:gravity="center"
+            android:text="angry"
+            android:textColor="@color/greyishBrown"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="@+id/angryIV"
+            app:layout_constraintStart_toStartOf="@+id/angryIV"
+            app:layout_constraintTop_toBottomOf="@id/angryIV" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/anxietyIV"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/ic_anxiety"
+            app:layout_constraintEnd_toStartOf="@+id/blameIV"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/apathyTV" />
+
+        <TextView
+            android:id="@+id/anxietyTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:fontFamily="@font/nunito_extrabold"
+            android:gravity="center"
+            android:text="anxiety"
+            android:textColor="@color/greyishBrown"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="@+id/anxietyIV"
+            app:layout_constraintStart_toStartOf="@+id/anxietyIV"
+            app:layout_constraintTop_toBottomOf="@id/anxietyIV" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/sedIV"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/ic_sed"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/apathyTV" />
+
+        <TextView
+            android:id="@+id/sedTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:fontFamily="@font/nunito_extrabold"
+            android:gravity="center"
+            android:text="sed"
+            android:textColor="@color/greyishBrown"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="@+id/sedIV"
+            app:layout_constraintStart_toStartOf="@+id/sedIV"
+            app:layout_constraintTop_toBottomOf="@id/sedIV" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/neutralityIV"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/ic_neutral"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/sedIV"
+            app:layout_constraintTop_toBottomOf="@+id/apathyTV" />
+
+        <TextView
+            android:id="@+id/neutralityTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:fontFamily="@font/nunito_extrabold"
+            android:gravity="center"
+            android:text="neutral"
+            android:textColor="@color/greyishBrown"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="@+id/neutralityIV"
+            app:layout_constraintStart_toStartOf="@+id/neutralityIV"
+            app:layout_constraintTop_toBottomOf="@id/neutralityIV" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/calmIV"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/ic_calm"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toStartOf="@+id/blameIV"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/anxietyTV" />
+
+        <TextView
+            android:id="@+id/calmTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:fontFamily="@font/nunito_extrabold"
+            android:gravity="center"
+            android:text="calm"
+            android:textColor="@color/greyishBrown"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="@+id/calmIV"
+            app:layout_constraintStart_toStartOf="@+id/calmIV"
+            app:layout_constraintTop_toBottomOf="@id/calmIV" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/happyIV"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/ic_happy"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/sedTV" />
+
+        <TextView
+            android:id="@+id/happyTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:fontFamily="@font/nunito_extrabold"
+            android:gravity="center"
+            android:text="happy"
+            android:textColor="@color/greyishBrown"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="@+id/happyIV"
+            app:layout_constraintStart_toStartOf="@+id/happyIV"
+            app:layout_constraintTop_toBottomOf="@id/happyIV" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/harmonyIV"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/ic_harmony"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/happyIV"
+            app:layout_constraintTop_toBottomOf="@+id/sedTV" />
+
+        <TextView
+            android:id="@+id/harmonyTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:fontFamily="@font/nunito_extrabold"
+            android:gravity="center"
+            android:text="harmony"
+            android:textColor="@color/greyishBrown"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="@+id/harmonyIV"
+            app:layout_constraintStart_toStartOf="@+id/harmonyIV"
+            app:layout_constraintTop_toBottomOf="@id/harmonyIV" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

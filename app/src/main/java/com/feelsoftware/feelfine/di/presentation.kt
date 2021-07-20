@@ -58,4 +58,8 @@ val presentationModule = module {
     viewModel {
         ProfileViewModel(get<GetFitDataUseCase>())
     }
+
+    viewModel {
+        MoodViewModel()
+    }
 }
