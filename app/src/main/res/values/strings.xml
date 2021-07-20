@@ -13,6 +13,7 @@
     Based on them, you have your personalized score between 0 to 100. \n \n
     Score consists of four values: your activity, mood, steps and quality of sleep.
     Based on them, you have your personalized score between 0 to 100.</string>
+    <string name="mood_score">Mood score</string>
     <string-array name="score_values">
         <item>Steps</item>
         <item>Sleep</item>
