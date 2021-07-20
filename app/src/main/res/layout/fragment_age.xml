@@ -1,25 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:clickable="true"
-    android:focusable="true"
+    android:layout_height="match_parent"
     android:background="@color/white"
-    android:layout_height="match_parent">
+    android:clickable="true"
+    android:focusable="true">
 
     <TextView
         android:id="@+id/textview_first"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/nunito_black"
-        android:text="What is date of birth?"
         android:layout_marginTop="40dp"
+        android:fontFamily="@font/nunito_black"
+        android:gravity="center"
+        android:text="What is date of birth?"
         android:textColor="@color/greyishBrown"
         android:textSize="30sp"
-        android:gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/stepper" />
 
@@ -36,28 +35,27 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textview_first" />
 
-
     <DatePicker
         android:id="@+id/calendarView"
         android:layout_width="300dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="20dp"
         android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
         android:background="@drawable/button_purple_disabled"
         android:firstDayOfWeek="2"
-        app:layout_constraintBottom_toTopOf="@+id/getStartedB"
+        app:layout_constraintBottom_toTopOf="@id/guideline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/description" />
+        app:layout_constraintTop_toBottomOf="@id/description" />
 
     <include
         android:id="@+id/stepper"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
         layout="@layout/step_age"
-        android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="30dp"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.Guideline
@@ -67,12 +65,27 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.75" />
 
+    <androidx.appcompat.widget.AppCompatCheckBox
+        android:id="@+id/checkbox_terms"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:fontFamily="@font/nunito_semibold"
+        android:textColor="@color/greyishBrown"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@id/getStartedB"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/guideline"
+        tools:text="I accept Terms Of Use" />
+
     <Button
         android:id="@+id/getStartedB"
         android:layout_width="200dp"
         android:layout_height="39dp"
         android:background="@drawable/button_purple"
-        android:enabled="true"
+        android:enabled="false"
         android:fontFamily="@font/nunito_extrabold"
         android:text="Get started"
         android:textColor="@color/white"
@@ -80,4 +93,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
