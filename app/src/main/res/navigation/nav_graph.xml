@@ -85,5 +85,9 @@
         android:name="com.feelsoftware.feelfine.ui.score.ActivityScoreFragment"
         android:label="ActivityScoreFragment"
         tools:layout="@layout/fragment_activity_score" />
+    <fragment
+        android:id="@+id/moodFragment"
+        android:name="com.feelsoftware.feelfine.ui.score.MoodFragment"
+        android:label="MoodFragment" />
 
 </navigation>

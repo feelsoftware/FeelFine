@@ -42,6 +42,7 @@ class CurrentScoreFragment : BaseFragment<CurrentScoreViewModel>(R.layout.fragme
         sleepLayout.onClick { viewModel.navigate(R.id.sleepScoreFragment) }
         activityLayout.onClick { viewModel.navigate(R.id.activityScoreFragment) }
         todayScoreTV.onClick { AboutScoreWindow.show(requireView(), todayScoreTV) }
+        moodLayout.onClick { viewModel.navigate(R.id.moodFragment) }
     }
 }
 
