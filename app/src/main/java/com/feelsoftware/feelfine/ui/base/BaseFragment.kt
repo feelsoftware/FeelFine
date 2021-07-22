@@ -28,6 +28,9 @@ abstract class BaseFragment<VM : BaseViewModel>(
                 requireActivity().findNavController(R.id.nav_host_fragment).navigate(it)
             }
         }
+        viewModel.backNavigation.observe {
+            navigateBack()
+        }
         onReady()
     }
 
@@ -39,6 +42,10 @@ abstract class BaseFragment<VM : BaseViewModel>(
     override fun onPause() {
         super.onPause()
         viewModel.onInActive()
+    }
+
+    protected fun navigateBack() {
+        requireActivity().onBackPressed()
     }
 
     protected fun <T> LiveData<T>.observe(block: (value: T) -> Unit) {
