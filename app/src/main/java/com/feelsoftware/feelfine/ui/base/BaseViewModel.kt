@@ -42,6 +42,7 @@ open class BaseViewModel : ViewModel() {
 
     // region Navigation
     val navigation = SingleLiveData<NavDirections>()
+    val backNavigation = SingleLiveData<Unit>()
 
     fun navigate(@IdRes actionId: Int) {
         navigation.postValue(ActionOnlyNavDirections(actionId))
@@ -53,6 +54,10 @@ open class BaseViewModel : ViewModel() {
 
             override fun getArguments(): Bundle = arguments
         })
+    }
+
+    fun navigateBack() {
+        backNavigation.postValue(Unit)
     }
     // endregion
 }

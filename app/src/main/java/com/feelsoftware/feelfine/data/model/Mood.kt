@@ -1,5 +1,7 @@
 package com.feelsoftware.feelfine.data.model
 
+import java.util.*
+
 enum class Mood(val intensity: Int) {
     APATHY(1),
     BLAME(2),
@@ -11,3 +13,8 @@ enum class Mood(val intensity: Int) {
     HAPPY(8),
     HARMONY(9)
 }
+
+data class MoodWithDate(
+    val mood: Mood,
+    val date: Date
+)
