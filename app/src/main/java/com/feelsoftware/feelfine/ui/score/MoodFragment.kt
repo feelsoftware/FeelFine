@@ -1,7 +1,7 @@
 package com.feelsoftware.feelfine.ui.score
 
-import android.view.View
 import com.feelsoftware.feelfine.R
+import com.feelsoftware.feelfine.data.model.Mood
 import com.feelsoftware.feelfine.extension.onClick
 import com.feelsoftware.feelfine.ui.base.BaseFragment
 import com.feelsoftware.feelfine.ui.base.BaseViewModel
@@ -14,46 +14,30 @@ class MoodFragment : BaseFragment<MoodViewModel>(R.layout.fragment_mood) {
 
     override fun onReady() {
         backIV.onClick { requireActivity().onBackPressed() }
-        apathyIV.onClick { manageClick(apathyIV) }
-        blameIV.onClick { manageClick(blameIV) }
-        angryIV.onClick { manageClick(angryIV) }
-        anxietyIV.onClick { manageClick(anxietyIV) }
-        sedIV.onClick { manageClick(sedIV) }
-        neutralityIV.onClick { manageClick(neutralityIV) }
-        happyIV.onClick { manageClick(happyIV) }
-        harmonyIV.onClick { manageClick(harmonyIV) }
+        apathyIV.onClick { onMoodClicked(Mood.APATHY) }
+        blameIV.onClick { onMoodClicked(Mood.BLAME) }
+        angryIV.onClick { onMoodClicked(Mood.ANGRY) }
+        anxietyIV.onClick { onMoodClicked(Mood.ANXIETY) }
+        sedIV.onClick { onMoodClicked(Mood.SED) }
+        neutralityIV.onClick { onMoodClicked(Mood.NEUTRALITY) }
+        calmIV.onClick { onMoodClicked(Mood.CALM) }
+        happyIV.onClick { onMoodClicked(Mood.HAPPY) }
+        harmonyIV.onClick { onMoodClicked(Mood.HARMONY) }
     }
 
-    // TODO save response to DB
-    private fun manageClick(view: View) {
-
-        when (view.id) {
-            R.id.apathyIV -> {
-                print("apathyIV")
-            }
-            R.id.blameIV -> {
-                print("blameIV")
-            }
-            R.id.angryIV -> {
-                print("angryIV")
-            }
-            R.id.anxietyIV -> {
-            }
-            R.id.sedIV -> {
-            }
-            R.id.neutralityIV -> {
-            }
-            R.id.calmIV -> {
-            }
-            R.id.happyIV -> {
-            }
-            R.id.harmonyIV -> {
-            }
-        }
+    private fun onMoodClicked(mood: Mood) {
+        viewModel.setMood(mood)
         requireActivity().onBackPressed()
     }
 
 }
 
-class MoodViewModel : BaseViewModel()
+class MoodViewModel : BaseViewModel() {
+
+    // TODO save mood
+    fun setMood(mood: Mood) {
+
+    }
+
+}
 

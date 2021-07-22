@@ -7,6 +7,7 @@ enum class Mood(val intensity: Int) {
     ANXIETY(4),
     SED(5),
     NEUTRALITY(6),
-    HAPPY(7),
-    HARMONY(8)
+    CALM(7),
+    HAPPY(8),
+    HARMONY(9)
 }
