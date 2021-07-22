@@ -26,7 +26,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/scoreTV"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -65,7 +65,7 @@
             app:layout_constraintStart_toStartOf="@id/scoreTV"
             app:layout_constraintTop_toTopOf="@id/scoreTV" />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/todayScoreTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -80,7 +80,7 @@
             app:layout_constraintStart_toEndOf="@+id/circularProgressBar"
             app:layout_constraintTop_toTopOf="@+id/scoreTV" />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/scoreProgressTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -116,7 +116,7 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.33" />
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/todayTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -151,7 +151,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/todayTV">
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -228,7 +228,7 @@
             app:layout_constraintStart_toStartOf="@id/circularProgressBarSteps"
             app:layout_constraintTop_toTopOf="@id/circularProgressBarSteps" />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/stepsText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -241,7 +241,7 @@
             app:layout_constraintTop_toBottomOf="@+id/stepsView"
             tools:text="12000/15000 steps" />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/stepsPercentTV"
             android:layout_width="26dp"
             android:layout_height="26dp"
@@ -321,7 +321,7 @@
             app:layout_constraintStart_toStartOf="@id/circularProgressBarSleep"
             app:layout_constraintTop_toTopOf="@id/circularProgressBarSleep" />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/textView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -349,7 +349,7 @@
             app:layout_constraintStart_toEndOf="@+id/circularProgressBarSleep"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/sleepText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -362,7 +362,7 @@
             app:layout_constraintTop_toBottomOf="@+id/sleepView"
             tools:text="5/8 hours" />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/sleepPercentTV"
             android:layout_width="26dp"
             android:layout_height="26dp"
@@ -393,7 +393,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/secondGL">
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
@@ -468,7 +468,7 @@
             app:layout_constraintStart_toStartOf="@id/activityCircularProgressBar"
             app:layout_constraintTop_toTopOf="@id/activityCircularProgressBar" />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/activityPercentTV"
             android:layout_width="26dp"
             android:layout_height="26dp"
@@ -482,7 +482,7 @@
             app:layout_constraintStart_toStartOf="@+id/activityView"
             app:layout_constraintTop_toTopOf="@+id/activityView" />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/activityText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -512,7 +512,7 @@
         app:layout_constraintStart_toEndOf="@id/centerGL"
         app:layout_constraintTop_toTopOf="@+id/secondGL">
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
@@ -586,7 +586,7 @@
             app:layout_constraintStart_toStartOf="@id/moodCircularProgressBar"
             app:layout_constraintTop_toTopOf="@id/moodCircularProgressBar" />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/moodPercentTV"
             android:layout_width="26dp"
             android:layout_height="26dp"
@@ -600,7 +600,7 @@
             app:layout_constraintStart_toStartOf="@+id/moodView"
             app:layout_constraintTop_toTopOf="@+id/moodView" />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/moodText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
