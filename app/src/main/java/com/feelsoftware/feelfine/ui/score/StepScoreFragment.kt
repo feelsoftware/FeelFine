@@ -13,7 +13,6 @@ import com.feelsoftware.feelfine.fit.usecase.getPercentSteps
 import com.feelsoftware.feelfine.ui.base.BaseFragment
 import com.feelsoftware.feelfine.ui.base.BaseViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import kotlinx.android.synthetic.main.fragment_sleep_score.*
 import kotlinx.android.synthetic.main.fragment_step_score.*
 import kotlinx.android.synthetic.main.fragment_step_score.backIV
 import kotlinx.android.synthetic.main.fragment_step_score.scorePercentTV
