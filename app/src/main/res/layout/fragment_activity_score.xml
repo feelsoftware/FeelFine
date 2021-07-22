@@ -78,7 +78,7 @@
         app:layout_constraintStart_toStartOf="@id/circularProgressBar"
         app:layout_constraintTop_toTopOf="@id/circularProgressBar" />
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/stepsText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -93,7 +93,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/stepsView" />
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/scorePercentTV"
         android:layout_width="64dp"
         android:layout_height="64dp"
@@ -107,7 +107,7 @@
         app:layout_constraintTop_toTopOf="@+id/stepsView"
         tools:text="+10%" />
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/scoreTV"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -135,7 +135,7 @@
         app:layout_constraintTop_toBottomOf="@+id/stepsText">
 
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/walkingTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -152,7 +152,7 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Walking : 2 hours" />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/runningTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -170,7 +170,7 @@
             app:layout_constraintTop_toBottomOf="@id/walkingTV"
             tools:text="Running : 1 h 15 m" />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/otherTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
