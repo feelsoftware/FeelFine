@@ -2,18 +2,22 @@ package com.feelsoftware.feelfine.ui.score
 
 import com.feelsoftware.feelfine.R
 import com.feelsoftware.feelfine.data.model.Mood
+import com.feelsoftware.feelfine.data.usecase.SetMoodUseCase
 import com.feelsoftware.feelfine.extension.onClick
+import com.feelsoftware.feelfine.extension.subscribeBy
 import com.feelsoftware.feelfine.ui.base.BaseFragment
 import com.feelsoftware.feelfine.ui.base.BaseViewModel
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.fragment_mood.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import timber.log.Timber
 
 class MoodFragment : BaseFragment<MoodViewModel>(R.layout.fragment_mood) {
 
     override val viewModel: MoodViewModel by viewModel()
 
     override fun onReady() {
-        backIV.onClick { requireActivity().onBackPressed() }
+        backIV.onClick { navigateBack() }
         apathyIV.onClick { onMoodClicked(Mood.APATHY) }
         blameIV.onClick { onMoodClicked(Mood.BLAME) }
         angryIV.onClick { onMoodClicked(Mood.ANGRY) }
@@ -27,17 +31,22 @@ class MoodFragment : BaseFragment<MoodViewModel>(R.layout.fragment_mood) {
 
     private fun onMoodClicked(mood: Mood) {
         viewModel.setMood(mood)
-        requireActivity().onBackPressed()
     }
-
 }
 
-class MoodViewModel : BaseViewModel() {
+class MoodViewModel(
+    private val setMoodUseCase: SetMoodUseCase
+) : BaseViewModel() {
 
-    // TODO save mood
     fun setMood(mood: Mood) {
-
+        setMoodUseCase(mood)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeBy(onComplete = {
+                navigateBack()
+            }, onError = {
+                Timber.e(it, "Failed to set mood $mood")
+            })
+            .disposeOnInActive()
     }
-
 }
 
