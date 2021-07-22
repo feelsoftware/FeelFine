@@ -18,14 +18,12 @@
         android:layout_height="28dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
-        android:clickable="false"
-        android:focusable="false"
         android:src="@drawable/ic_arrow_back"
         android:tint="@color/white"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/moodTitleTV"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -44,23 +42,22 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="36dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="36dp"
         android:background="@drawable/background_score"
         android:backgroundTint="@color/white"
-        android:paddingBottom="30dp"
+        android:padding="30dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/moodTitleTV">
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/moodTV"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
             android:fontFamily="@font/nunito_extrabold"
             android:gravity="center"
-            android:paddingBottom="20dp"
             android:text="Choose your today mood"
             android:textColor="@color/cloudyBlue"
             android:textSize="18sp"
@@ -72,6 +69,7 @@
             android:id="@+id/apathyIV"
             android:layout_width="70dp"
             android:layout_height="70dp"
+            android:layout_marginTop="20dp"
             android:src="@drawable/ic_apathy"
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintEnd_toStartOf="@+id/blameIV"
@@ -100,9 +98,9 @@
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/moodTV" />
+            app:layout_constraintTop_toTopOf="@+id/apathyIV" />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/blameTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -124,9 +122,9 @@
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/blameIV"
-            app:layout_constraintTop_toBottomOf="@+id/moodTV" />
+            app:layout_constraintTop_toTopOf="@+id/blameIV" />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/angryTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -150,7 +148,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/apathyTV" />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/anxietyTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -175,7 +173,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/apathyTV" />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/sedTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -200,7 +198,7 @@
             app:layout_constraintStart_toEndOf="@+id/sedIV"
             app:layout_constraintTop_toBottomOf="@+id/apathyTV" />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/neutralityTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -225,7 +223,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/anxietyTV" />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/calmTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -250,7 +248,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/sedTV" />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/happyTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -275,7 +273,7 @@
             app:layout_constraintStart_toEndOf="@+id/happyIV"
             app:layout_constraintTop_toBottomOf="@+id/sedTV" />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/harmonyTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
