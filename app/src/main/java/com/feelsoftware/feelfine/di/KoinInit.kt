@@ -15,6 +15,7 @@ object KoinInit {
                 fitModule,
                 presentationModule,
                 repositoryModule,
+                useCaseModule,
                 utilsModule
             )
             koin.get<ActivityEngine>()

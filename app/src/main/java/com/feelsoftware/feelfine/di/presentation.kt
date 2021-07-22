@@ -2,6 +2,7 @@
 
 package com.feelsoftware.feelfine.di
 
+import com.feelsoftware.feelfine.data.usecase.SetMoodUseCase
 import com.feelsoftware.feelfine.fit.usecase.GetFitDataUseCase
 import com.feelsoftware.feelfine.ui.EntryPointViewModel
 import com.feelsoftware.feelfine.ui.base.EmptyViewModel
@@ -54,12 +55,10 @@ val presentationModule = module {
     viewModel {
         StatisticViewModel(get<GetFitDataUseCase>())
     }
-
     viewModel {
         ProfileViewModel(get<GetFitDataUseCase>())
     }
-
     viewModel {
-        MoodViewModel()
+        MoodViewModel(get<SetMoodUseCase>())
     }
 }

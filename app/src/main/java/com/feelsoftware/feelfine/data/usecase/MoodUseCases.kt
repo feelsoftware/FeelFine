@@ -2,10 +2,19 @@ package com.feelsoftware.feelfine.data.usecase
 
 import com.feelsoftware.feelfine.data.model.Mood
 import com.feelsoftware.feelfine.data.repository.MoodRepository
+import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Maybe
 import io.reactivex.rxjava3.core.Observable
 import java.util.*
 import kotlin.math.roundToInt
+
+class SetMoodUseCase(
+    private val repository: MoodRepository
+) {
+
+    operator fun invoke(mood: Mood): Completable =
+        repository.setMood(mood)
+}
 
 class GetMoodByDateUseCase(
     private val repository: MoodRepository
