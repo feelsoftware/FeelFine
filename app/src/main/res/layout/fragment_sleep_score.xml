@@ -51,7 +51,7 @@
         app:cpb_background_progressbar_color_end="@color/purpleLight"
         app:cpb_background_progressbar_color_start="@color/white"
         app:cpb_background_progressbar_width="5dp"
-        app:cpb_progress="86"
+        tools:cpb_progress="86"
         app:cpb_progress_direction="to_left"
         app:cpb_progressbar_color="@color/softPurple"
         app:cpb_progressbar_width="8dp"
