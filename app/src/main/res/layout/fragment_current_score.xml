@@ -202,7 +202,7 @@
             app:cpb_background_progressbar_color_end="@color/white"
             app:cpb_background_progressbar_color_start="@color/white"
             app:cpb_background_progressbar_width="5dp"
-            app:cpb_progress="86"
+            tools:cpb_progress="86"
             app:cpb_progress_direction="to_left"
             app:cpb_progressbar_color="@color/softPurple"
             app:cpb_progressbar_width="4dp"
@@ -213,8 +213,8 @@
             app:layout_constraintTop_toTopOf="@id/stepsView" />
 
         <androidx.appcompat.widget.AppCompatImageView
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_width="59dp"
+            android:layout_height="62dp"
             android:layout_margin="24dp"
             android:background="@drawable/full_circle_shape"
             android:backgroundTint="@color/white"
@@ -295,7 +295,7 @@
             app:cpb_background_progressbar_color_end="@color/white"
             app:cpb_background_progressbar_color_start="@color/white"
             app:cpb_background_progressbar_width="5dp"
-            app:cpb_progress="66"
+            tools:cpb_progress="66"
             app:cpb_progress_direction="to_left"
             app:cpb_progressbar_color="@color/softPurple"
             app:cpb_progressbar_width="4dp"
@@ -442,7 +442,7 @@
             app:cpb_background_progressbar_color_end="@color/white"
             app:cpb_background_progressbar_color_start="@color/white"
             app:cpb_background_progressbar_width="5dp"
-            app:cpb_progress="100"
+            tools:cpb_progress="100"
             app:cpb_progress_direction="to_left"
             app:cpb_progressbar_color="@color/softPurple"
             app:cpb_progressbar_width="4dp"

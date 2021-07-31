@@ -24,6 +24,8 @@ class StepScoreFragment : BaseFragment<StepScoreViewModel>(R.layout.fragment_ste
 
     override fun onReady() {
         viewModel.stepsData.observe {
+            // TODO fetch userGoal from main source of personal goals
+            circularProgressBar.progress = it.count.applyScore(15000)
             stepsText.text = resources.getString(R.string.steps_placeholder, it.count.toString())
             caloriesTV.text = "Burned: " + it.calories + " kkal"
             distanceTV.text = "Distance: " + it.distance + " km"

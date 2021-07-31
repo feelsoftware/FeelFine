@@ -6,7 +6,7 @@
     <string name="dont_have_account">Let\'s get started!</string>
     <string name="nick_fill_error">Fill nick name</string>
     <string name="today_score">Today score</string>
-    <string name="activity_placeholder">%s/4 hours\nof your daily goal</string>
+    <string name="activity_placeholder">%s/8 hours\nof your daily goal</string>
     <string name="steps_placeholder">%s/15’000 steps\nof your daily goal</string>
     <string name="about_score">About score</string>
     <string name="about_score_text">
