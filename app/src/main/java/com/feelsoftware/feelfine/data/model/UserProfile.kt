@@ -7,10 +7,6 @@ data class UserProfile(
     val age: Int,
 ) {
 
-    companion object {
-        val EMPTY = UserProfile("", Gender.MALE, 0, 0)
-    }
-
     enum class Gender {
         MALE,
         FEMALE

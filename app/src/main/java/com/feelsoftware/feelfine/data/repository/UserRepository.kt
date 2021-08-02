@@ -11,14 +11,22 @@ class UserRepository(
     private val dao: UserProfileDao,
 ) {
 
+    private val emptyProfile = UserProfile("", UserProfile.Gender.MALE, 0, 0)
+
     fun setProfile(profile: UserProfile): Completable =
         dao.insert(profile.toEntity())
             .subscribeOn(Schedulers.io())
 
+    fun hasProfile(): Observable<Boolean> =
+        getProfile()
+            .map {
+                it != emptyProfile
+            }
+
     fun getProfile(): Observable<UserProfile> =
         dao.get()
             .map {
-                it.firstOrNull()?.toModel() ?: UserProfile.EMPTY
+                it.firstOrNull()?.toModel() ?: emptyProfile
             }
             .subscribeOn(Schedulers.io())
 
