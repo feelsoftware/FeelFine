@@ -68,7 +68,7 @@ class GoogleFitRepository(
         startTime: Date,
         endTime: Date,
         request: AggregateRequest
-    ): Single<AggregateResponse> = permissionManager.hasPermission()
+    ): Single<AggregateResponse> = permissionManager.hasPermissionObservable()
         .filter { it }
         .flatMapSingle {
             getData(startTime, endTime, request)

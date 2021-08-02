@@ -3,6 +3,7 @@ package com.feelsoftware.feelfine.utils
 import android.app.Activity
 import android.app.Application
 import android.os.Bundle
+import com.feelsoftware.feelfine.MainActivity
 import timber.log.Timber
 
 interface ActivityEngine {
@@ -22,7 +23,9 @@ class ActivityEngineImpl(
 
             override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
                 Timber.d("onActivityCreated $activity")
-                this@ActivityEngineImpl.activity = activity
+                if (activity is MainActivity) {
+                    this@ActivityEngineImpl.activity = activity
+                }
             }
 
             override fun onActivityStarted(activity: Activity) {
@@ -45,7 +48,9 @@ class ActivityEngineImpl(
 
             override fun onActivityDestroyed(activity: Activity) {
                 Timber.d("onActivityDestroyed $activity")
-                this@ActivityEngineImpl.activity = null
+                if (activity is MainActivity) {
+                    this@ActivityEngineImpl.activity = null
+                }
             }
         })
     }
