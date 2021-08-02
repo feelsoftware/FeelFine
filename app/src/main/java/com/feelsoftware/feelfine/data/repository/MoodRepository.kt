@@ -5,7 +5,6 @@ import com.feelsoftware.feelfine.data.db.entity.MoodEntity
 import com.feelsoftware.feelfine.data.model.Mood
 import com.feelsoftware.feelfine.data.model.MoodWithDate
 import io.reactivex.rxjava3.core.Completable
-import io.reactivex.rxjava3.core.Maybe
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import java.util.*
