@@ -6,17 +6,13 @@ import android.annotation.SuppressLint
 import androidx.lifecycle.MutableLiveData
 import com.feelsoftware.feelfine.R
 import com.feelsoftware.feelfine.extension.subscribeBy
-import com.feelsoftware.feelfine.fit.model.SleepInfo
-import com.feelsoftware.feelfine.fit.model.toHours
-import com.feelsoftware.feelfine.fit.model.toHoursMinutes
-import com.feelsoftware.feelfine.fit.model.total
+import com.feelsoftware.feelfine.fit.model.*
 import com.feelsoftware.feelfine.fit.usecase.GetFitDataUseCase
 import com.feelsoftware.feelfine.fit.usecase.getCurrentSleep
 import com.feelsoftware.feelfine.fit.usecase.getPercentSleep
 import com.feelsoftware.feelfine.ui.base.BaseFragment
 import com.feelsoftware.feelfine.ui.base.BaseViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import kotlinx.android.synthetic.main.fragment_activity_score.*
 import kotlinx.android.synthetic.main.fragment_sleep_score.*
 import kotlinx.android.synthetic.main.fragment_sleep_score.backIV
 import kotlinx.android.synthetic.main.fragment_sleep_score.scorePercentTV
@@ -28,6 +24,8 @@ class SleepScoreFragment : BaseFragment<SleepScoreViewModel>(R.layout.fragment_s
 
     override fun onReady() {
         viewModel.sleepData.observe {
+            // TODO fetch userGoal from main source of personal goals
+            circularProgressBar.progress = it.total.toIntMinutes().applyScore(8*60)
             sleepText.text = resources.getString(R.string.activity_placeholder, it.total.toHours())
             awakeTV.text = "Awake: " + it.awake.toHoursMinutes()
             lightSleepTV.text =

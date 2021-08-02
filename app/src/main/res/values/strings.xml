@@ -6,13 +6,14 @@
     <string name="dont_have_account">Let\'s get started!</string>
     <string name="nick_fill_error">Fill nick name</string>
     <string name="today_score">Today score</string>
-    <string name="activity_placeholder">%s/4 hours\nof your daily goal</string>
+    <string name="activity_placeholder">%s/8 hours\nof your daily goal</string>
     <string name="steps_placeholder">%s/15’000 steps\nof your daily goal</string>
     <string name="about_score">About score</string>
-    <string name="about_score_text">Score consists of four values: your activity, mood, steps and quality of sleep.
-    Based on them, you have your personalized score between 0 to 100. \n \n
-    Score consists of four values: your activity, mood, steps and quality of sleep.
-    Based on them, you have your personalized score between 0 to 100.</string>
+    <string name="about_score_text">
+        Score consists of four values: Activity, Mood, Steps and quality of Sleep.
+        Based on them, you have personalized score between 0 to 100. \nTo help you yo improve your mental state,
+        you have every day mood questionnaire.
+    For updating your goals, please, visit profile settings</string>
     <string name="mood_score">Mood score</string>
     <string-array name="score_values">
         <item>Steps</item>

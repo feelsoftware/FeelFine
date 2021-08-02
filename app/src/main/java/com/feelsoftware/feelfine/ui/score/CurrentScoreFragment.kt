@@ -6,13 +6,15 @@ import android.annotation.SuppressLint
 import androidx.lifecycle.MutableLiveData
 import com.feelsoftware.feelfine.R
 import com.feelsoftware.feelfine.extension.onClick
-import com.feelsoftware.feelfine.fit.model.toHours
+import com.feelsoftware.feelfine.fit.model.Duration
+import com.feelsoftware.feelfine.fit.model.toIntMinutes
 import com.feelsoftware.feelfine.fit.model.total
 import com.feelsoftware.feelfine.fit.usecase.*
 import com.feelsoftware.feelfine.ui.base.BaseFragment
 import com.feelsoftware.feelfine.ui.base.BaseViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import kotlinx.android.synthetic.main.fragment_current_score.*
+import kotlinx.android.synthetic.main.fragment_current_score.stepsText
 
 class CurrentScoreFragment : BaseFragment<CurrentScoreViewModel>(R.layout.fragment_current_score) {
 
@@ -20,13 +22,19 @@ class CurrentScoreFragment : BaseFragment<CurrentScoreViewModel>(R.layout.fragme
 
     override fun onReady() {
         viewModel.stepsData.observe {
-            stepsText.text = "$it /15000 steps"
+            // TODO fetch userGoal from main source of personal goals
+            circularProgressBarSteps.progress = it.applyScore(15000)
+            stepsText.text = "${it.toString()} /15000 steps"
         }
         viewModel.sleepData.observe {
-            sleepText.text = "$it /8 hours"
+            // TODO fetch userGoal from main source of personal goals
+            circularProgressBarSleep.progress = it.toIntMinutes().applyScore(60*8)
+            sleepText.text = "${it.hours} /8 hours"
         }
         viewModel.activityData.observe {
-            activityText.text = "$it /4 hours"
+            // TODO fetch userGoal from main source of personal goals
+            activityCircularProgressBar.progress = it.toIntMinutes().applyScore(60*8)
+            activityText.text = "${it.hours} /8 hours"
         }
 
         viewModel.stepsPercents.observe {
@@ -50,22 +58,22 @@ class CurrentScoreViewModel(
     useCase: GetFitDataUseCase
 ) : BaseViewModel() {
 
-    val stepsData = MutableLiveData<String>()
-    val sleepData = MutableLiveData<String>()
-    val activityData = MutableLiveData<String>()
+    val stepsData = MutableLiveData<Int>()
+    val sleepData = MutableLiveData<Duration>()
+    val activityData = MutableLiveData<Duration>()
     val stepsPercents = MutableLiveData<PercentData>()
     val sleepPercents = MutableLiveData<PercentData>()
     val activityPercents = MutableLiveData<PercentData>()
 
     init {
         stepsData.combine(useCase.getCurrentSteps()) {
-            it.count.toString()
+            it.count
         }
         sleepData.combine(useCase.getCurrentSleep()) {
-            it.total.toHours()
+            it.total
         }
         activityData.combine(useCase.getCurrentActivity()) {
-            it.total.toHours()
+            it.total
         }
         managePercentData(useCase.getPercentSteps(), stepsPercents).disposeOnInActive()
         managePercentData(useCase.getPercentSleep(), sleepPercents).disposeOnInActive()
