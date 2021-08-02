@@ -47,11 +47,12 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
     }
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = "11"
+        useIR = true
     }
 
     packagingOptions {
@@ -71,11 +72,11 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
     implementation 'androidx.core:core-ktx:1.6.0'
-    implementation 'androidx.appcompat:appcompat:1.3.0'
-    implementation "androidx.activity:activity-ktx:1.2.3"
-    implementation "androidx.fragment:fragment-ktx:1.3.5"
+    implementation 'androidx.appcompat:appcompat:1.3.1'
+    implementation "androidx.activity:activity-ktx:1.3.0"
+    implementation "androidx.fragment:fragment-ktx:1.3.6"
     implementation 'com.google.android.material:material:1.4.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.0'
 
     // ArchComponents
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1"
@@ -88,9 +89,9 @@ dependencies {
 
     // Google Fit
     implementation "com.google.android.gms:play-services-fitness:20.0.0"
-    implementation "com.google.android.gms:play-services-auth:19.0.0"
+    implementation "com.google.android.gms:play-services-auth:19.2.0"
     implementation 'com.google.firebase:firebase-analytics-ktx:19.0.0'
-    implementation 'com.google.firebase:firebase-crashlytics-ktx:18.1.0'
+    implementation 'com.google.firebase:firebase-crashlytics-ktx:18.2.0'
     implementation('com.google.api-client:google-api-client:1.25.0') {
         exclude group: 'org.apache.httpcomponents', module: 'httpclient'
     }
