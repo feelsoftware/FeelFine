@@ -23,4 +23,6 @@
     </string-array>
     <string name="i_accept_terms">I have read and accept %s</string>
     <string name="i_accept_terms_link">Terms Of Use</string>
+    <string name="mood_notification_title">Track your mood</string>
+    <string name="mood_notification_message">How do you feel today?</string>
 </resources>

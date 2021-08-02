@@ -2,6 +2,7 @@
 
 package com.feelsoftware.feelfine.di
 
+import com.feelsoftware.feelfine.data.usecase.SetMoodUseCase
 import com.feelsoftware.feelfine.fit.usecase.GetFitDataUseCase
 import com.feelsoftware.feelfine.ui.EntryPointViewModel
 import com.feelsoftware.feelfine.ui.base.EmptyViewModel
@@ -13,6 +14,7 @@ import com.feelsoftware.feelfine.ui.onboarding.WeightViewModel
 import com.feelsoftware.feelfine.ui.profile.ProfileViewModel
 import com.feelsoftware.feelfine.ui.score.*
 import com.feelsoftware.feelfine.ui.statistic.StatisticViewModel
+import com.feelsoftware.feelfine.utils.MoodTracker
 import com.feelsoftware.feelfine.utils.OnBoardingFlowManager
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -25,7 +27,7 @@ val presentationModule = module {
         EntryPointViewModel(get<OnBoardingFlowManager>())
     }
     viewModel {
-        HomeViewModel()
+        HomeViewModel(get<MoodTracker>())
     }
     viewModel {
         NickNameViewModel(get<OnBoardingFlowManager>())
@@ -54,12 +56,10 @@ val presentationModule = module {
     viewModel {
         StatisticViewModel(get<GetFitDataUseCase>())
     }
-
     viewModel {
         ProfileViewModel(get<GetFitDataUseCase>())
     }
-
     viewModel {
-        MoodViewModel()
+        MoodViewModel(get<SetMoodUseCase>())
     }
 }

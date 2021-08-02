@@ -3,14 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="app/src/main/res/layout/fragment_activity_score.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/fragment_current_score.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/fragment_sleep_score.xml" value="0.10461956521739131" />
-        <entry key="app/src/main/res/layout/fragment_step_score.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable-anydpi-v24/ic_mood_notification.xml" value="0.32222222222222224" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
