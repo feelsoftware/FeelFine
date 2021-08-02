@@ -22,13 +22,23 @@ open class BaseViewModel : ViewModel() {
     open fun onInActive() {
         disposableInActive.clear()
     }
+
+    @CallSuper
+    override fun onCleared() {
+        disposableDestroy.clear()
+    }
     // endregion
 
     // region RxJava
     private val disposableInActive = CompositeDisposable()
+    private val disposableDestroy = CompositeDisposable()
 
     protected fun Disposable.disposeOnInActive() {
         disposableInActive.add(this)
+    }
+
+    protected fun Disposable.disposeOnDestroy() {
+        disposableDestroy.add(this)
     }
 
     protected fun <V, T> MutableLiveData<V>.combine(source: Observable<T>, mapper: (T) -> V) {

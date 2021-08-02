@@ -11,6 +11,7 @@ import androidx.lifecycle.MutableLiveData
 import com.feelsoftware.feelfine.R
 import com.feelsoftware.feelfine.extension.onClick
 import com.feelsoftware.feelfine.extension.subscribeBy
+import com.feelsoftware.feelfine.fit.FitPermissionManager
 import com.feelsoftware.feelfine.ui.base.BaseFragment
 import com.feelsoftware.feelfine.ui.base.BaseViewModel
 import com.feelsoftware.feelfine.utils.OnBoardingFlowManager
@@ -59,7 +60,8 @@ class AgeFragment : BaseFragment<AgeViewModel>(R.layout.fragment_age) {
 }
 
 class AgeViewModel(
-    private val flowManager: OnBoardingFlowManager
+    private val flowManager: OnBoardingFlowManager,
+    private val fitPermissionManager: FitPermissionManager
 ) : BaseViewModel() {
 
     private val birthday: Calendar = Calendar.getInstance().apply {
@@ -79,6 +81,14 @@ class AgeViewModel(
     private val _isContinueEnabled = MutableLiveData<Boolean>()
     val isContinueEnabled: LiveData<Boolean> = _isContinueEnabled
 
+    init {
+        fitPermissionManager.hasPermissionObservable()
+            .subscribeBy(onNext = { hasPermission ->
+                if (hasPermission) navigate(R.id.toHomeFragment)
+            })
+            .disposeOnDestroy()
+    }
+
     fun onDateChanged(year: Int) {
         birthday.set(Calendar.YEAR, year)
         flowManager.age = Calendar.getInstance().get(Calendar.YEAR) - year
@@ -97,9 +107,13 @@ class AgeViewModel(
     fun onContinue() {
         flowManager.markAsPassed(flowManager.buildUserProfile() ?: return)
             .subscribeBy(onComplete = {
-                navigate(R.id.toHomeFragment)
+                checkGoogleAccount()
             }, onError = {
                 Timber.e(it, "Failed to mark onboarding as passed")
             })
+    }
+
+    private fun checkGoogleAccount() {
+        fitPermissionManager.requestPermission()
     }
 }

@@ -11,9 +11,11 @@ import timber.log.Timber
 
 interface FitPermissionManager {
 
-    fun hasPermission(): Observable<Boolean>
+    fun hasPermission(): Boolean
 
-    fun checkPermission(requestPermission: Boolean = true)
+    fun hasPermissionObservable(): Observable<Boolean>
+
+    fun requestPermission()
 
     fun onPermissionResult(requestCode: Int, resultCode: Int, data: Intent?)
 }
@@ -26,26 +28,15 @@ class GoogleFitPermissionManager(
 
     private val hasPermissionRelay = PublishRelay.create<Boolean>()
 
-    override fun hasPermission(): Observable<Boolean> = hasPermissionRelay.doOnSubscribe {
-        checkPermission(requestPermission = false)
+    override fun hasPermission(): Boolean = hasPermissionInternal()
+
+    override fun hasPermissionObservable(): Observable<Boolean> {
+        return Observable.merge(Observable.just(hasPermissionInternal()), hasPermissionRelay)
     }
 
-    override fun checkPermission(requestPermission: Boolean) {
-        val activity = activityEngine.activity as? ComponentActivity
-        if (activity == null) {
-            Timber.e("checkPermission, activity == null")
-            hasPermissionRelay.accept(false)
-            return
-        }
-
-        val account = GoogleSignIn.getAccountForExtension(activity, fitnessOptions)
-        if (GoogleSignIn.hasPermissions(account, fitnessOptions)) {
-            hasPermissionRelay.accept(true)
-            return
-        }
-        if (requestPermission) {
-            GoogleSignIn.requestPermissions(activity, REQUEST_CODE, account, fitnessOptions)
-        }
+    override fun requestPermission() {
+        if (hasPermissionInternal()) return
+        requestPermissionInternal()
     }
 
     override fun onPermissionResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -60,5 +51,26 @@ class GoogleFitPermissionManager(
             Timber.e(error, "onPermissionResult error")
             hasPermissionRelay.accept(false)
         }
+    }
+
+    private fun hasPermissionInternal(): Boolean {
+        val activity = activityEngine.activity as? ComponentActivity
+        if (activity == null) {
+            Timber.e("checkPermission, activity == null")
+            hasPermissionRelay.accept(false)
+            return false
+        }
+
+        val account = GoogleSignIn.getAccountForExtension(activity, fitnessOptions)
+        val hasPermission = GoogleSignIn.hasPermissions(account, fitnessOptions)
+
+        hasPermissionRelay.accept(hasPermission)
+        return hasPermission
+    }
+
+    private fun requestPermissionInternal() {
+        val activity = activityEngine.activity as? ComponentActivity ?: return
+        val account = GoogleSignIn.getAccountForExtension(activity, fitnessOptions)
+        GoogleSignIn.requestPermissions(activity, REQUEST_CODE, account, fitnessOptions)
     }
 }

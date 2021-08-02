@@ -3,6 +3,7 @@
 package com.feelsoftware.feelfine.di
 
 import com.feelsoftware.feelfine.data.usecase.SetMoodUseCase
+import com.feelsoftware.feelfine.fit.FitPermissionManager
 import com.feelsoftware.feelfine.fit.usecase.GetFitDataUseCase
 import com.feelsoftware.feelfine.ui.EntryPointViewModel
 import com.feelsoftware.feelfine.ui.base.EmptyViewModel
@@ -24,7 +25,7 @@ val presentationModule = module {
         EmptyViewModel()
     }
     viewModel {
-        EntryPointViewModel(get<OnBoardingFlowManager>())
+        EntryPointViewModel(get<OnBoardingFlowManager>(), get<FitPermissionManager>())
     }
     viewModel {
         HomeViewModel(get<MoodTracker>())
@@ -39,7 +40,7 @@ val presentationModule = module {
         WeightViewModel(get<OnBoardingFlowManager>())
     }
     viewModel {
-        AgeViewModel(get<OnBoardingFlowManager>())
+        AgeViewModel(get<OnBoardingFlowManager>(), get<FitPermissionManager>())
     }
     viewModel {
         CurrentScoreViewModel(get<GetFitDataUseCase>())
