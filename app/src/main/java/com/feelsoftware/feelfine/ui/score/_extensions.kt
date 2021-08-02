@@ -25,6 +25,7 @@ fun Int.applyScore(userScore: Int): Float {
     val userProgress = this * 100 / userScore
     return if (userProgress >= userScore) {
         100f
-    } else
+    } else {
         userProgress.toFloat()
+    }
 }
