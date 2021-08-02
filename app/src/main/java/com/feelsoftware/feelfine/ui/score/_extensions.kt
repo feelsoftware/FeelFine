@@ -20,3 +20,12 @@ fun managePercentData(
 fun TextView.applyPercentData(data: PercentData) {
     text = data
 }
+
+fun Int.applyScore(userScore: Int): Float {
+    val userProgress = this * 100 / userScore
+    return if (userProgress >= userScore) {
+        100f
+    } else {
+        userProgress.toFloat()
+    }
+}
