@@ -6,6 +6,8 @@ import android.app.NotificationManager
 import androidx.core.content.getSystemService
 import androidx.work.WorkManager
 import com.feelsoftware.feelfine.data.repository.UserRepository
+import com.feelsoftware.feelfine.score.ScoreTargetProvider
+import com.feelsoftware.feelfine.score.ScoreTargetProviderImpl
 import com.feelsoftware.feelfine.utils.*
 import org.koin.android.ext.koin.androidApplication
 import org.koin.android.ext.koin.androidContext
@@ -29,5 +31,8 @@ val utilsModule = module {
             androidContext(),
             androidContext().getSystemService<NotificationManager>()!!
         )
+    }
+    single<ScoreTargetProvider> {
+        ScoreTargetProviderImpl()
     }
 }
