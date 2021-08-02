@@ -18,11 +18,7 @@ class OnBoardingFlowManager(
      * @return true if OnBoarding is passed
      */
     fun isPassed(): Single<Boolean> =
-        userRepository.getProfile()
-            .firstOrError()
-            .map {
-                it != UserProfile.EMPTY
-            }
+        userRepository.hasProfile().firstOrError()
 
     /**
      * Mark OnBoarding flow as passed
