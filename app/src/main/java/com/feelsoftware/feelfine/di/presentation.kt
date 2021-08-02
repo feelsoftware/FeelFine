@@ -14,6 +14,7 @@ import com.feelsoftware.feelfine.ui.onboarding.WeightViewModel
 import com.feelsoftware.feelfine.ui.profile.ProfileViewModel
 import com.feelsoftware.feelfine.ui.score.*
 import com.feelsoftware.feelfine.ui.statistic.StatisticViewModel
+import com.feelsoftware.feelfine.utils.MoodTracker
 import com.feelsoftware.feelfine.utils.OnBoardingFlowManager
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -26,7 +27,7 @@ val presentationModule = module {
         EntryPointViewModel(get<OnBoardingFlowManager>())
     }
     viewModel {
-        HomeViewModel()
+        HomeViewModel(get<MoodTracker>())
     }
     viewModel {
         NickNameViewModel(get<OnBoardingFlowManager>())
