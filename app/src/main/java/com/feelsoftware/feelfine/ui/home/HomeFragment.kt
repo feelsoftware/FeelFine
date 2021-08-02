@@ -5,6 +5,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.feelsoftware.feelfine.R
 import com.feelsoftware.feelfine.ui.base.BaseFragment
 import com.feelsoftware.feelfine.ui.base.BaseViewModel
+import com.feelsoftware.feelfine.utils.MoodTracker
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -19,4 +20,11 @@ class HomeFragment : BaseFragment<HomeViewModel>(R.layout.fragment_home) {
     }
 }
 
-class HomeViewModel : BaseViewModel()
+class HomeViewModel(
+    moodTracker: MoodTracker
+) : BaseViewModel() {
+
+    init {
+        moodTracker.trackPeriodically()
+    }
+}
