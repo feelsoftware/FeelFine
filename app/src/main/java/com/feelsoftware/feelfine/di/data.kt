@@ -8,10 +8,7 @@ import com.feelsoftware.feelfine.data.db.dao.*
 import com.feelsoftware.feelfine.data.repository.MoodDateConverter
 import com.feelsoftware.feelfine.data.repository.MoodRepository
 import com.feelsoftware.feelfine.data.repository.UserRepository
-import com.feelsoftware.feelfine.data.usecase.GetCurrentMoodUseCase
-import com.feelsoftware.feelfine.data.usecase.GetMoodByDateUseCase
-import com.feelsoftware.feelfine.data.usecase.GetPercentMoodUseCase
-import com.feelsoftware.feelfine.data.usecase.SetMoodUseCase
+import com.feelsoftware.feelfine.data.usecase.*
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 
