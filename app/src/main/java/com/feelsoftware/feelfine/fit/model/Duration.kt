@@ -3,6 +3,10 @@ package com.feelsoftware.feelfine.fit.model
 data class Duration(
     private val raw: Int
 ) {
+    companion object {
+        fun of(hours: Int, minutes: Int = 0) = Duration(60 * hours + minutes)
+    }
+
     val hours: Int = raw / 60
 
     val minutes: Int = raw % 60
