@@ -66,6 +66,7 @@
             android:textColor="@color/greyishBrown"
             android:background="@drawable/edittext_rounded_background"
             android:fontFamily="@font/nunito_extrabold"
+            android:imeOptions="actionDone"
             android:inputType="textEmailAddress"
             android:maxLength="20" />
 
@@ -94,7 +95,7 @@
         android:layout_height="39dp"
         android:background="@drawable/button_purple"
         android:enabled="false"
-        android:fontFamily="@font/montserrat_regular"
+        android:fontFamily="@font/nunito_extrabold"
         android:text="Continue"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
