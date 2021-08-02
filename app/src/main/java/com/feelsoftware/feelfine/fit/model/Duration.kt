@@ -19,7 +19,7 @@ fun Duration.toHours() =
     this.hours.toString() + " h"
 
 fun Duration.toIntMinutes() =
-    this.hours*60 + this.minutes
+    this.hours * 60 + this.minutes
 
 operator fun Duration.plus(duration: Duration): Duration =
     Duration(hours * 60 + minutes + duration.hours * 60 + duration.minutes)
