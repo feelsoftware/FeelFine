@@ -15,7 +15,7 @@ import com.feelsoftware.feelfine.data.db.entity.*
         StepsEntity::class,
         UserProfileEntity::class,
     ],
-    exportSchema = true
+    exportSchema = false
 )
 @TypeConverters(
     DateConverter::class,
