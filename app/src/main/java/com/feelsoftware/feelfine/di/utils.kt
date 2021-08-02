@@ -33,6 +33,6 @@ val utilsModule = module {
         )
     }
     single<ScoreTargetProvider> {
-        ScoreTargetProviderImpl()
+        ScoreTargetProviderImpl(get<UserRepository>())
     }
 }
