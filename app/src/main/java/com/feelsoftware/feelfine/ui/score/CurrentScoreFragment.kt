@@ -34,15 +34,23 @@ class CurrentScoreFragment : BaseFragment<CurrentScoreViewModel>(R.layout.fragme
         }
 
         viewModel.stepsScore.observe {
-            stepsText.text = "${it.current} / ${it.target} steps"
+            stepsText.text = getString(R.string.current_score_steps, it.current, it.target)
             circularProgressBarSteps.progress = it.score
         }
         viewModel.sleepScore.observe {
-            sleepText.text = "${it.currentDuration.hours} / ${it.targetDuration.toHours()}"
+            sleepText.text = getString(
+                R.string.current_score_sleep,
+                it.currentDuration.hours.toString(),
+                it.targetDuration.toHours()
+            )
             circularProgressBarSleep.progress = it.score
         }
         viewModel.activityScore.observe {
-            activityText.text = "${it.currentDuration.hours} / ${it.targetDuration.toHours()}"
+            activityText.text = getString(
+                R.string.current_score_activity,
+                it.currentDuration.hours.toString(),
+                it.targetDuration.toHours()
+            )
             activityCircularProgressBar.progress = it.score
         }
 

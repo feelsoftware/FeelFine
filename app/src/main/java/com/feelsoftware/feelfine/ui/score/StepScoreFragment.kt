@@ -25,16 +25,16 @@ class StepScoreFragment : BaseFragment<StepScoreViewModel>(R.layout.fragment_ste
 
     override fun onReady() {
         viewModel.stepsInfo.observe {
-            caloriesTV.text = "Burned: " + it.calories + " kkal"
-            distanceTV.text = "Distance: " + it.distance + " km"
+            caloriesTV.text = getString(R.string.steps_calories, it.calories)
+            distanceTV.text = getString(R.string.steps_distance, it.distance)
         }
         viewModel.percents.observe {
             scorePercentTV.applyPercentData(it)
         }
         viewModel.score.observe {
-            val current = it.currentDuration.toHours()
-            val target = it.targetDuration.toHours()
-            stepsText.text = "$current / $target\nof your daily goal"
+            val current = it.current.toString()
+            val target = it.target.toString()
+            stepsText.text = getString(R.string.steps_score_text, current, target)
             circularProgressBar.progress = it.score
         }
         backIV.setOnClickListener { requireActivity().onBackPressed() }
