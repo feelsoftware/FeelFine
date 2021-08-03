@@ -12,6 +12,7 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.disposables.Disposable
+import timber.log.Timber
 
 open class BaseViewModel : ViewModel() {
 
@@ -33,20 +34,25 @@ open class BaseViewModel : ViewModel() {
     private val disposableInActive = CompositeDisposable()
     private val disposableDestroy = CompositeDisposable()
 
-    protected fun Disposable.disposeOnInActive() {
+    fun Disposable.disposeOnInActive() {
         disposableInActive.add(this)
     }
 
-    protected fun Disposable.disposeOnDestroy() {
+    fun Disposable.disposeOnDestroy() {
         disposableDestroy.add(this)
     }
 
-    protected fun <V, T> MutableLiveData<V>.combine(source: Observable<T>, mapper: (T) -> V) {
+    protected fun <V, T> MutableLiveData<V>.attachSource(
+        source: Observable<T>,
+        mapper: (T) -> V
+    ) {
         source.observeOn(AndroidSchedulers.mainThread())
             .subscribeBy(onNext = {
                 value = mapper.invoke(it)
+            }, onError = {
+                Timber.e(it, "Failed to attach source")
             })
-            .disposeOnInActive()
+            .disposeOnDestroy()
     }
     // endregion
 
