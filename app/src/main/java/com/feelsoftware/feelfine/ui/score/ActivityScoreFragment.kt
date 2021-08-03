@@ -14,7 +14,7 @@ import com.feelsoftware.feelfine.ui.base.BaseFragment
 import com.feelsoftware.feelfine.ui.base.BaseViewModel
 import kotlinx.android.synthetic.main.fragment_activity_score.*
 import kotlinx.android.synthetic.main.fragment_activity_score.backIV
-import kotlinx.android.synthetic.main.fragment_activity_score.circularProgressBar
+import kotlinx.android.synthetic.main.fragment_activity_score.totalScore
 import kotlinx.android.synthetic.main.fragment_activity_score.scorePercentTV
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -42,7 +42,7 @@ class ActivityScoreFragment :
             val current = it.currentDuration.toHoursMinutes()
             val target = it.targetDuration.toHoursMinutes()
             activityText.text = getString(R.string.activity_score_text, current, target)
-            circularProgressBar.progress = it.score
+            totalScore.progress = it.score
         }
         backIV.setOnClickListener { requireActivity().onBackPressed() }
     }

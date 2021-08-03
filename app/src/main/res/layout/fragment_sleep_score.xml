@@ -43,7 +43,7 @@
         app:layout_constraintTop_toBottomOf="@id/scoreTV" />
 
     <com.mikhaellopez.circularprogressbar.CircularProgressBar
-        android:id="@+id/circularProgressBar"
+        android:id="@+id/totalScore"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_margin="8dp"
@@ -72,11 +72,11 @@
         android:foregroundGravity="center"
         android:gravity="center"
         android:src="@drawable/ic_sleep"
-        app:layout_constraintBottom_toBottomOf="@id/circularProgressBar"
+        app:layout_constraintBottom_toBottomOf="@id/totalScore"
         app:layout_constraintDimensionRatio="1:1"
-        app:layout_constraintEnd_toEndOf="@id/circularProgressBar"
-        app:layout_constraintStart_toStartOf="@id/circularProgressBar"
-        app:layout_constraintTop_toTopOf="@id/circularProgressBar" />
+        app:layout_constraintEnd_toEndOf="@id/totalScore"
+        app:layout_constraintStart_toStartOf="@id/totalScore"
+        app:layout_constraintTop_toTopOf="@id/totalScore" />
 
     <TextView
         android:id="@+id/sleepText"

@@ -33,9 +33,13 @@ class CurrentScoreFragment : BaseFragment<CurrentScoreViewModel>(R.layout.fragme
             activityPercentTV.applyPercentData(it)
         }
 
+        viewModel.totalScore.observe {
+            totalScore.progress = it
+            scoreTV.text = getString(R.string.current_score, it)
+        }
         viewModel.stepsScore.observe {
             stepsText.text = getString(R.string.current_score_steps, it.current, it.target)
-            circularProgressBarSteps.progress = it.score
+            stepsScore.progress = it.score
         }
         viewModel.sleepScore.observe {
             sleepText.text = getString(
@@ -43,7 +47,7 @@ class CurrentScoreFragment : BaseFragment<CurrentScoreViewModel>(R.layout.fragme
                 it.currentDuration.hours.toString(),
                 it.targetDuration.toHours()
             )
-            circularProgressBarSleep.progress = it.score
+            sleepScore.progress = it.score
         }
         viewModel.activityScore.observe {
             activityText.text = getString(
@@ -51,7 +55,7 @@ class CurrentScoreFragment : BaseFragment<CurrentScoreViewModel>(R.layout.fragme
                 it.currentDuration.hours.toString(),
                 it.targetDuration.toHours()
             )
-            activityCircularProgressBar.progress = it.score
+            activityScore.progress = it.score
         }
 
         stepLayout.onClick { viewModel.navigate(R.id.stepScoreFragment) }
@@ -64,7 +68,8 @@ class CurrentScoreFragment : BaseFragment<CurrentScoreViewModel>(R.layout.fragme
 
 class CurrentScoreViewModel(
     useCase: GetFitDataUseCase,
-    scoreTargetProvider: ScoreTargetProvider
+    scoreTargetProvider: ScoreTargetProvider,
+    scoreCalculator: ScoreCalculator
 ) : BaseViewModel() {
 
     private val stepsCount = MutableLiveData<Int>()
@@ -87,6 +92,8 @@ class CurrentScoreViewModel(
         activityDuration.map { it.minutesTotal },
         scoreTargetProvider.getActivityDuration().map { it.minutesTotal }
     )
+
+    val totalScore = scoreCalculator.calculate(stepsScore, sleepScore, activityScore)
 
     init {
         stepsCount.attachSource(useCase.getCurrentSteps()) { it.count }
