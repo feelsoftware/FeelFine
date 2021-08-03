@@ -28,12 +28,12 @@ class CurrentScoreFragment : BaseFragment<CurrentScoreViewModel>(R.layout.fragme
         }
         viewModel.sleepData.observe {
             // TODO fetch userGoal from main source of personal goals
-            circularProgressBarSleep.progress = it.toIntMinutes().applyScore(60*8)
+            circularProgressBarSleep.progress = it.toIntMinutes().applyScore(60 * 8)
             sleepText.text = "${it.hours} /8 hours"
         }
         viewModel.activityData.observe {
             // TODO fetch userGoal from main source of personal goals
-            activityCircularProgressBar.progress = it.toIntMinutes().applyScore(60*8)
+            activityCircularProgressBar.progress = it.toIntMinutes().applyScore(60 * 8)
             activityText.text = "${it.hours} /8 hours"
         }
 
@@ -66,17 +66,11 @@ class CurrentScoreViewModel(
     val activityPercents = MutableLiveData<PercentData>()
 
     init {
-        stepsData.combine(useCase.getCurrentSteps()) {
-            it.count
-        }
-        sleepData.combine(useCase.getCurrentSleep()) {
-            it.total
-        }
-        activityData.combine(useCase.getCurrentActivity()) {
-            it.total
-        }
-        managePercentData(useCase.getPercentSteps(), stepsPercents).disposeOnInActive()
-        managePercentData(useCase.getPercentSleep(), sleepPercents).disposeOnInActive()
-        managePercentData(useCase.getPercentActivity(), activityPercents).disposeOnInActive()
+        stepsData.attachSource(useCase.getCurrentSteps()) { it.count }
+        sleepData.attachSource(useCase.getCurrentSleep()) { it.total }
+        activityData.attachSource(useCase.getCurrentActivity()) { it.total }
+        combinePercentData(stepsPercents, useCase.getPercentSteps())
+        combinePercentData(sleepPercents, useCase.getPercentSleep())
+        combinePercentData(activityPercents, useCase.getPercentActivity())
     }
 }

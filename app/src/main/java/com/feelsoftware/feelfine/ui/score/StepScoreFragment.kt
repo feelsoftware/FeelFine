@@ -5,14 +5,12 @@ package com.feelsoftware.feelfine.ui.score
 import android.annotation.SuppressLint
 import androidx.lifecycle.MutableLiveData
 import com.feelsoftware.feelfine.R
-import com.feelsoftware.feelfine.extension.subscribeBy
 import com.feelsoftware.feelfine.fit.model.*
 import com.feelsoftware.feelfine.fit.usecase.GetFitDataUseCase
 import com.feelsoftware.feelfine.fit.usecase.getCurrentSteps
 import com.feelsoftware.feelfine.fit.usecase.getPercentSteps
 import com.feelsoftware.feelfine.ui.base.BaseFragment
 import com.feelsoftware.feelfine.ui.base.BaseViewModel
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.fragment_step_score.*
 import kotlinx.android.synthetic.main.fragment_step_score.backIV
 import kotlinx.android.synthetic.main.fragment_step_score.scorePercentTV
@@ -44,11 +42,7 @@ class StepScoreViewModel(useCase: GetFitDataUseCase) : BaseViewModel() {
     val stepsPercents = MutableLiveData<PercentData>()
 
     init {
-        useCase.getCurrentSteps()
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeBy(onNext = {
-                stepsData.value = it
-            }).disposeOnInActive()
-        managePercentData(useCase.getPercentSteps(), stepsPercents).disposeOnInActive()
+        stepsData.attachSource(useCase.getCurrentSteps()) { it }
+        combinePercentData(stepsPercents, useCase.getPercentSteps())
     }
 }

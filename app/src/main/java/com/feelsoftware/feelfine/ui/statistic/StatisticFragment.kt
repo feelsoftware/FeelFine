@@ -241,24 +241,12 @@ class StatisticViewModel(useCase: GetFitDataUseCase) : BaseViewModel() {
         val (startDate, endDate) = getWeekDates(weekOffset = 0)
         val (startMonthDate, endMonthDate) = getMonthDates(monthOffset = 0)
 
-        stepsWeekData.combine(useCase.getSteps(startDate, endDate)) {
-            it
-        }
-        stepsMonthData.combine(useCase.getSteps(startMonthDate, endMonthDate)) {
-            it
-        }
-        sleepWeekData.combine(useCase.getSleep(startDate, endDate)) {
-            it
-        }
-        sleepMonthData.combine(useCase.getSleep(startMonthDate, endMonthDate)) {
-            it
-        }
-        activityWeekData.combine(useCase.getActivity(startDate, endDate)) {
-            it
-        }
-        activityMonthData.combine(useCase.getActivity(startMonthDate, endMonthDate)) {
-            it
-        }
+        stepsWeekData.attachSource(useCase.getSteps(startDate, endDate)) { it }
+        stepsMonthData.attachSource(useCase.getSteps(startMonthDate, endMonthDate)) { it }
+        sleepWeekData.attachSource(useCase.getSleep(startDate, endDate)) { it }
+        sleepMonthData.attachSource(useCase.getSleep(startMonthDate, endMonthDate)) { it }
+        activityWeekData.attachSource(useCase.getActivity(startDate, endDate)) { it }
+        activityMonthData.attachSource(useCase.getActivity(startMonthDate, endMonthDate)) { it }
     }
 
     private fun getWeekDates(weekOffset: Int): Pair<Date, Date> {
