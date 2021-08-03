@@ -15,7 +15,7 @@ import com.feelsoftware.feelfine.ui.base.BaseFragment
 import com.feelsoftware.feelfine.ui.base.BaseViewModel
 import kotlinx.android.synthetic.main.fragment_step_score.*
 import kotlinx.android.synthetic.main.fragment_step_score.backIV
-import kotlinx.android.synthetic.main.fragment_step_score.circularProgressBar
+import kotlinx.android.synthetic.main.fragment_step_score.totalScore
 import kotlinx.android.synthetic.main.fragment_step_score.scorePercentTV
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -35,7 +35,7 @@ class StepScoreFragment : BaseFragment<StepScoreViewModel>(R.layout.fragment_ste
             val current = it.current.toString()
             val target = it.target.toString()
             stepsText.text = getString(R.string.steps_score_text, current, target)
-            circularProgressBar.progress = it.score
+            totalScore.progress = it.score
         }
         backIV.setOnClickListener { requireActivity().onBackPressed() }
     }

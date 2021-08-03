@@ -53,7 +53,7 @@ private fun calculateScore(currentValue: Int, targetValue: Int): ScoreInfo {
     } else {
         userProgress.toFloat()
     }
-    return ScoreInfo(currentValue, targetValue, score)
+    return ScoreInfo(currentValue, targetValue, score.coerceAtMost(100f))
 }
 
 fun TextView.applyPercentData(data: PercentData) {

@@ -6,6 +6,8 @@ import android.app.NotificationManager
 import androidx.core.content.getSystemService
 import androidx.work.WorkManager
 import com.feelsoftware.feelfine.data.repository.UserRepository
+import com.feelsoftware.feelfine.score.ScoreCalculator
+import com.feelsoftware.feelfine.score.ScoreCalculatorImpl
 import com.feelsoftware.feelfine.score.ScoreTargetProvider
 import com.feelsoftware.feelfine.score.ScoreTargetProviderImpl
 import com.feelsoftware.feelfine.utils.*
@@ -34,5 +36,8 @@ val utilsModule = module {
     }
     single<ScoreTargetProvider> {
         ScoreTargetProviderImpl(get<UserRepository>())
+    }
+    single<ScoreCalculator> {
+        ScoreCalculatorImpl()
     }
 }
