@@ -1,4 +1,4 @@
-package com.feelsoftware.feelfine.ui.score
+package com.feelsoftware.feelfine.score
 
 import android.widget.TextView
 import androidx.lifecycle.LiveData
