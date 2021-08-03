@@ -6,8 +6,6 @@
     <string name="dont_have_account">Let\'s get started!</string>
     <string name="nick_fill_error">Fill nick name</string>
     <string name="today_score">Today score</string>
-    <string name="activity_placeholder">%s/8 hours\nof your daily goal</string>
-    <string name="steps_placeholder">%s/15’000 steps\nof your daily goal</string>
     <string name="about_score">About score</string>
     <string name="about_score_text">
         Score consists of four values: Activity, Mood, Steps and quality of Sleep.
@@ -21,7 +19,7 @@
         <item>Activity</item>
         <item>Mood</item>
     </string-array>
-    <string name="i_accept_terms">I have read and accept %s</string>
+    <string name="i_accept_terms">I have read and accepted %s</string>
     <string name="i_accept_terms_link">Terms Of Use</string>
     <string name="mood_notification_title">Track your mood</string>
     <string name="mood_notification_message">How do you feel today?</string>

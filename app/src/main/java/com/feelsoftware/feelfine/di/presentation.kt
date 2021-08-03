@@ -5,6 +5,7 @@ package com.feelsoftware.feelfine.di
 import com.feelsoftware.feelfine.data.usecase.SetMoodUseCase
 import com.feelsoftware.feelfine.fit.FitPermissionManager
 import com.feelsoftware.feelfine.fit.usecase.GetFitDataUseCase
+import com.feelsoftware.feelfine.score.ScoreTargetProvider
 import com.feelsoftware.feelfine.ui.EntryPointViewModel
 import com.feelsoftware.feelfine.ui.base.EmptyViewModel
 import com.feelsoftware.feelfine.ui.home.HomeViewModel
@@ -43,16 +44,16 @@ val presentationModule = module {
         AgeViewModel(get<OnBoardingFlowManager>(), get<FitPermissionManager>())
     }
     viewModel {
-        CurrentScoreViewModel(get<GetFitDataUseCase>())
+        CurrentScoreViewModel(get<GetFitDataUseCase>(), get<ScoreTargetProvider>())
     }
     viewModel {
-        SleepScoreViewModel(get<GetFitDataUseCase>())
+        SleepScoreViewModel(get<GetFitDataUseCase>(), get<ScoreTargetProvider>())
     }
     viewModel {
-        StepScoreViewModel(get<GetFitDataUseCase>())
+        StepScoreViewModel(get<GetFitDataUseCase>(), get<ScoreTargetProvider>())
     }
     viewModel {
-        ActivityScoreViewModel(get<GetFitDataUseCase>())
+        ActivityScoreViewModel(get<GetFitDataUseCase>(), get<ScoreTargetProvider>())
     }
     viewModel {
         StatisticViewModel(get<GetFitDataUseCase>())

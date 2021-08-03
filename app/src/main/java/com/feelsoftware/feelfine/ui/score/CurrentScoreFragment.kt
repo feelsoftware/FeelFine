@@ -4,12 +4,14 @@ package com.feelsoftware.feelfine.ui.score
 
 import android.annotation.SuppressLint
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.map
 import com.feelsoftware.feelfine.R
 import com.feelsoftware.feelfine.extension.onClick
 import com.feelsoftware.feelfine.fit.model.Duration
-import com.feelsoftware.feelfine.fit.model.toIntMinutes
+import com.feelsoftware.feelfine.fit.model.toHours
 import com.feelsoftware.feelfine.fit.model.total
 import com.feelsoftware.feelfine.fit.usecase.*
+import com.feelsoftware.feelfine.score.ScoreTargetProvider
 import com.feelsoftware.feelfine.ui.base.BaseFragment
 import com.feelsoftware.feelfine.ui.base.BaseViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -21,22 +23,6 @@ class CurrentScoreFragment : BaseFragment<CurrentScoreViewModel>(R.layout.fragme
     override val viewModel: CurrentScoreViewModel by viewModel()
 
     override fun onReady() {
-        viewModel.stepsData.observe {
-            // TODO fetch userGoal from main source of personal goals
-            circularProgressBarSteps.progress = it.applyScore(15000)
-            stepsText.text = "${it.toString()} /15000 steps"
-        }
-        viewModel.sleepData.observe {
-            // TODO fetch userGoal from main source of personal goals
-            circularProgressBarSleep.progress = it.toIntMinutes().applyScore(60 * 8)
-            sleepText.text = "${it.hours} /8 hours"
-        }
-        viewModel.activityData.observe {
-            // TODO fetch userGoal from main source of personal goals
-            activityCircularProgressBar.progress = it.toIntMinutes().applyScore(60 * 8)
-            activityText.text = "${it.hours} /8 hours"
-        }
-
         viewModel.stepsPercents.observe {
             stepsPercentTV.applyPercentData(it)
         }
@@ -46,6 +32,20 @@ class CurrentScoreFragment : BaseFragment<CurrentScoreViewModel>(R.layout.fragme
         viewModel.activityPercents.observe {
             activityPercentTV.applyPercentData(it)
         }
+
+        viewModel.stepsScore.observe {
+            stepsText.text = "${it.current} / ${it.target} steps"
+            circularProgressBarSteps.progress = it.score
+        }
+        viewModel.sleepScore.observe {
+            sleepText.text = "${it.currentDuration.hours} / ${it.targetDuration.toHours()}"
+            circularProgressBarSleep.progress = it.score
+        }
+        viewModel.activityScore.observe {
+            activityText.text = "${it.currentDuration.hours} / ${it.targetDuration.toHours()}"
+            activityCircularProgressBar.progress = it.score
+        }
+
         stepLayout.onClick { viewModel.navigate(R.id.stepScoreFragment) }
         sleepLayout.onClick { viewModel.navigate(R.id.sleepScoreFragment) }
         activityLayout.onClick { viewModel.navigate(R.id.activityScoreFragment) }
@@ -55,20 +55,35 @@ class CurrentScoreFragment : BaseFragment<CurrentScoreViewModel>(R.layout.fragme
 }
 
 class CurrentScoreViewModel(
-    useCase: GetFitDataUseCase
+    useCase: GetFitDataUseCase,
+    scoreTargetProvider: ScoreTargetProvider
 ) : BaseViewModel() {
 
-    val stepsData = MutableLiveData<Int>()
-    val sleepData = MutableLiveData<Duration>()
-    val activityData = MutableLiveData<Duration>()
+    private val stepsCount = MutableLiveData<Int>()
+    private val sleepDuration = MutableLiveData<Duration>()
+    private val activityDuration = MutableLiveData<Duration>()
+
     val stepsPercents = MutableLiveData<PercentData>()
     val sleepPercents = MutableLiveData<PercentData>()
     val activityPercents = MutableLiveData<PercentData>()
 
+    val stepsScore = combineScoreData(
+        stepsCount,
+        scoreTargetProvider.getSteps()
+    )
+    val sleepScore = combineScoreData(
+        sleepDuration.map { it.minutesTotal },
+        scoreTargetProvider.getSleepDuration().map { it.minutesTotal }
+    )
+    val activityScore = combineScoreData(
+        activityDuration.map { it.minutesTotal },
+        scoreTargetProvider.getActivityDuration().map { it.minutesTotal }
+    )
+
     init {
-        stepsData.attachSource(useCase.getCurrentSteps()) { it.count }
-        sleepData.attachSource(useCase.getCurrentSleep()) { it.total }
-        activityData.attachSource(useCase.getCurrentActivity()) { it.total }
+        stepsCount.attachSource(useCase.getCurrentSteps()) { it.count }
+        sleepDuration.attachSource(useCase.getCurrentSleep()) { it.total }
+        activityDuration.attachSource(useCase.getCurrentActivity()) { it.total }
         combinePercentData(stepsPercents, useCase.getPercentSteps())
         combinePercentData(sleepPercents, useCase.getPercentSleep())
         combinePercentData(activityPercents, useCase.getPercentActivity())
