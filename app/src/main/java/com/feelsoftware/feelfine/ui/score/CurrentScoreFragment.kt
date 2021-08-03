@@ -11,7 +11,7 @@ import com.feelsoftware.feelfine.fit.model.Duration
 import com.feelsoftware.feelfine.fit.model.toHours
 import com.feelsoftware.feelfine.fit.model.total
 import com.feelsoftware.feelfine.fit.usecase.*
-import com.feelsoftware.feelfine.score.ScoreTargetProvider
+import com.feelsoftware.feelfine.score.*
 import com.feelsoftware.feelfine.ui.base.BaseFragment
 import com.feelsoftware.feelfine.ui.base.BaseViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel

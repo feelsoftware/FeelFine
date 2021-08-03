@@ -10,7 +10,7 @@ import com.feelsoftware.feelfine.fit.model.*
 import com.feelsoftware.feelfine.fit.usecase.GetFitDataUseCase
 import com.feelsoftware.feelfine.fit.usecase.getCurrentSteps
 import com.feelsoftware.feelfine.fit.usecase.getPercentSteps
-import com.feelsoftware.feelfine.score.ScoreTargetProvider
+import com.feelsoftware.feelfine.score.*
 import com.feelsoftware.feelfine.ui.base.BaseFragment
 import com.feelsoftware.feelfine.ui.base.BaseViewModel
 import kotlinx.android.synthetic.main.fragment_step_score.*
