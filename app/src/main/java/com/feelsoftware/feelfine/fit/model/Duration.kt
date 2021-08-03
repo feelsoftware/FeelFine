@@ -1,11 +1,15 @@
 package com.feelsoftware.feelfine.fit.model
 
 data class Duration(
-    private val raw: Int
+    val minutesTotal: Int
 ) {
-    val hours: Int = raw / 60
+    companion object {
+        fun of(hours: Int, minutes: Int = 0) = Duration(60 * hours + minutes)
+    }
 
-    val minutes: Int = raw % 60
+    val hours: Int = minutesTotal / 60
+
+    val minutes: Int = minutesTotal % 60
 
     override fun toString(): String {
         return "Duration(hours=$hours, minutes=$minutes)"
@@ -17,9 +21,6 @@ fun Duration.toHoursMinutes() =
 
 fun Duration.toHours() =
     this.hours.toString() + " h"
-
-fun Duration.toIntMinutes() =
-    this.hours * 60 + this.minutes
 
 operator fun Duration.plus(duration: Duration): Duration =
     Duration(hours * 60 + minutes + duration.hours * 60 + duration.minutes)
