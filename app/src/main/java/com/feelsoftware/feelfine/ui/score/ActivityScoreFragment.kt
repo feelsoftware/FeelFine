@@ -25,17 +25,23 @@ class ActivityScoreFragment :
 
     override fun onReady() {
         viewModel.activityInfo.observe {
-            walkingTV.text = "Walking: " + it.activityWalking.toHoursMinutes()
-            runningTV.text = "Running: " + it.activityRunning.toHoursMinutes()
-            otherTV.text = "Other: " + it.activityUnknown.toHoursMinutes()
+            walkingTV.text = getString(
+                R.string.activity_walking_duration, it.activityWalking.toHoursMinutes()
+            )
+            runningTV.text = getString(
+                R.string.activity_running_duration, it.activityRunning.toHoursMinutes()
+            )
+            otherTV.text = getString(
+                R.string.activity_other_duration, it.activityUnknown.toHoursMinutes()
+            )
         }
         viewModel.percents.observe {
             scorePercentTV.applyPercentData(it)
         }
         viewModel.score.observe {
-            val current = it.currentDuration.hours
-            val target = it.targetDuration.toHours()
-            activityText.text = "$current / $target\nof your daily goal"
+            val current = it.currentDuration.toHoursMinutes()
+            val target = it.targetDuration.toHoursMinutes()
+            activityText.text = getString(R.string.activity_score_text, current, target)
             circularProgressBar.progress = it.score
         }
         backIV.setOnClickListener { requireActivity().onBackPressed() }
