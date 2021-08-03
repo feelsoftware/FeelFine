@@ -3,12 +3,13 @@
 package com.feelsoftware.feelfine.ui.score
 
 import android.annotation.SuppressLint
-import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.*
 import com.feelsoftware.feelfine.R
 import com.feelsoftware.feelfine.fit.model.*
 import com.feelsoftware.feelfine.fit.usecase.GetFitDataUseCase
 import com.feelsoftware.feelfine.fit.usecase.getCurrentActivity
 import com.feelsoftware.feelfine.fit.usecase.getPercentActivity
+import com.feelsoftware.feelfine.score.ScoreTargetProvider
 import com.feelsoftware.feelfine.ui.base.BaseFragment
 import com.feelsoftware.feelfine.ui.base.BaseViewModel
 import kotlinx.android.synthetic.main.fragment_activity_score.*
@@ -23,27 +24,38 @@ class ActivityScoreFragment :
     override val viewModel: ActivityScoreViewModel by viewModel()
 
     override fun onReady() {
-        viewModel.activityData.observe {
-            circularProgressBar.progress = it.total.toIntMinutes().applyScore(8 * 60)
-            stepsText.text = resources.getString(R.string.activity_placeholder, it.total.toHours())
+        viewModel.activityInfo.observe {
             walkingTV.text = "Walking: " + it.activityWalking.toHoursMinutes()
             runningTV.text = "Running: " + it.activityRunning.toHoursMinutes()
             otherTV.text = "Other: " + it.activityUnknown.toHoursMinutes()
         }
-        viewModel.activityPercents.observe {
+        viewModel.percents.observe {
             scorePercentTV.applyPercentData(it)
+        }
+        viewModel.score.observe {
+            val current = it.currentDuration.hours
+            val target = it.targetDuration.toHours()
+            activityText.text = "$current / $target\nof your daily goal"
+            circularProgressBar.progress = it.score
         }
         backIV.setOnClickListener { requireActivity().onBackPressed() }
     }
 }
 
-class ActivityScoreViewModel(useCase: GetFitDataUseCase) : BaseViewModel() {
+class ActivityScoreViewModel(
+    useCase: GetFitDataUseCase,
+    scoreTargetProvider: ScoreTargetProvider
+) : BaseViewModel() {
 
-    val activityData = MutableLiveData<ActivityInfo>()
-    val activityPercents = MutableLiveData<PercentData>()
+    val activityInfo = MutableLiveData<ActivityInfo>()
+    val percents = MutableLiveData<PercentData>()
+    val score = combineScoreData(
+        activityInfo.map { it.total.minutesTotal },
+        scoreTargetProvider.getActivityDuration().map { it.minutesTotal }
+    )
 
     init {
-        activityData.attachSource(useCase.getCurrentActivity()) { it }
-        combinePercentData(activityPercents, useCase.getPercentActivity())
+        activityInfo.attachSource(useCase.getCurrentActivity()) { it }
+        combinePercentData(percents, useCase.getPercentActivity())
     }
 }
