@@ -39,7 +39,7 @@ class ActivityScoreFragment :
             scorePercentTV.applyPercentData(it)
         }
         viewModel.score.observe {
-            val current = it.currentDuration.toHoursMinutes()
+            val current = it.currentDuration?.toHoursMinutes() ?: "-"
             val target = it.targetDuration.toHoursMinutes()
             activityText.text = getString(R.string.activity_score_text, current, target)
             totalScore.progress = it.score

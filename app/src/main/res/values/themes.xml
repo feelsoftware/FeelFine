@@ -20,4 +20,20 @@
         <item name="android:windowTranslucentStatus">false</item>
         <item name="android:windowTranslucentNavigation">false</item>
     </style>
+
+    <style name="CurrentScorePercentStyle">
+        <item name="android:layout_width">26dp</item>
+        <item name="android:layout_height">26dp</item>
+        <item name="android:padding">1dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">8sp</item>
+        <item name="android:textColor">@color/greyishBrown</item>
+        <item name="android:fontFamily">@font/nunito_black</item>
+        <item name="android:background">@drawable/full_circle_shape</item>
+        <item name="android:backgroundTint">@color/paleGrey</item>
+        <item name="autoSizeMaxTextSize">14sp</item>
+        <item name="autoSizeMinTextSize">6sp</item>
+        <item name="autoSizeTextType">uniform</item>
+        <item name="android:lines">1</item>
+    </style>
 </resources>
