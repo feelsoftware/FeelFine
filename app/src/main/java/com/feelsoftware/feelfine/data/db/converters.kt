@@ -7,7 +7,7 @@ import java.util.*
 
 class DateConverter {
 
-    private val format = SimpleDateFormat("yyyy-mm-dd", Locale.ROOT)
+    private val format = SimpleDateFormat("yyyy-MM-dd", Locale.ROOT)
 
     @TypeConverter
     fun toRaw(date: Date?): String? = date?.let(format::format)
