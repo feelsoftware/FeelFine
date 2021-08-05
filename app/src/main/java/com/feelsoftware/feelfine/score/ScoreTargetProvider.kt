@@ -40,23 +40,34 @@ class ScoreTargetProviderImpl(
 
     private fun provideSteps(info: UserInfo): Int = with(info) {
         // TODO: calculate real data based on weight, age and gender
-        if (isMale) 6_000 else 4_500
+        when (age) {
+            in 0..6 -> 12_000
+            in 7..10 -> 17_000
+            in 11..15 -> 22_000
+            in 16..35 -> 15_000
+            in 36..50 -> 10_000
+            else -> 8_000
+        }
     }
 
     private fun provideActivityDuration(info: UserInfo): Duration = with(info) {
         // TODO: calculate real data based on weight, age and gender
         when (age) {
-            in 0..1 -> Duration.of(hours = 6)
-            in 2..9 -> Duration.of(hours = 11, minutes = 30)
-            else -> Duration.of(hours = 15, minutes = 30)
+            in 0..6 -> Duration.of(hours = 4)
+            in 7..18 -> Duration.of(hours = 3)
+            in 19..25 -> Duration.of(hours = 2)
+            else -> Duration.of(hours = 1, minutes = 30)
         }
     }
 
     private fun provideSleepDuration(info: UserInfo): Duration = with(info) {
         // TODO: calculate real data based on weight, age and gender
         when (age) {
-            in 0..1 -> Duration.of(hours = 18)
-            in 2..9 -> Duration.of(hours = 12, minutes = 30)
+            in 0..1 -> Duration.of(hours = 16)
+            in 2..3 -> Duration.of(hours = 13)
+            in 4..5 -> Duration.of(hours = 12)
+            in 6..12 -> Duration.of(hours = 11, minutes = 30)
+            in 13..18 -> Duration.of(hours = 9)
             else -> Duration.of(hours = 7, minutes = 30)
         }
     }
