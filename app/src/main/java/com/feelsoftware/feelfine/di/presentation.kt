@@ -2,6 +2,8 @@
 
 package com.feelsoftware.feelfine.di
 
+import com.feelsoftware.feelfine.data.usecase.GetCurrentMoodUseCase
+import com.feelsoftware.feelfine.data.usecase.GetPercentMoodUseCase
 import com.feelsoftware.feelfine.data.usecase.SetMoodUseCase
 import com.feelsoftware.feelfine.fit.FitPermissionManager
 import com.feelsoftware.feelfine.fit.usecase.GetFitDataUseCase
@@ -47,6 +49,8 @@ val presentationModule = module {
     viewModel {
         CurrentScoreViewModel(
             get<GetFitDataUseCase>(),
+            get<GetCurrentMoodUseCase>(),
+            get<GetPercentMoodUseCase>(),
             get<ScoreTargetProvider>(),
             get<ScoreCalculator>()
         )

@@ -32,7 +32,7 @@ class StepScoreFragment : BaseFragment<StepScoreViewModel>(R.layout.fragment_ste
             scorePercentTV.applyPercentData(it)
         }
         viewModel.score.observe {
-            val current = it.current.toString()
+            val current = it.current?.toString() ?: "-"
             val target = it.target.toString()
             stepsText.text = getString(R.string.steps_score_text, current, target)
             totalScore.progress = it.score

@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     android:layout_marginStart="38dp"
     android:layout_marginTop="20dp"
-    android:layout_marginEnd="38dp">
+    android:layout_marginEnd="38dp"
+    tools:ignore="SmallSp">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/centerGL"
@@ -240,14 +241,7 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/stepsPercentTV"
-            android:layout_width="26dp"
-            android:layout_height="26dp"
-            android:background="@drawable/full_circle_shape"
-            android:backgroundTint="@color/paleGrey"
-            android:fontFamily="@font/nunito_black"
-            android:gravity="center"
-            android:textColor="@color/greyishBrown"
-            android:textSize="8sp"
+            style="@style/CurrentScorePercentStyle"
             app:layout_constraintStart_toStartOf="@+id/stepsView"
             app:layout_constraintTop_toTopOf="@+id/stepsView"
             tools:text="+10%" />
@@ -361,17 +355,9 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/sleepPercentTV"
-            android:layout_width="26dp"
-            android:layout_height="26dp"
-            android:background="@drawable/full_circle_shape"
-            android:backgroundTint="@color/paleGrey"
-            android:fontFamily="@font/nunito_black"
-            android:gravity="center"
-            android:textColor="@color/greyishBrown"
-            android:textSize="8sp"
+            style="@style/CurrentScorePercentStyle"
             app:layout_constraintStart_toStartOf="@+id/sleepView"
             app:layout_constraintTop_toTopOf="@+id/sleepView"
-            tools:ignore="SmallSp"
             tools:text="+15%" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -468,17 +454,9 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/activityPercentTV"
-            android:layout_width="26dp"
-            android:layout_height="26dp"
-            android:background="@drawable/full_circle_shape"
-            android:backgroundTint="@color/paleGrey"
-            android:fontFamily="@font/nunito_black"
-            android:gravity="center"
-            android:textColor="@color/greyishBrown"
-            android:textSize="8sp"
+            style="@style/CurrentScorePercentStyle"
             app:layout_constraintStart_toStartOf="@+id/activityView"
             app:layout_constraintTop_toTopOf="@+id/activityView"
-            tools:ignore="SmallSp"
             tools:text="30%" />
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -587,17 +565,9 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/moodPercentTV"
-            android:layout_width="26dp"
-            android:layout_height="26dp"
-            android:background="@drawable/full_circle_shape"
-            android:backgroundTint="@color/paleGrey"
-            android:fontFamily="@font/nunito_black"
-            android:gravity="center"
-            android:textColor="@color/greyishBrown"
-            android:textSize="8sp"
+            style="@style/CurrentScorePercentStyle"
             app:layout_constraintStart_toStartOf="@+id/moodView"
             app:layout_constraintTop_toTopOf="@+id/moodView"
-            tools:ignore="SmallSp"
             tools:text="30%" />
 
         <androidx.appcompat.widget.AppCompatTextView
