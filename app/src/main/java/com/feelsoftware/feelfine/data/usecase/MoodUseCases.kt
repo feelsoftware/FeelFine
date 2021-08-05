@@ -36,7 +36,7 @@ class GetCurrentMoodUseCase(
 
     operator fun invoke(): Single<Optional<Mood>> {
         val date = Calendar.getInstance().apply {
-            set(Calendar.DAY_OF_YEAR, -1)
+            add(Calendar.DAY_OF_YEAR, -1)
         }.time
 
         return getMoodByDateUseCase(date)
@@ -49,10 +49,10 @@ class GetPercentMoodUseCase(
 
     operator fun invoke(): Observable<Optional<Int>> {
         val currentDate = Calendar.getInstance().apply {
-            set(Calendar.DAY_OF_YEAR, -1)
+            add(Calendar.DAY_OF_YEAR, -1)
         }.time
         val yesterdayDate = Calendar.getInstance().apply {
-            set(Calendar.DAY_OF_YEAR, -2)
+            add(Calendar.DAY_OF_YEAR, -2)
         }.time
 
         val currentData = getMoodByDateUseCase(currentDate)
