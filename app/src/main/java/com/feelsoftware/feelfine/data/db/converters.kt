@@ -19,7 +19,7 @@ class DateConverter {
 class DurationConverter {
 
     @TypeConverter
-    fun toRaw(duration: Duration?): Int? = duration?.let { it.hours * 60 + it.minutes }
+    fun toRaw(duration: Duration?): Int? = duration?.minutesTotal
 
     @TypeConverter
     fun toDuration(raw: Int?): Duration? = raw?.let(::Duration)

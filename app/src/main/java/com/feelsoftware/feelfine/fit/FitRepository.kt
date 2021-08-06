@@ -19,7 +19,6 @@ import com.google.api.services.fitness.model.AggregateResponse
 import com.google.api.services.fitness.model.Dataset
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
-import timber.log.Timber
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
@@ -81,6 +80,10 @@ class GoogleFitRepository(
     ): Single<AggregateResponse> = Single.create { emitter ->
         val scopes = fitnessOptions.impliedScopes ?: emptyList()
         val account = GoogleSignIn.getAccountForExtension(context, fitnessOptions)
+        if (account.account == null) {
+            emitter.onError(IllegalStateException("Account is null"))
+            return@create
+        }
 
         request.startTimeMillis = startTime.time
         request.endTimeMillis = endTime.time
@@ -97,37 +100,43 @@ class GoogleFitRepository(
             .setApplicationName(context.getString(R.string.app_name))
             .build()
 
-        val response = fitness.users()
-            .dataset()
-            .aggregate("me", request)
-            .execute()
-
-        emitter.onSuccess(response)
+        try {
+            val response = fitness.users()
+                .dataset()
+                .aggregate("me", request)
+                .execute()
+            emitter.onSuccess(response)
+        } catch (error: Throwable) {
+            emitter.onError(error)
+        }
     }
     // endregion
 
     // region Requests
-    private val stepsRequest = AggregateRequest().apply {
-        aggregateBy = listOf(
-            AggregateBy().apply {
-                dataTypeName = "com.google.step_count.delta"
-            }
-        )
-    }
-    private val sleepRequest = AggregateRequest().apply {
-        aggregateBy = listOf(
-            AggregateBy().apply {
-                dataTypeName = "com.google.sleep.segment"
-            }
-        )
-    }
-    private val activityRequest = AggregateRequest().apply {
-        aggregateBy = listOf(
-            AggregateBy().apply {
-                dataTypeName = "com.google.activity.segment"
-            }
-        )
-    }
+    private val stepsRequest: AggregateRequest
+        get() = AggregateRequest().apply {
+            aggregateBy = listOf(
+                AggregateBy().apply {
+                    dataTypeName = "com.google.step_count.delta"
+                }
+            )
+        }
+    private val sleepRequest: AggregateRequest
+        get() = AggregateRequest().apply {
+            aggregateBy = listOf(
+                AggregateBy().apply {
+                    dataTypeName = "com.google.sleep.segment"
+                }
+            )
+        }
+    private val activityRequest: AggregateRequest
+        get() = AggregateRequest().apply {
+            aggregateBy = listOf(
+                AggregateBy().apply {
+                    dataTypeName = "com.google.activity.segment"
+                }
+            )
+        }
     // engredion
 
     // region Parsing steps
@@ -225,10 +234,10 @@ class GoogleFitRepository(
             if (values.isEmpty()) continue
             list += SleepInfo(
                 date = today,
-                lightSleep = values.sumBy { it.lightSleep.minutes }.run(::Duration),
-                deepSleep = values.sumBy { it.deepSleep.minutes }.run(::Duration),
-                awake = values.sumBy { it.awake.minutes }.run(::Duration),
-                outOfBed = values.sumBy { it.outOfBed.minutes }.run(::Duration),
+                lightSleep = values.sumBy { it.lightSleep.minutesTotal }.run(::Duration),
+                deepSleep = values.sumBy { it.deepSleep.minutesTotal }.run(::Duration),
+                awake = values.sumBy { it.awake.minutesTotal }.run(::Duration),
+                outOfBed = values.sumBy { it.outOfBed.minutesTotal }.run(::Duration),
             )
         }
         return list
@@ -306,9 +315,9 @@ class GoogleFitRepository(
             val list = map.getValue(key)
             ActivityInfo(
                 date = calendar.time,
-                activityUnknown = list.sumBy { it.activityUnknown.minutes }.run(::Duration),
-                activityWalking = list.sumBy { it.activityWalking.minutes }.run(::Duration),
-                activityRunning = list.sumBy { it.activityRunning.minutes }.run(::Duration),
+                activityUnknown = list.sumBy { it.activityUnknown.minutesTotal }.run(::Duration),
+                activityWalking = list.sumBy { it.activityWalking.minutesTotal }.run(::Duration),
+                activityRunning = list.sumBy { it.activityRunning.minutesTotal }.run(::Duration),
             )
         }
     }
@@ -324,8 +333,6 @@ class GoogleFitRepository(
             val startTime = Date(TimeUnit.NANOSECONDS.toMillis(point.startTimeNanos))
             val endTime = Date(TimeUnit.NANOSECONDS.toMillis(point.endTimeNanos))
             val duration = (endTime.time - startTime.time).toInt()
-
-            Timber.e("activity $rawActivity, $startTime, $endTime")
 
             list += ActivityInfo(
                 date = startTime,
