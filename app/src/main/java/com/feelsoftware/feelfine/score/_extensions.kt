@@ -37,7 +37,11 @@ fun BaseViewModel.combinePercentData(
         .subscribeBy(onNext = { optional ->
             val percent = if (optional.isPresent) {
                 val percent = optional.value
-                if (percent >= 0) "+$percent%" else "$percent%"
+                when {
+                    percent == 0 -> "-"
+                    percent > 0 -> "+$percent%"
+                    else -> "$percent%"
+                }
             } else {
                 null
             }

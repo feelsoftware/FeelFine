@@ -54,7 +54,6 @@
             app:cpb_background_progressbar_color_end="@color/white"
             app:cpb_background_progressbar_color_start="@color/white"
             app:cpb_background_progressbar_width="7dp"
-            app:cpb_progress="86"
             app:cpb_progress_direction="to_left"
             app:cpb_progressbar_color="@color/softPurple"
             app:cpb_progressbar_width="8dp"
@@ -62,7 +61,8 @@
             app:layout_constraintBottom_toBottomOf="@id/scoreTV"
             app:layout_constraintEnd_toEndOf="@id/scoreTV"
             app:layout_constraintStart_toStartOf="@id/scoreTV"
-            app:layout_constraintTop_toTopOf="@id/scoreTV" />
+            app:layout_constraintTop_toTopOf="@id/scoreTV"
+            tools:cpb_progress="86" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/todayScoreTV"
@@ -537,7 +537,6 @@
             app:cpb_background_progressbar_color_end="@color/white"
             app:cpb_background_progressbar_color_start="@color/white"
             app:cpb_background_progressbar_width="5dp"
-            app:cpb_progress="89"
             app:cpb_progress_direction="to_left"
             app:cpb_progressbar_color="@color/softPurple"
             app:cpb_progressbar_width="4dp"
@@ -545,7 +544,8 @@
             app:layout_constraintBottom_toBottomOf="@id/moodView"
             app:layout_constraintEnd_toEndOf="@id/moodView"
             app:layout_constraintStart_toStartOf="@id/moodView"
-            app:layout_constraintTop_toTopOf="@id/moodView" />
+            app:layout_constraintTop_toTopOf="@id/moodView"
+            tools:cpb_progress="89" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="0dp"
