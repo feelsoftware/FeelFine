@@ -71,6 +71,7 @@ class GoogleFitRepository(
         .filter { it }
         .flatMapSingle {
             getData(startTime, endTime, request)
+                .subscribeOn(Schedulers.io())
         }.firstOrError()
 
     private fun getData(
@@ -81,6 +82,7 @@ class GoogleFitRepository(
         val scopes = fitnessOptions.impliedScopes ?: emptyList()
         val account = GoogleSignIn.getAccountForExtension(context, fitnessOptions)
         if (account.account == null) {
+            if (emitter.isDisposed) return@create
             emitter.onError(IllegalStateException("Account is null"))
             return@create
         }
@@ -107,6 +109,7 @@ class GoogleFitRepository(
                 .execute()
             emitter.onSuccess(response)
         } catch (error: Throwable) {
+            if (emitter.isDisposed) return@create
             emitter.onError(error)
         }
     }
