@@ -15,7 +15,7 @@
         <item name="android:windowBackground">@color/white</item>
 
         <!-- Status bar configs -->
-        <item name="android:statusBarColor">@color/white</item>
+        <item name="android:statusBarColor">@color/statusBar</item>
         <item name="android:windowLightStatusBar">true</item>
         <item name="android:windowTranslucentStatus">false</item>
         <item name="android:windowTranslucentNavigation">false</item>

@@ -16,6 +16,8 @@ class MoodFragment : BaseFragment<MoodViewModel>(R.layout.fragment_mood) {
 
     override val viewModel: MoodViewModel by viewModel()
 
+    override val statusBarColorResId: Int = R.color.sandTwo
+
     override fun onReady() {
         backIV.onClick { navigateBack() }
         apathyIV.onClick { onMoodClicked(Mood.APATHY) }

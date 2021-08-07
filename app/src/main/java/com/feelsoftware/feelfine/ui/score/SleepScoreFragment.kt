@@ -23,6 +23,8 @@ class SleepScoreFragment : BaseFragment<SleepScoreViewModel>(R.layout.fragment_s
 
     override val viewModel: SleepScoreViewModel by viewModel()
 
+    override val statusBarColorResId: Int = R.color.lavenderTwo
+
     override fun onReady() {
         viewModel.sleepInfo.observe {
             awakeTV.text = getString(
