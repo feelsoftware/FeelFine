@@ -5,7 +5,7 @@
     <string name="sign_in">Sign in</string>
     <string name="dont_have_account">Let\'s get started!</string>
     <string name="nick_fill_error">Fill nick name</string>
-    <string name="today_score">Today score</string>
+    <string name="current_score_title">Current score</string>
     <string name="activity_score_text">%1$s / %2$s\nof your daily goal</string>
     <string name="activity_walking_duration">Walking: %s</string>
     <string name="activity_running_duration">Running: %s</string>
