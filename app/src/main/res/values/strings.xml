@@ -23,6 +23,8 @@
     <string name="current_score_sleep">%1$s / %2$s</string>
     <string name="current_score_activity">%1$s / %2$s</string>
     <string name="current_score_mood">%1$s / %2$s points</string>
+    <string name="user_age_placeholder">%s years</string>
+    <string name="user_weight_placeholder">%s kg</string>
     <string name="about_score">About score</string>
     <string name="about_score_text">
         Score consists of four values: Activity, Mood, Steps and quality of Sleep.
@@ -40,4 +42,6 @@
     <string name="i_accept_terms_link">Terms Of Use</string>
     <string name="mood_notification_title">Track your mood</string>
     <string name="mood_notification_message">How do you feel today?</string>
+    <string name="your_goals">Your goals:</string>
+    <string name="update_lowercase">update</string>
 </resources>
