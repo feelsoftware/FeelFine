@@ -24,6 +24,9 @@
     <string name="current_score_activity">%1$s / %2$s</string>
     <string name="current_score_mood">%1$s / %2$s points</string>
     <string name="user_age_placeholder">%s years</string>
+    <string name="activity_placeholder">Activity: %s</string>
+    <string name="steps_placeholder">Steps: %s</string>
+    <string name="sleep_placeholder">Sleep: %s</string>
     <string name="user_weight_placeholder">%s kg</string>
     <string name="about_score">About score</string>
     <string name="about_score_text">
