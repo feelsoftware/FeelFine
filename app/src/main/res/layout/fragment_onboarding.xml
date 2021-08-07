@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_container"
@@ -18,8 +17,8 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_centerVertical="true"
-            android:scaleType="fitStart"
             android:layout_marginBottom="20dp"
+            android:scaleType="fitStart"
             app:layout_constraintBottom_toTopOf="@+id/guideline"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -57,10 +56,10 @@
             android:id="@+id/photoLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="12sp"
             android:fontFamily="@font/nunito_extrabold"
             android:text="@string/dont_have_account"
             android:textColor="@color/greyText"
+            android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/welcomeLabel" />
@@ -69,12 +68,12 @@
             android:id="@+id/registerB"
             android:layout_width="200dp"
             android:layout_height="39dp"
+            android:layout_marginTop="20dp"
             android:background="@drawable/button_purple_rounded"
             android:fontFamily="@font/nunito_extrabold"
-            android:text="@string/register"
+            android:text="Continue"
             android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="20dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/loginB" />
 
@@ -82,12 +81,13 @@
             android:id="@+id/loginB"
             android:layout_width="200dp"
             android:layout_height="39dp"
-            android:backgroundTint="@color/purpleLight"
+            android:layout_marginTop="20dp"
             android:background="@drawable/button_purple_rounded"
+            android:backgroundTint="@color/purpleLight"
             android:fontFamily="@font/nunito_extrabold"
             android:text="@string/sign_in"
             android:textColor="@color/black"
-            android:layout_marginTop="20dp"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/photoLabel" />
@@ -98,7 +98,6 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             app:layout_constraintGuide_percent="0.5" />
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
