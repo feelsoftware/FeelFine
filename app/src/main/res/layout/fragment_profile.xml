@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:paddingStart="40dp"
     android:paddingEnd="40dp"
     android:layout_width="match_parent"
@@ -21,7 +22,7 @@
         android:layout_marginTop="20dp"
         android:fontFamily="@font/nunito_extrabold"
         android:gravity="center"
-        android:text="Maria"
+        tools:text="Maria"
         android:textColor="@color/blueMain"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -103,11 +104,12 @@
             android:src="@drawable/ic_wage" />
 
         <TextView
+            android:id="@+id/wageTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/nunito_black"
             android:layout_gravity="center"
-            android:text="57 kg"
+            tools:text="57 kg"
             android:textColor="@color/greyishBrown"
             android:textSize="13sp" />
 
@@ -149,11 +151,12 @@
             android:src="@drawable/ic_calendar" />
 
         <TextView
+            android:id="@+id/ageTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/nunito_black"
             android:layout_gravity="center"
-            android:text="22 y.o."
+            tools:text="22 y.o."
             android:textColor="@color/greyishBrown"
             android:textSize="13sp" />
 
@@ -181,7 +184,7 @@
             android:layout_gravity="start"
             android:fontFamily="@font/nunito_extrabold"
             android:gravity="center"
-            android:text="Your goals: "
+            android:text="@string/your_goals"
             android:textColor="@color/softPurple"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
@@ -194,7 +197,7 @@
             android:layout_gravity="start"
             android:fontFamily="@font/nunito_black"
             android:gravity="center"
-            android:text="update"
+            android:text="@string/update_lowercase"
             android:textColor="@color/white"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -210,7 +213,7 @@
             android:drawablePadding="8dp"
             android:fontFamily="@font/nunito_extrabold"
             android:gravity="center"
-            android:text="Steps: 12000"
+            tools:text="Steps: 10000"
             android:textColor="@color/greyishBrown"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
@@ -226,7 +229,7 @@
             android:drawablePadding="8dp"
             android:fontFamily="@font/nunito_extrabold"
             android:gravity="center"
-            android:text="Sleep: 4h"
+            tools:text="Sleep: 4 h"
             android:textColor="@color/greyishBrown"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
@@ -242,7 +245,7 @@
             android:drawablePadding="8dp"
             android:fontFamily="@font/nunito_extrabold"
             android:gravity="center"
-            android:text="Activity: 4h"
+            tools:text="Activity: 2 h"
             android:textColor="@color/greyishBrown"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
