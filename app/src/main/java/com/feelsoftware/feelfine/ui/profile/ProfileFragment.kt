@@ -23,15 +23,14 @@ class ProfileFragment : BaseFragment<ProfileViewModel>(R.layout.fragment_profile
             ageTV.text = getString(R.string.user_age_placeholder, it.age.toString())
         }
         viewModel.stepsTarget.observe {
-            stepsTV.text = it.toString()
+            stepsTV.text = getString(R.string.steps_placeholder, it.toString())
         }
         viewModel.sleepTarget.observe {
-            sleepTV.text = it.toHours()
+            sleepTV.text = getString(R.string.sleep_placeholder, it.toHours())
         }
         viewModel.activityTarget.observe {
-            activityTV.text = it.toHours()
+            activityTV.text = getString(R.string.activity_placeholder, it.toHours())
         }
-
     }
 }
 
