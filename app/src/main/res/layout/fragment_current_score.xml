@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     android:layout_marginStart="38dp"
     android:layout_marginTop="20dp"
-    android:layout_marginEnd="38dp">
+    android:layout_marginEnd="38dp"
+    tools:ignore="SmallSp">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/centerGL"
@@ -45,7 +46,7 @@
             tools:text="86" />
 
         <com.mikhaellopez.circularprogressbar.CircularProgressBar
-            android:id="@+id/totalScore"
+            android:id="@+id/currentScore"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_margin="8dp"
@@ -53,7 +54,6 @@
             app:cpb_background_progressbar_color_end="@color/white"
             app:cpb_background_progressbar_color_start="@color/white"
             app:cpb_background_progressbar_width="7dp"
-            app:cpb_progress="86"
             app:cpb_progress_direction="to_left"
             app:cpb_progressbar_color="@color/softPurple"
             app:cpb_progressbar_width="8dp"
@@ -61,21 +61,22 @@
             app:layout_constraintBottom_toBottomOf="@id/scoreTV"
             app:layout_constraintEnd_toEndOf="@id/scoreTV"
             app:layout_constraintStart_toStartOf="@id/scoreTV"
-            app:layout_constraintTop_toTopOf="@id/scoreTV" />
+            app:layout_constraintTop_toTopOf="@id/scoreTV"
+            tools:cpb_progress="86" />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/todayScoreTV"
+            android:id="@+id/currentScoreTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:drawableEnd="@drawable/ic_info"
             android:drawablePadding="4dp"
             android:fontFamily="@font/nunito_black"
             android:gravity="center"
-            android:text="@string/today_score"
+            android:text="@string/current_score_title"
             android:textColor="@color/white"
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/totalScore"
+            app:layout_constraintStart_toEndOf="@+id/currentScore"
             app:layout_constraintTop_toTopOf="@+id/scoreTV" />
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -86,8 +87,8 @@
             android:gravity="center"
             android:textColor="@color/greyishBrown"
             android:textSize="13sp"
-            app:layout_constraintEnd_toEndOf="@+id/todayScoreTV"
-            app:layout_constraintTop_toBottomOf="@id/todayScoreTV"
+            app:layout_constraintEnd_toEndOf="@+id/currentScoreTV"
+            app:layout_constraintTop_toBottomOf="@id/currentScoreTV"
             tools:text="+15%" />
 
         <com.google.android.material.progressindicator.CircularProgressIndicator
@@ -240,14 +241,7 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/stepsPercentTV"
-            android:layout_width="26dp"
-            android:layout_height="26dp"
-            android:background="@drawable/full_circle_shape"
-            android:backgroundTint="@color/paleGrey"
-            android:fontFamily="@font/nunito_black"
-            android:gravity="center"
-            android:textColor="@color/greyishBrown"
-            android:textSize="8sp"
+            style="@style/CurrentScorePercentStyle"
             app:layout_constraintStart_toStartOf="@+id/stepsView"
             app:layout_constraintTop_toTopOf="@+id/stepsView"
             tools:text="+10%" />
@@ -361,17 +355,9 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/sleepPercentTV"
-            android:layout_width="26dp"
-            android:layout_height="26dp"
-            android:background="@drawable/full_circle_shape"
-            android:backgroundTint="@color/paleGrey"
-            android:fontFamily="@font/nunito_black"
-            android:gravity="center"
-            android:textColor="@color/greyishBrown"
-            android:textSize="8sp"
+            style="@style/CurrentScorePercentStyle"
             app:layout_constraintStart_toStartOf="@+id/sleepView"
             app:layout_constraintTop_toTopOf="@+id/sleepView"
-            tools:ignore="SmallSp"
             tools:text="+15%" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -468,17 +454,9 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/activityPercentTV"
-            android:layout_width="26dp"
-            android:layout_height="26dp"
-            android:background="@drawable/full_circle_shape"
-            android:backgroundTint="@color/paleGrey"
-            android:fontFamily="@font/nunito_black"
-            android:gravity="center"
-            android:textColor="@color/greyishBrown"
-            android:textSize="8sp"
+            style="@style/CurrentScorePercentStyle"
             app:layout_constraintStart_toStartOf="@+id/activityView"
             app:layout_constraintTop_toTopOf="@+id/activityView"
-            tools:ignore="SmallSp"
             tools:text="30%" />
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -559,7 +537,6 @@
             app:cpb_background_progressbar_color_end="@color/white"
             app:cpb_background_progressbar_color_start="@color/white"
             app:cpb_background_progressbar_width="5dp"
-            app:cpb_progress="89"
             app:cpb_progress_direction="to_left"
             app:cpb_progressbar_color="@color/softPurple"
             app:cpb_progressbar_width="4dp"
@@ -567,7 +544,8 @@
             app:layout_constraintBottom_toBottomOf="@id/moodView"
             app:layout_constraintEnd_toEndOf="@id/moodView"
             app:layout_constraintStart_toStartOf="@id/moodView"
-            app:layout_constraintTop_toTopOf="@id/moodView" />
+            app:layout_constraintTop_toTopOf="@id/moodView"
+            tools:cpb_progress="89" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="0dp"
@@ -587,17 +565,9 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/moodPercentTV"
-            android:layout_width="26dp"
-            android:layout_height="26dp"
-            android:background="@drawable/full_circle_shape"
-            android:backgroundTint="@color/paleGrey"
-            android:fontFamily="@font/nunito_black"
-            android:gravity="center"
-            android:textColor="@color/greyishBrown"
-            android:textSize="8sp"
+            style="@style/CurrentScorePercentStyle"
             app:layout_constraintStart_toStartOf="@+id/moodView"
             app:layout_constraintTop_toTopOf="@+id/moodView"
-            tools:ignore="SmallSp"
             tools:text="30%" />
 
         <androidx.appcompat.widget.AppCompatTextView
