@@ -42,7 +42,7 @@ class SleepScoreFragment : BaseFragment<SleepScoreViewModel>(R.layout.fragment_s
             scorePercentTV.applyPercentData(it)
         }
         viewModel.score.observe {
-            val current = it.currentDuration.toHoursMinutes()
+            val current = it.currentDuration?.toHoursMinutes() ?: "-"
             val target = it.targetDuration.toHoursMinutes()
             sleepText.text = getString(R.string.sleep_score_text, current, target)
             totalScore.progress = it.score

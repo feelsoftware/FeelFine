@@ -24,10 +24,11 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="12dp"
-        app:elevation="0dp"
         android:background="@drawable/bg_bottom_navigation"
+        app:elevation="0dp"
         app:itemIconTint="@color/bottom_navigation"
         app:itemTextColor="@color/bottom_navigation"
+        app:labelVisibilityMode="labeled"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/nav_host_fragment"
         app:menu="@menu/home" />
