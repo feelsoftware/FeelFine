@@ -51,7 +51,6 @@
         app:cpb_background_progressbar_color_end="@color/purpleLight"
         app:cpb_background_progressbar_color_start="@color/white"
         app:cpb_background_progressbar_width="5dp"
-        tools:cpb_progress="86"
         app:cpb_progress_direction="to_left"
         app:cpb_progressbar_color="@color/darkishPink"
         app:cpb_progressbar_width="8dp"
@@ -59,7 +58,8 @@
         app:layout_constraintBottom_toBottomOf="@id/stepsView"
         app:layout_constraintEnd_toEndOf="@id/stepsView"
         app:layout_constraintStart_toStartOf="@id/stepsView"
-        app:layout_constraintTop_toTopOf="@id/stepsView" />
+        app:layout_constraintTop_toTopOf="@id/stepsView"
+        tools:cpb_progress="86" />
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/appCompatImageView"
@@ -86,23 +86,16 @@
         android:fontFamily="@font/nunito_extrabold"
         android:gravity="center"
         android:lines="2"
-        tools:text="2/4 hours \n of your daily goal"
         android:textColor="@color/white"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/stepsView" />
+        app:layout_constraintTop_toBottomOf="@+id/stepsView"
+        tools:text="2/4 hours \n of your daily goal" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/scorePercentTV"
-        android:layout_width="64dp"
-        android:layout_height="64dp"
-        android:background="@drawable/full_circle_shape"
-        android:backgroundTint="@color/paleGrey"
-        android:fontFamily="@font/nunito_black"
-        android:gravity="center"
-        android:textColor="@color/greyishBrown"
-        android:textSize="16sp"
+        style="@style/ScoreDetailsPercentStyle"
         app:layout_constraintStart_toStartOf="@+id/stepsView"
         app:layout_constraintTop_toTopOf="@+id/stepsView"
         tools:text="+10%" />
@@ -134,13 +127,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/activityText">
 
-
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/walkingTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
-            android:drawableLeft="@drawable/ic_distance"
+            android:drawableStart="@drawable/ic_distance"
             android:drawablePadding="12dp"
             android:drawableTint="@color/darkishPink"
             android:fontFamily="@font/nunito_extrabold"
@@ -150,7 +142,7 @@
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="Walking : 2 hours" />
+            tools:text="Walking: 2 hours" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/runningTV"
@@ -168,7 +160,7 @@
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/walkingTV"
-            tools:text="Running : 1 h 15 m" />
+            tools:text="Running: 1 h 15 m" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/otherTV"
@@ -186,7 +178,7 @@
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/runningTV"
-            tools:text="Other : 45 minutes" />
+            tools:text="Other: 45 minutes" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
