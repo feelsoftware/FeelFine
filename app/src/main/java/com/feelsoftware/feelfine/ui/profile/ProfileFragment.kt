@@ -46,9 +46,9 @@ class ProfileViewModel(
     val activityTarget = MutableLiveData<Duration>()
 
     init {
-        stepsTarget.attachSource(scoreTargetProvider.getSteps().toObservable()){it}
-        sleepTarget.attachSource(scoreTargetProvider.getSleepDuration().toObservable()){it}
-        activityTarget.attachSource(scoreTargetProvider.getActivityDuration().toObservable()){it}
+        stepsTarget.attachSource(scoreTargetProvider.getSteps().toObservable()) { it }
+        sleepTarget.attachSource(scoreTargetProvider.getSleepDuration().toObservable()) { it }
+        activityTarget.attachSource(scoreTargetProvider.getActivityDuration().toObservable()) { it }
         userProfile.attachSource(userRepo.getProfile()) { it }
     }
 }
