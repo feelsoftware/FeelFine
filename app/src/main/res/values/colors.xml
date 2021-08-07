@@ -7,17 +7,11 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-
-    <!--    Green-->
+    <color name="statusBar">@color/white</color>
     <color name="greenMain">#00CA9D</color>
-
-    <!-- Grey-->
-
     <color name="greyText">#CDAEAEC0</color>
     <color name="greyishBrown">#4d4d4d</color>
-
     <color name="paleGrey">#ede5f0</color>
-
     <color name="redMain">#FFA990</color>
     <color name="sand">#cbd859</color>
     <color name="powerPink">#ffa9c4</color>

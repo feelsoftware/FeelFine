@@ -23,6 +23,8 @@ class StepScoreFragment : BaseFragment<StepScoreViewModel>(R.layout.fragment_ste
 
     override val viewModel: StepScoreViewModel by viewModel()
 
+    override val statusBarColorResId: Int = R.color.powderBlue
+
     override fun onReady() {
         viewModel.stepsInfo.observe {
             caloriesTV.text = getString(R.string.steps_calories, it.calories)

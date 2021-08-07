@@ -12,6 +12,8 @@ import com.feelsoftware.feelfine.score.ScoreCalculator
 import com.feelsoftware.feelfine.score.ScoreTargetProvider
 import com.feelsoftware.feelfine.ui.EntryPointViewModel
 import com.feelsoftware.feelfine.ui.base.EmptyViewModel
+import com.feelsoftware.feelfine.ui.base.StatusBarColorModifier
+import com.feelsoftware.feelfine.ui.base.StatusBarColorModifierImpl
 import com.feelsoftware.feelfine.ui.home.HomeViewModel
 import com.feelsoftware.feelfine.ui.onboarding.AgeViewModel
 import com.feelsoftware.feelfine.ui.onboarding.GenderViewModel
@@ -20,12 +22,16 @@ import com.feelsoftware.feelfine.ui.onboarding.WeightViewModel
 import com.feelsoftware.feelfine.ui.profile.ProfileViewModel
 import com.feelsoftware.feelfine.ui.score.*
 import com.feelsoftware.feelfine.ui.statistic.StatisticViewModel
+import com.feelsoftware.feelfine.utils.ActivityEngine
 import com.feelsoftware.feelfine.utils.MoodTracker
 import com.feelsoftware.feelfine.utils.OnBoardingFlowManager
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val presentationModule = module {
+    factory<StatusBarColorModifier> {
+        StatusBarColorModifierImpl(get<ActivityEngine>())
+    }
     viewModel {
         EmptyViewModel()
     }

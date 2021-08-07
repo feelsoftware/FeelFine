@@ -23,6 +23,8 @@ class ActivityScoreFragment :
 
     override val viewModel: ActivityScoreViewModel by viewModel()
 
+    override val statusBarColorResId: Int = R.color.pastelPink
+
     override fun onReady() {
         viewModel.activityInfo.observe {
             walkingTV.text = getString(
