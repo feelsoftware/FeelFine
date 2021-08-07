@@ -1,11 +1,11 @@
 <resources>
-    <string name="app_name">Feel Fine</string>
-    <string name="welcome_title">Welcome to Feel Fine!</string>
+    <string name="app_name">FeelFine</string>
+    <string name="welcome_title">Welcome to FeelFine!</string>
     <string name="register">Sing up</string>
     <string name="sign_in">Sign in</string>
     <string name="dont_have_account">Let\'s get started!</string>
     <string name="nick_fill_error">Fill nick name</string>
-    <string name="today_score">Today score</string>
+    <string name="current_score_title">Current score</string>
     <string name="activity_score_text">%1$s / %2$s\nof your daily goal</string>
     <string name="activity_walking_duration">Walking: %s</string>
     <string name="activity_running_duration">Running: %s</string>
@@ -19,9 +19,10 @@
     <string name="steps_calories">Burned %s cal</string>
     <string name="steps_distance">Distance %s km</string>
     <string name="current_score">%.0f</string>
-    <string name="current_score_steps">%1$d / %2$d</string>
+    <string name="current_score_steps">%1$s / %2$s</string>
     <string name="current_score_sleep">%1$s / %2$s</string>
     <string name="current_score_activity">%1$s / %2$s</string>
+    <string name="current_score_mood">%1$s / %2$s points</string>
     <string name="user_age_placeholder">%s years</string>
     <string name="user_weight_placeholder">%s kg</string>
     <string name="about_score">About score</string>

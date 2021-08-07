@@ -2,10 +2,10 @@
 
 package com.feelsoftware.feelfine.fit.usecase
 
+import com.feelsoftware.feelfine.data.model.Optional
 import com.feelsoftware.feelfine.data.repository.ActivityDataRepository
 import com.feelsoftware.feelfine.data.repository.SleepDataRepository
 import com.feelsoftware.feelfine.data.repository.StepsDataRepository
-import com.feelsoftware.feelfine.fit.FitRepository
 import com.feelsoftware.feelfine.fit.model.*
 import io.reactivex.rxjava3.core.Observable
 import org.koin.core.component.KoinComponent
@@ -15,7 +15,7 @@ import kotlin.math.roundToInt
 class GetFitDataUseCase(
     private val stepsRepository: StepsDataRepository,
     private val sleepRepository: SleepDataRepository,
-    private val activityRepository: ActivityDataRepository,
+    private val activityRepository: ActivityDataRepository
 ) : KoinComponent {
 
     fun getSteps(startTime: Date, endTime: Date): Observable<List<StepsInfo>> =
@@ -46,38 +46,47 @@ fun GetFitDataUseCase.getCurrentActivity(): Observable<ActivityInfo> {
 // endregion
 
 // region Percent data
-fun GetFitDataUseCase.getPercentSteps(): Observable<Int> {
+fun GetFitDataUseCase.getPercentSteps(): Observable<Optional<Int>> {
     val currentData = getCurrentSteps()
 
     val (startTime, endTime) = yesterdayDates()
     val yesterdayData = getSteps(startTime, endTime).oneItem(startTime)
 
     return Observable.zip(currentData, yesterdayData, { current, yesterday ->
-        (current.count * 100f / yesterday.count.coerceAtLeast(1)).roundToInt() - 100
+        calculatePercent(current.count, yesterday.count)
     })
 }
 
-fun GetFitDataUseCase.getPercentSleep(): Observable<Int> {
+fun GetFitDataUseCase.getPercentSleep(): Observable<Optional<Int>> {
     val currentData = getCurrentSleep()
 
     val (startTime, endTime) = yesterdayDates(forSleep = true)
     val yesterdayData = getSleep(startTime, endTime).oneItem(startTime)
 
     return Observable.zip(currentData, yesterdayData, { current, yesterday ->
-        (current.total.minutes * 100f / yesterday.total.minutes.coerceAtLeast(1)).roundToInt() - 100
+        calculatePercent(current.total.minutesTotal, yesterday.total.minutesTotal)
     })
 }
 
-fun GetFitDataUseCase.getPercentActivity(): Observable<Int> {
+fun GetFitDataUseCase.getPercentActivity(): Observable<Optional<Int>> {
     val currentData = getCurrentActivity()
 
     val (startTime, endTime) = yesterdayDates()
     val yesterdayData = getActivity(startTime, endTime).oneItem(startTime)
 
     return Observable.zip(currentData, yesterdayData, { current, yesterday ->
-        (current.total.minutes * 100f / yesterday.total.minutes.coerceAtLeast(1)).roundToInt() - 100
+        calculatePercent(current.total.minutesTotal, yesterday.total.minutesTotal)
     })
 }
+
+private fun calculatePercent(current: Int, yesterday: Int): Optional<Int> =
+    if (current == 0 && yesterday == 0) {
+        Optional.empty()
+    } else {
+        Optional.of(
+            (current * 100f / yesterday.coerceAtLeast(1)).roundToInt() - 100
+        )
+    }
 // endregion
 
 @JvmName("OneItemSteps")

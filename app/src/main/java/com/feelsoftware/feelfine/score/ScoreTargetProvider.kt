@@ -1,5 +1,6 @@
 package com.feelsoftware.feelfine.score
 
+import com.feelsoftware.feelfine.data.model.Mood
 import com.feelsoftware.feelfine.data.model.UserProfile
 import com.feelsoftware.feelfine.data.repository.UserRepository
 import com.feelsoftware.feelfine.fit.model.Duration
@@ -12,6 +13,8 @@ interface ScoreTargetProvider {
     fun getActivityDuration(): Single<Duration>
 
     fun getSleepDuration(): Single<Duration>
+
+    fun getMood(): Single<Mood>
 }
 
 class ScoreTargetProviderImpl(
@@ -26,6 +29,9 @@ class ScoreTargetProviderImpl(
 
     override fun getSleepDuration(): Single<Duration> =
         getUserInfo().map(::provideSleepDuration)
+
+    override fun getMood(): Single<Mood> =
+        Single.just(Mood.values().maxByOrNull { it.intensity } ?: Mood.values().last())
 
     private fun getUserInfo(): Single<UserInfo> =
         userRepository.getProfile()

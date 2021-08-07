@@ -1,10 +1,11 @@
 package com.feelsoftware.feelfine.score
 
 import android.widget.TextView
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.liveData
-import androidx.lifecycle.switchMap
+import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
+import androidx.lifecycle.*
+import com.feelsoftware.feelfine.R
+import com.feelsoftware.feelfine.data.model.Optional
 import com.feelsoftware.feelfine.data.model.ScoreInfo
 import com.feelsoftware.feelfine.extension.await
 import com.feelsoftware.feelfine.extension.subscribeBy
@@ -15,21 +16,34 @@ import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
 import timber.log.Timber
 
-typealias PercentData = String
+sealed class PercentData {
+    data class Value(val percent: String) : PercentData()
+    object Empty : PercentData()
+    object Error : PercentData()
+}
 
-inline val ScoreInfo.currentDuration: Duration
-    get() = Duration(current)
+inline val ScoreInfo.currentDuration: Duration?
+    get() = current?.let(::Duration)
 
 inline val ScoreInfo.targetDuration: Duration
     get() = Duration(target)
 
 fun BaseViewModel.combinePercentData(
     target: MutableLiveData<PercentData>,
-    source: Observable<Int>
+    source: Observable<Optional<Int>>
 ) {
     source.observeOn(AndroidSchedulers.mainThread())
-        .subscribeBy(onNext = { percent ->
-            target.value = if (percent >= 0) "+$percent%" else "$percent%"
+        .subscribeBy(onNext = { optional ->
+            target.value = if (optional.isPresent) {
+                val percent = optional.value
+                when {
+                    percent == 0 -> PercentData.Empty
+                    percent > 0 -> PercentData.Value("+$percent%")
+                    else -> PercentData.Value("$percent%")
+                }
+            } else {
+                PercentData.Error
+            }
         }, onError = {
             Timber.e(it, "Failed to combine percent data")
         })
@@ -38,10 +52,21 @@ fun BaseViewModel.combinePercentData(
 
 fun combineScoreData(
     currentData: LiveData<Int>,
-    scoreData: Single<Int>
+    targetData: Single<Int>
+): LiveData<ScoreInfo> = combineScoreData(currentData.map { Optional.of(it) }, targetData)
+
+@JvmName("combineScoreDataOptional")
+fun combineScoreData(
+    currentData: LiveData<Optional<Int>>,
+    targetData: Single<Int>
 ): LiveData<ScoreInfo> = currentData.switchMap { current ->
     liveData {
-        val score = calculateScore(current, scoreData.await())
+        val target = targetData.await()
+        val score: ScoreInfo = if (current.isPresent) {
+            calculateScore(current.value, target)
+        } else {
+            ScoreInfo(null, target, 100f)
+        }
         emit(score)
     }
 }
@@ -57,5 +82,17 @@ private fun calculateScore(currentValue: Int, targetValue: Int): ScoreInfo {
 }
 
 fun TextView.applyPercentData(data: PercentData) {
-    text = data
+    text = when (data) {
+        is PercentData.Value -> data.percent
+        is PercentData.Error -> "!"
+        else -> null
+    }
+    isVisible = data !is PercentData.Empty
+
+    val textColor = when (data) {
+        is PercentData.Value -> R.color.greyishBrown
+        is PercentData.Error -> R.color.darkishPink
+        else -> return
+    }
+    setTextColor(ContextCompat.getColor(context, textColor))
 }

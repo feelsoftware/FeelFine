@@ -6,7 +6,7 @@
     <item
         android:id="@id/currentScoreFragment"
         android:icon="@drawable/ic_today"
-        android:title="today" />
+        android:title="score" />
 
     <item
         android:id="@id/statisticFragment"
@@ -17,9 +17,5 @@
         android:id="@id/profileFragment"
         android:icon="@drawable/ic_profile"
         android:title="profile" />
-
-    <item
-        android:icon="@drawable/ic_dairy"
-        android:title="dairy" />
 
 </menu>
