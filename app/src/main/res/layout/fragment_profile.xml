@@ -197,7 +197,7 @@
             android:layout_gravity="start"
             android:fontFamily="@font/nunito_black"
             android:gravity="center"
-            android:text="@string/update"
+            android:text="@string/update_lowercase"
             android:textColor="@color/white"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
