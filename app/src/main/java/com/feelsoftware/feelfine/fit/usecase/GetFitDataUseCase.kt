@@ -2,6 +2,7 @@
 
 package com.feelsoftware.feelfine.fit.usecase
 
+import com.feelsoftware.feelfine.data.model.Optional
 import com.feelsoftware.feelfine.data.repository.ActivityDataRepository
 import com.feelsoftware.feelfine.data.repository.SleepDataRepository
 import com.feelsoftware.feelfine.data.repository.StepsDataRepository
@@ -45,7 +46,7 @@ fun GetFitDataUseCase.getCurrentActivity(): Observable<ActivityInfo> {
 // endregion
 
 // region Percent data
-fun GetFitDataUseCase.getPercentSteps(): Observable<Int> {
+fun GetFitDataUseCase.getPercentSteps(): Observable<Optional<Int>> {
     val currentData = getCurrentSteps()
 
     val (startTime, endTime) = yesterdayDates()
@@ -56,7 +57,7 @@ fun GetFitDataUseCase.getPercentSteps(): Observable<Int> {
     })
 }
 
-fun GetFitDataUseCase.getPercentSleep(): Observable<Int> {
+fun GetFitDataUseCase.getPercentSleep(): Observable<Optional<Int>> {
     val currentData = getCurrentSleep()
 
     val (startTime, endTime) = yesterdayDates(forSleep = true)
@@ -67,7 +68,7 @@ fun GetFitDataUseCase.getPercentSleep(): Observable<Int> {
     })
 }
 
-fun GetFitDataUseCase.getPercentActivity(): Observable<Int> {
+fun GetFitDataUseCase.getPercentActivity(): Observable<Optional<Int>> {
     val currentData = getCurrentActivity()
 
     val (startTime, endTime) = yesterdayDates()
@@ -78,11 +79,13 @@ fun GetFitDataUseCase.getPercentActivity(): Observable<Int> {
     })
 }
 
-private fun calculatePercent(current: Int, yesterday: Int): Int =
+private fun calculatePercent(current: Int, yesterday: Int): Optional<Int> =
     if (current == 0 && yesterday == 0) {
-        0
+        Optional.empty()
     } else {
-        (current * 100f / yesterday.coerceAtLeast(1)).roundToInt() - 100
+        Optional.of(
+            (current * 100f / yesterday.coerceAtLeast(1)).roundToInt() - 100
+        )
     }
 // endregion
 
