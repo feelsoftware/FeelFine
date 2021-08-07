@@ -37,8 +37,8 @@ class CurrentScoreFragment : BaseFragment<CurrentScoreViewModel>(R.layout.fragme
             moodPercentTV.applyPercentData(it)
         }
 
-        viewModel.totalScore.observe {
-            totalScore.progress = it
+        viewModel.currentScore.observe {
+            currentScore.progress = it
             scoreTV.text = getString(R.string.current_score, it)
         }
         viewModel.stepsScore.observe {
@@ -77,7 +77,7 @@ class CurrentScoreFragment : BaseFragment<CurrentScoreViewModel>(R.layout.fragme
         stepLayout.onClick { viewModel.navigate(R.id.stepScoreFragment) }
         sleepLayout.onClick { viewModel.navigate(R.id.sleepScoreFragment) }
         activityLayout.onClick { viewModel.navigate(R.id.activityScoreFragment) }
-        todayScoreTV.onClick { AboutScoreWindow.show(requireView(), todayScoreTV) }
+        currentScoreTV.onClick { AboutScoreWindow.show(requireView(), currentScoreTV) }
         moodLayout.onClick { viewModel.navigate(R.id.moodFragment) }
     }
 }
@@ -123,7 +123,7 @@ class CurrentScoreViewModel(
         scoreTargetProvider.getMood().map { it.intensity }
     )
 
-    val totalScore = scoreCalculator.calculate(stepsScore, sleepScore, activityScore, moodScore)
+    val currentScore = scoreCalculator.calculate(stepsScore, sleepScore, activityScore, moodScore)
 
     init {
         stepsCount.attachSource(fitDataUseCase.getCurrentSteps()) { it.count }
