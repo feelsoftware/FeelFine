@@ -22,7 +22,7 @@
     <string name="current_score_steps">%1$d / %2$d</string>
     <string name="current_score_sleep">%1$s / %2$s</string>
     <string name="current_score_activity">%1$s / %2$s</string>
-    <string name="user_age_placeholder">%s y.0.</string>
+    <string name="user_age_placeholder">%s years</string>
     <string name="user_weight_placeholder">%s kg</string>
     <string name="about_score">About score</string>
     <string name="about_score_text">
@@ -42,8 +42,5 @@
     <string name="mood_notification_title">Track your mood</string>
     <string name="mood_notification_message">How do you feel today?</string>
     <string name="your_goals">Your goals:</string>
-    <string name="update">update</string>
-    <string name="steps_goal">Steps: 12000</string>
-    <string name="activity_goal">Activity: 4 h</string>
-    <string name="sleep_goal">Sleep: 4 h</string>
+    <string name="update_lowercase">update</string>
 </resources>
