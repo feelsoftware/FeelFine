@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_marginStart="20dp"
-    android:layout_marginEnd="20dp"
-    android:layout_height="match_parent">
-
+    android:layout_height="match_parent"
+    android:paddingHorizontal="20dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/scoreContainer"
@@ -17,41 +14,41 @@
         android:entries="@array/score_values"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-       app:layout_constraintTop_toTopOf="parent" >
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/startTV"
+            android:id="@+id/tvPreviousCategory"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="14sp"
+            android:layout_marginEnd="16dp"
             android:fontFamily="@font/nunito_black"
             android:textColor="@color/cloudyBlue"
-            android:layout_marginEnd="16dp"
+            android:textSize="14sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/startIcon"
+            app:layout_constraintEnd_toStartOf="@+id/btnPreviousCategory"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="activity" />
 
         <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/startIcon"
+            android:id="@+id/btnPreviousCategory"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-           android:tint="@color/softPurple"
             android:layout_marginEnd="20dp"
             android:src="@drawable/ic_arrow_back"
+            android:tint="@color/softPurple"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/middleTV"
+            app:layout_constraintEnd_toStartOf="@+id/tvCurrentCategory"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/middleTV"
+            android:id="@+id/tvCurrentCategory"
             android:layout_width="wrap_content"
-            android:textStyle="bold"
-            android:textSize="20sp"
-            android:textColor="@color/gunmetal"
-            android:fontFamily="@font/nunito_black"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/nunito_black"
+            android:textColor="@color/gunmetal"
+            android:textSize="20sp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -59,40 +56,39 @@
             tools:text="steps" />
 
         <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/endIcon"
+            android:id="@+id/btnNextCategory"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:tint="@color/softPurple"
             android:src="@drawable/ic_arrow_forward"
+            android:tint="@color/softPurple"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/middleTV"
+            app:layout_constraintStart_toEndOf="@+id/tvCurrentCategory"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/endTV"
+            android:id="@+id/tvNextCategory"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:textColor="@color/cloudyBlue"
             android:layout_marginStart="16dp"
-            android:textStyle="bold"
             android:fontFamily="@font/nunito_black"
+            android:textColor="@color/cloudyBlue"
+            android:textSize="14sp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/endIcon"
+            app:layout_constraintStart_toEndOf="@+id/btnNextCategory"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="sleep" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/activityPeriodTV"
         android:layout_width="match_parent"
         android:layout_height="30dp"
-        android:orientation="horizontal"
         android:layout_marginTop="29dp"
         android:background="@drawable/rounded_period_background"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/scoreContainer">
@@ -102,39 +98,32 @@
             android:layout_width="1dp"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.5"/>
+            app:layout_constraintGuide_percent="0.5" />
 
         <TextView
             android:id="@+id/weekB"
+            style="@style/StatisticsDateTabStyle"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:background="@drawable/rounded_button"
-            android:fontFamily="@font/nunito_black"
             android:text="week"
-            android:textSize="12sp"
-            android:gravity="center"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            app:layout_constraintEnd_toStartOf="@id/guidelineCenter"
             app:layout_constraintBottom_toBottomOf="@+id/monthB"
+            app:layout_constraintEnd_toStartOf="@id/guidelineCenter"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/monthB" />
+            app:layout_constraintTop_toTopOf="@+id/monthB"
+            tools:background="@drawable/rounded_button"
+            tools:textColor="@color/white" />
 
         <TextView
             android:id="@+id/monthB"
+            style="@style/StatisticsDateTabStyle"
             android:layout_width="0dp"
-            android:fontFamily="@font/nunito_black"
             android:layout_height="match_parent"
-            android:background="@drawable/rounded_period_background"
-            android:gravity="center"
             android:text="month"
-            android:textSize="12sp"
-            android:textAllCaps="false"
-            android:textColor="@color/gunmetal"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@id/guidelineCenter"
-            tools:layout_editor_absoluteY="0dp" />
+            tools:layout_editor_absoluteY="0dp"
+            tools:textColor="@color/gunmetal" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -148,18 +137,20 @@
         app:layout_constraintTop_toBottomOf="@+id/activityPeriodTV">
 
         <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/startDateIcon"
+            android:id="@+id/btnPreviousDate"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_marginEnd="20dp"
+            android:padding="4dp"
             android:src="@drawable/ic_arrow_back"
             android:tint="@color/blueMain"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/dateTV"
+            app:layout_constraintDimensionRatio="1:0"
+            app:layout_constraintEnd_toStartOf="@+id/tvCurrentDate"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/dateTV"
+            android:id="@+id/tvCurrentDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/nunito_black"
@@ -170,19 +161,20 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:text="20-27 Jun" />
+            tools:text="20-27 Jun" />
 
         <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/endDateIcon"
+            android:id="@+id/btnNextDate"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_marginStart="20dp"
+            android:padding="4dp"
             android:src="@drawable/ic_arrow_forward"
             android:tint="@color/blueMain"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/dateTV"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintStart_toEndOf="@+id/tvCurrentDate"
             app:layout_constraintTop_toTopOf="parent" />
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -196,6 +188,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/dateContainer" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

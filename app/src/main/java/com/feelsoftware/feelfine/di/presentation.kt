@@ -25,6 +25,7 @@ import com.feelsoftware.feelfine.ui.statistic.StatisticViewModel
 import com.feelsoftware.feelfine.utils.ActivityEngine
 import com.feelsoftware.feelfine.utils.MoodTracker
 import com.feelsoftware.feelfine.utils.OnBoardingFlowManager
+import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
@@ -72,7 +73,7 @@ val presentationModule = module {
         ActivityScoreViewModel(get<GetFitDataUseCase>(), get<ScoreTargetProvider>())
     }
     viewModel {
-        StatisticViewModel(get<GetFitDataUseCase>())
+        StatisticViewModel(androidContext(), get<GetFitDataUseCase>())
     }
     viewModel {
         ProfileViewModel(get<ScoreTargetProvider>(), get<UserRepository>())
