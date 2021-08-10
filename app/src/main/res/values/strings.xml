@@ -47,4 +47,7 @@
     <string name="mood_notification_message">How do you feel today?</string>
     <string name="your_goals">Your goals:</string>
     <string name="update_lowercase">update</string>
+    <string name="statistic_category_activity">Activity</string>
+    <string name="statistic_category_steps">Steps</string>
+    <string name="statistic_category_sleep">Sleep</string>
 </resources>

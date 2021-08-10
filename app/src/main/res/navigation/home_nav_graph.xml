@@ -16,10 +16,11 @@
         android:name="com.feelsoftware.feelfine.ui.statistic.StatisticFragment"
         android:label="StatisticFragment"
         tools:layout="@layout/fragment_statistic" />
+
     <fragment
         android:id="@+id/profileFragment"
-        tools:layout="@layout/fragment_profile"
         android:name="com.feelsoftware.feelfine.ui.profile.ProfileFragment"
-        android:label="ProfileFragment" />
+        android:label="ProfileFragment"
+        tools:layout="@layout/fragment_profile" />
 
 </navigation>

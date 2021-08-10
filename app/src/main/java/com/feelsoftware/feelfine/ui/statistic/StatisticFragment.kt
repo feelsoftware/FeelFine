@@ -1,127 +1,65 @@
+@file:SuppressLint("StaticFieldLeak")
+@file:Suppress("WHEN_ENUM_CAN_BE_NULL_IN_JAVA")
+
 package com.feelsoftware.feelfine.ui.statistic
 
-import androidx.appcompat.content.res.AppCompatResources
-import androidx.lifecycle.MutableLiveData
+import android.annotation.SuppressLint
+import android.content.Context
+import androidx.annotation.StringRes
+import androidx.core.view.isInvisible
+import androidx.lifecycle.*
 import com.feelsoftware.feelfine.R
-import com.feelsoftware.feelfine.fit.model.ActivityInfo
-import com.feelsoftware.feelfine.fit.model.SleepInfo
-import com.feelsoftware.feelfine.fit.model.StepsInfo
+import com.feelsoftware.feelfine.extension.onClick
+import com.feelsoftware.feelfine.extension.toLiveData
 import com.feelsoftware.feelfine.fit.model.total
 import com.feelsoftware.feelfine.fit.usecase.GetFitDataUseCase
 import com.feelsoftware.feelfine.ui.base.BaseFragment
 import com.feelsoftware.feelfine.ui.base.BaseViewModel
-import com.github.mikephil.charting.components.Legend
-import com.github.mikephil.charting.components.Legend.LegendForm
 import com.github.mikephil.charting.components.XAxis.XAxisPosition
 import com.github.mikephil.charting.components.YAxis.YAxisLabelPosition
 import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
-import com.github.mikephil.charting.interfaces.datasets.IBarDataSet
+import com.github.mikephil.charting.formatter.DefaultAxisValueFormatter
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
+import com.github.mikephil.charting.formatter.ValueFormatter
 import kotlinx.android.synthetic.main.fragment_statistic.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.text.SimpleDateFormat
 import java.util.*
-
-private const val SCORE_ACTIVITY = 0
-private const val SCORE_STEP = 1
-private const val SCORE_SLEEP = 2
 
 class StatisticFragment : BaseFragment<StatisticViewModel>(R.layout.fragment_statistic) {
 
     override val viewModel: StatisticViewModel by viewModel()
 
-    private var currentScore = 1
-    private var activeWeek = true
-    private val activityList = listOf("activity", "steps", "sleep")
-
-    private fun manageScore() {
-        startTV.text = activityList.getOrNull(currentScore - 1)
-        middleTV.text = activityList.getOrNull(currentScore)
-        endTV.text = activityList.getOrNull(currentScore + 1)
-        manageData()
-    }
-
     override fun onReady() {
+        viewModel.previousCategoryTitle.observe {
+            tvPreviousCategory.text = it
+            btnPreviousCategory.isInvisible = it == null
+        }
+        viewModel.currentCategoryTitle.observe { tvCurrentCategory.text = it }
+        viewModel.nextCategoryTitle.observe {
+            tvNextCategory.text = it
+            btnNextCategory.isInvisible = it == null
+        }
+        tvPreviousCategory.onClick { viewModel.onPreviousCategoryClicked() }
+        btnPreviousCategory.onClick { viewModel.onPreviousCategoryClicked() }
+        tvNextCategory.onClick { viewModel.onNextCategoryClicked() }
+        btnNextCategory.onClick { viewModel.onNextCategoryClicked() }
+
+        viewModel.isWeekStyleData.observe { isWeekStyle ->
+            weekB.updateTabSelection(isWeekStyle)
+            monthB.updateTabSelection(isWeekStyle.not())
+        }
+        weekB.onClick { viewModel.onWeekStyleSelected() }
+        monthB.onClick { viewModel.onMonthStyleSelected() }
+
+        viewModel.currentDateTitle.observe { tvCurrentDate.text = it }
+        btnPreviousDate.onClick { viewModel.onPreviousDateRangeClicked() }
+        btnNextDate.onClick { viewModel.onNextDateRangeClicked() }
+
         initChart()
-        manageScore()
-        startIcon.setOnClickListener {
-            if (currentScore > 0) {
-                currentScore--
-                manageScore()
-            }
-        }
-        endIcon.setOnClickListener {
-            if (currentScore < activityList.size - 1) {
-                currentScore++
-                manageScore()
-            }
-        }
-        weekB.setOnClickListener {
-            if (activeWeek) return@setOnClickListener
-            activeWeek = true
-            weekB.setTextColor(resources.getColor(R.color.white))
-            monthB.setTextColor(resources.getColor(R.color.gunmetal))
-            weekB.background =
-                AppCompatResources.getDrawable(requireContext(), R.drawable.rounded_button)
-            monthB.background = AppCompatResources.getDrawable(
-                requireContext(),
-                R.drawable.rounded_period_background
-            )
-            manageData()
-        }
-        monthB.setOnClickListener {
-            if (!activeWeek) return@setOnClickListener
-            activeWeek = false
-            monthB.setTextColor(resources.getColor(R.color.white))
-            weekB.setTextColor(resources.getColor(R.color.black))
-            monthB.background =
-                AppCompatResources.getDrawable(requireContext(), R.drawable.rounded_button)
-            weekB.background = AppCompatResources.getDrawable(
-                requireContext(),
-                R.drawable.rounded_period_background
-            )
-            manageData()
-        }
-
-    }
-
-    private fun manageData() {
-        when (currentScore) {
-            SCORE_ACTIVITY -> {
-                if (activeWeek) {
-                    viewModel.activityWeekData.observe {
-                        setActivityData(it)
-                    }
-                } else {
-                    viewModel.activityMonthData.observe {
-                        setActivityData(it)
-                    }
-                }
-            }
-            SCORE_STEP -> {
-                if (activeWeek) {
-                    viewModel.stepsWeekData.observe {
-                        setStepsData(it)
-                    }
-                } else {
-                    viewModel.stepsMonthData.observe {
-                        setStepsData(it)
-                    }
-                }
-            }
-            SCORE_SLEEP -> {
-                if (activeWeek) {
-                    viewModel.sleepWeekData.observe {
-                        setSleepData(it)
-                    }
-                } else {
-                    viewModel.sleepMonthData.observe {
-                        setSleepData(it)
-                    }
-                }
-            }
-        }
-
+        viewModel.chartData.observe(::displayChartData)
     }
 
     private fun initChart() {
@@ -139,149 +77,236 @@ class StatisticFragment : BaseFragment<StatisticViewModel>(R.layout.fragment_sta
             spaceTop = 15f
             axisMinimum = 0f
         }
-        chart.axisRight.apply {
-            setDrawGridLines(false)
-            setLabelCount(8, false)
-            spaceTop = 15f
-            axisMinimum = 0f
-        }
-        val l = chart.legend
-        l.verticalAlignment = Legend.LegendVerticalAlignment.BOTTOM
-        l.horizontalAlignment = Legend.LegendHorizontalAlignment.LEFT
-        l.orientation = Legend.LegendOrientation.HORIZONTAL
-        l.setDrawInside(false)
-        l.form = LegendForm.SQUARE
-        l.formSize = 9f
-        l.textSize = 13f
-        l.xEntrySpace = 4f
+        chart.axisRight.isEnabled = false
+        chart.legend.isEnabled = false
     }
 
-    private fun setStepsData(range: List<StepsInfo>) {
-        chart.clear()
-        val start = 0
-        val values = ArrayList<BarEntry>()
-        var i = start
-        while (i <= start + range.size - 1) {
-            val c = Calendar.getInstance()
-            c.time = range[i].date
-            val dayOfWeek = c[Calendar.DAY_OF_MONTH]
-            val steps = range[i].count.toFloat()
-            values.add(BarEntry(dayOfWeek.toFloat(), steps))
-            i++
-        }
-        applyChart(values)
-    }
+    private fun displayChartData(chartData: ChartData) {
+        chart.xAxis.valueFormatter = chartData.xFormatter
+        chart.axisLeft.valueFormatter = chartData.yFormatter
+        chart.axisRight.isEnabled = false
 
-    private fun setSleepData(range: List<SleepInfo>) {
-        chart.clear()
-        val start = 0
-        val values = ArrayList<BarEntry>()
-        var i = start
-        while (i <= start + range.size - 1) {
-            val c = Calendar.getInstance()
-            c.time = range[i].date
-            val dayOfWeek = c[Calendar.DAY_OF_MONTH]
-            val duration = range[i].total.hours.toFloat()
-            values.add(BarEntry(dayOfWeek.toFloat(), duration))
-            i++
-        }
-        applyChart(values)
-    }
-
-    private fun setActivityData(range: List<ActivityInfo>) {
-        chart.clear()
-        val start = 0
-        val values = ArrayList<BarEntry>()
-        var i = start
-        while (i <= start + range.size - 1) {
-            val c = Calendar.getInstance()
-            c.time = range[i].date
-            val dayOfWeek = c[Calendar.DAY_OF_MONTH]
-            val duration = range[i].total.hours.toFloat()
-            values.add(BarEntry(dayOfWeek.toFloat(), duration))
-            i++
-        }
-        applyChart(values)
-    }
-
-    private fun applyChart(values: ArrayList<BarEntry>) {
-        val set1: BarDataSet
-        if (chart.data != null &&
-            chart.data.dataSetCount > 0
-        ) {
-            set1 = chart.data.getDataSetByIndex(0) as BarDataSet
-            set1.values = values
-            chart.data.notifyDataChanged()
-            chart.notifyDataSetChanged()
-        } else {
-            set1 = BarDataSet(values, "The year 2021")
-            set1.setDrawIcons(false)
-            val dataSets = ArrayList<IBarDataSet>()
-            dataSets.add(set1)
-            val data = BarData(dataSets)
-            data.barWidth = 0.9f
-            chart.data = data
-            chart.notifyDataSetChanged()
-        }
+        chart.data = BarData(BarDataSet(chartData.data, ""))
         chart.invalidate()
     }
-
 }
 
-class StatisticViewModel(useCase: GetFitDataUseCase) : BaseViewModel() {
+class StatisticViewModel(
+    private val context: Context,
+    useCase: GetFitDataUseCase
+) : BaseViewModel() {
 
-    val stepsWeekData = MutableLiveData<List<StepsInfo>>()
-    val stepsMonthData = MutableLiveData<List<StepsInfo>>()
-    val sleepWeekData = MutableLiveData<List<SleepInfo>>()
-    val sleepMonthData = MutableLiveData<List<SleepInfo>>()
-    val activityWeekData = MutableLiveData<List<ActivityInfo>>()
-    val activityMonthData = MutableLiveData<List<ActivityInfo>>()
+    private val categories = listOf(
+        Category.ACTIVITY,
+        Category.STEPS,
+        Category.SLEEP,
+    )
+    private var currentCategoryIndex: Int = -1
+        set(value) {
+            field = value
+            updateCategories()
+        }
+    private val currentCategoryData = MutableLiveData(Category.STEPS)
+    val previousCategoryTitle = MutableLiveData<String?>()
+    val currentCategoryTitle: LiveData<String> = currentCategoryData.map { it.title }
+    val nextCategoryTitle = MutableLiveData<String?>()
 
-    init {
-        val (startDate, endDate) = getWeekDates(weekOffset = 0)
-        val (startMonthDate, endMonthDate) = getMonthDates(monthOffset = 0)
+    val isWeekStyleData = MutableLiveData(true)
 
-        stepsWeekData.attachSource(useCase.getSteps(startDate, endDate)) { it }
-        stepsMonthData.attachSource(useCase.getSteps(startMonthDate, endMonthDate)) { it }
-        sleepWeekData.attachSource(useCase.getSleep(startDate, endDate)) { it }
-        sleepMonthData.attachSource(useCase.getSleep(startMonthDate, endMonthDate)) { it }
-        activityWeekData.attachSource(useCase.getActivity(startDate, endDate)) { it }
-        activityMonthData.attachSource(useCase.getActivity(startMonthDate, endMonthDate)) { it }
+    private val calendar = Calendar.getInstance()
+    private val currentDate = MutableLiveData<Date>()
+    val currentDateTitle = currentDate.switchMap { date ->
+        calendar.time = date
+
+        isWeekStyleData.map { isWeekStyle ->
+            if (isWeekStyle) {
+                val minDow = calendar.getActualMinimum(Calendar.DAY_OF_WEEK)
+                val maxDow = calendar.getActualMaximum(Calendar.DAY_OF_WEEK)
+
+                calendar.set(Calendar.DAY_OF_WEEK, minDow)
+                val from = calendar.get(Calendar.DAY_OF_MONTH)
+                val fromMonth = calendar.getDisplayName(
+                    Calendar.MONTH, Calendar.SHORT, Locale.getDefault()
+                )
+
+                calendar.set(Calendar.DAY_OF_WEEK, maxDow)
+                val to = calendar.get(Calendar.DAY_OF_MONTH)
+                val toMonth = calendar.getDisplayName(
+                    Calendar.MONTH, Calendar.SHORT, Locale.getDefault()
+                )
+
+                if (fromMonth == toMonth) {
+                    "$from - $to $fromMonth"
+                } else {
+                    "$from $fromMonth - $to $toMonth"
+                }
+            } else {
+                calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault())
+            }
+        }
     }
 
-    private fun getWeekDates(weekOffset: Int): Pair<Date, Date> {
+    val chartData: LiveData<ChartData> = currentCategoryData.switchMap { currentCategory ->
+        isWeekStyleData.switchMap { isWeekStyle ->
+            currentDate.switchMap { date ->
+                val (startTime, endTime) = if (isWeekStyle) {
+                    getWeekDates(date)
+                } else {
+                    getMonthDates(date)
+                }
+
+                when (currentCategory) {
+                    Category.ACTIVITY -> useCase.getActivity(startTime, endTime)
+                        .map {
+                            it.toChartData { activityInfo ->
+                                activityInfo.date to activityInfo.total.minutesTotal
+                            }
+                        }
+                        .toLiveData()
+                    Category.STEPS -> useCase.getSteps(startTime, endTime)
+                        .map {
+                            it.toChartData { stepsInfo ->
+                                stepsInfo.date to stepsInfo.count
+                            }
+                        }
+                        .toLiveData()
+                    Category.SLEEP -> useCase.getSleep(startTime, endTime)
+                        .map {
+                            it.toChartData { sleepInfo ->
+                                sleepInfo.date to sleepInfo.total.minutesTotal
+                            }
+                        }
+                        .toLiveData()
+                }
+            }
+        }
+    }
+
+    init {
+        currentCategoryIndex = 1
+        currentDate.value = Date()
+    }
+
+    // region Category
+    fun onPreviousCategoryClicked() = changeCategory(toNextCategory = false)
+
+    fun onNextCategoryClicked() = changeCategory(toNextCategory = true)
+
+    private fun changeCategory(toNextCategory: Boolean) {
+        val i = if (toNextCategory) 1 else -1
+        val newCategoryIndex = currentCategoryIndex + i
+        if (newCategoryIndex < 0 || newCategoryIndex > categories.size) return
+        currentCategoryIndex = newCategoryIndex
+    }
+
+    private fun updateCategories() {
+        previousCategoryTitle.value = categories.getOrNull(currentCategoryIndex - 1)?.title
+        currentCategoryData.value = categories[currentCategoryIndex]
+        nextCategoryTitle.value = categories.getOrNull(currentCategoryIndex + 1)?.title
+    }
+    // endregion
+
+    // region Week or Month
+    fun onWeekStyleSelected() {
+        if (isWeekStyleData.value == true) return
+        isWeekStyleData.value = true
+    }
+
+    fun onMonthStyleSelected() {
+        if (isWeekStyleData.value == false) return
+        isWeekStyleData.value = false
+    }
+    // endregion
+
+    // region Date range
+    fun onPreviousDateRangeClicked() = changeDateRange(toNextDateRange = false)
+
+    fun onNextDateRangeClicked() = changeDateRange(toNextDateRange = true)
+
+    private fun changeDateRange(toNextDateRange: Boolean) {
+        calendar.time = currentDate.value ?: Date()
+        val i = if (toNextDateRange) 1 else -1
+        if (isWeekStyleData.value == true) {
+            calendar.add(Calendar.WEEK_OF_YEAR, i)
+        } else {
+            calendar.add(Calendar.MONTH, i)
+        }
+        currentDate.value = calendar.time
+    }
+
+    private fun getWeekDates(date: Date): Pair<Date, Date> {
         val startDate = Calendar.getInstance().apply {
+            time = date
             set(Calendar.DAY_OF_WEEK, getMinimum(Calendar.DAY_OF_WEEK))
             set(Calendar.HOUR_OF_DAY, 0)
             set(Calendar.MINUTE, 0)
             set(Calendar.SECOND, 0)
-            add(Calendar.WEEK_OF_YEAR, weekOffset)
         }.time
         val endDate = Calendar.getInstance().apply {
+            time = date
             set(Calendar.DAY_OF_WEEK, getMaximum(Calendar.DAY_OF_WEEK))
             set(Calendar.HOUR_OF_DAY, 23)
             set(Calendar.MINUTE, 59)
             set(Calendar.SECOND, 59)
-            add(Calendar.WEEK_OF_YEAR, weekOffset)
         }.time
         return startDate to endDate
     }
 
-    private fun getMonthDates(monthOffset: Int): Pair<Date, Date> {
+    private fun getMonthDates(date: Date): Pair<Date, Date> {
         val startDate = Calendar.getInstance().apply {
+            time = date
             set(Calendar.DAY_OF_MONTH, getMinimum(Calendar.DAY_OF_MONTH))
             set(Calendar.HOUR_OF_DAY, 0)
             set(Calendar.MINUTE, 0)
             set(Calendar.SECOND, 0)
-            add(Calendar.MONTH, monthOffset)
         }.time
         val endDate = Calendar.getInstance().apply {
+            time = date
             set(Calendar.DAY_OF_MONTH, getMaximum(Calendar.DAY_OF_MONTH))
             set(Calendar.HOUR_OF_DAY, 23)
             set(Calendar.MINUTE, 59)
             set(Calendar.SECOND, 59)
-            add(Calendar.MONTH, monthOffset)
         }.time
         return startDate to endDate
     }
+    // endregion
+
+    // region Mapper
+    private val Category.title: String
+        get() = context.getString(titleResId).lowercase(Locale.getDefault())
+
+    private fun <T> List<T>.toChartData(mapper: (T) -> Pair<Date, Int>): ChartData {
+        val data = mapIndexed { index, t ->
+            val value = mapper(t).second
+            BarEntry(index.toFloat(), value.toFloat())
+        }
+
+        val dateFormatter = SimpleDateFormat("EEE d", Locale.ROOT)
+
+        return ChartData(
+            data = data,
+            xFormatter = object : IndexAxisValueFormatter(map {
+                val date = mapper(it).first
+                dateFormatter.format(date)
+            }) {
+                override fun getFormattedValue(value: Float): String {
+                    return values.getOrNull(value.toInt()) ?: ""
+                }
+            },
+            yFormatter = DefaultAxisValueFormatter(1)
+        )
+    }
+    // endregion
+}
+
+data class ChartData(
+    val data: List<BarEntry>,
+    val xFormatter: ValueFormatter,
+    val yFormatter: ValueFormatter
+)
+
+private enum class Category(@StringRes val titleResId: Int) {
+    ACTIVITY(R.string.statistic_category_activity),
+    STEPS(R.string.statistic_category_steps),
+    SLEEP(R.string.statistic_category_sleep),
 }
