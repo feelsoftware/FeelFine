@@ -2,12 +2,12 @@
 
 package com.feelsoftware.feelfine.fit
 
-import android.content.Context
 import com.feelsoftware.feelfine.R
 import com.feelsoftware.feelfine.fit.model.ActivityInfo
 import com.feelsoftware.feelfine.fit.model.Duration
 import com.feelsoftware.feelfine.fit.model.SleepInfo
 import com.feelsoftware.feelfine.fit.model.StepsInfo
+import com.feelsoftware.feelfine.utils.ActivityEngine
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.fitness.FitnessActivities
 import com.google.api.client.extensions.android.http.AndroidHttp
@@ -19,6 +19,7 @@ import com.google.api.services.fitness.model.AggregateResponse
 import com.google.api.services.fitness.model.Dataset
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
+import timber.log.Timber
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
@@ -34,9 +35,9 @@ interface FitRepository {
 }
 
 class GoogleFitRepository(
-    private val context: Context,
+    private val activityEngine: ActivityEngine,
     private val permissionManager: FitPermissionManager,
-) : FitRepository, FitnessOptions {
+) : FitRepository, SignInOptions {
 
     override fun getSteps(
         startTime: Date,
@@ -79,9 +80,15 @@ class GoogleFitRepository(
         endTime: Date,
         request: AggregateRequest
     ): Single<AggregateResponse> = Single.create { emitter ->
-        val scopes = fitnessOptions.impliedScopes ?: emptyList()
-        val account = GoogleSignIn.getAccountForExtension(context, fitnessOptions)
-        if (account.account == null) {
+        val activity = activityEngine.activity ?: run {
+            if (emitter.isDisposed) return@create
+            emitter.onError(IllegalStateException("Activity is null"))
+            return@create
+        }
+
+        val scopes = signInOptions.impliedScopes ?: emptyList()
+        val account = GoogleSignIn.getLastSignedInAccount(activity)
+        if (account?.account == null) {
             if (emitter.isDisposed) return@create
             emitter.onError(IllegalStateException("Account is null"))
             return@create
@@ -91,15 +98,16 @@ class GoogleFitRepository(
         request.endTimeMillis = endTime.time
 
         val credentials = GoogleAccountCredential.usingOAuth2(
-            context, scopes.map { it.scopeUri }
+            activity, scopes.map { it.scopeUri }
         )
         credentials.selectedAccount = account.account
+
         val fitness = com.google.api.services.fitness.Fitness.Builder(
             AndroidHttp.newCompatibleTransport(),
             JacksonFactory.getDefaultInstance(),
             credentials
         )
-            .setApplicationName(context.getString(R.string.app_name))
+            .setApplicationName(activity.getString(R.string.app_name))
             .build()
 
         try {
@@ -109,6 +117,7 @@ class GoogleFitRepository(
                 .execute()
             emitter.onSuccess(response)
         } catch (error: Throwable) {
+            Timber.e(error, "Failed to get fit data")
             if (emitter.isDisposed) return@create
             emitter.onError(error)
         }

@@ -12,12 +12,11 @@ import com.feelsoftware.feelfine.fit.GoogleFitPermissionManager
 import com.feelsoftware.feelfine.fit.GoogleFitRepository
 import com.feelsoftware.feelfine.fit.usecase.GetFitDataUseCase
 import com.feelsoftware.feelfine.utils.ActivityEngine
-import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 
 val fitModule = module {
     single<FitRepository> {
-        GoogleFitRepository(androidContext(), get<FitPermissionManager>())
+        GoogleFitRepository(get<ActivityEngine>(), get<FitPermissionManager>())
 //        MockFitRepository()
     }
     single<FitPermissionManager> {
