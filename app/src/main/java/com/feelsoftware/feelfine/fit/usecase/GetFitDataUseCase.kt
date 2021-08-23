@@ -8,7 +8,9 @@ import com.feelsoftware.feelfine.data.repository.SleepDataRepository
 import com.feelsoftware.feelfine.data.repository.StepsDataRepository
 import com.feelsoftware.feelfine.fit.model.*
 import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.schedulers.Schedulers
 import org.koin.core.component.KoinComponent
+import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.math.roundToInt
 
@@ -20,12 +22,80 @@ class GetFitDataUseCase(
 
     fun getSteps(startTime: Date, endTime: Date): Observable<List<StepsInfo>> =
         stepsRepository.get(startTime, endTime)
+            .flatMap { values ->
+                withEmptyValues(
+                    values,
+                    startTime,
+                    endTime,
+                    builder = {
+                        StepsInfo(it, 0)
+                    },
+                    mapper = {
+                        it.date
+                    },
+                )
+            }
 
     fun getSleep(startTime: Date, endTime: Date): Observable<List<SleepInfo>> =
         sleepRepository.get(startTime, endTime)
+            .flatMap { values ->
+                withEmptyValues(
+                    values,
+                    startTime,
+                    endTime,
+                    builder = {
+                        SleepInfo(it, Duration(0), Duration(0), Duration(0), Duration(0))
+                    },
+                    mapper = {
+                        it.date
+                    },
+                )
+            }
 
     fun getActivity(startTime: Date, endTime: Date): Observable<List<ActivityInfo>> =
         activityRepository.get(startTime, endTime)
+            .flatMap { values ->
+                withEmptyValues(
+                    values,
+                    startTime,
+                    endTime,
+                    builder = {
+                        ActivityInfo(it, Duration(0), Duration(0), Duration(0))
+                    },
+                    mapper = {
+                        it.date
+                    },
+                )
+            }
+
+    /**
+     * Create empty values for date range [startTime], [endTime] and merge them with [values].
+     */
+    private fun <T> withEmptyValues(
+        values: List<T>,
+        startTime: Date,
+        endTime: Date,
+        builder: (time: Date) -> T,
+        mapper: (item: T) -> Date,
+    ): Observable<List<T>> = Observable.create<List<T>> { emitter ->
+        val format = SimpleDateFormat("dd.MM.yyyy", Locale.ROOT)
+        val calendar = Calendar.getInstance().apply { time = startTime }
+        val emptyValues = mutableListOf<T>()
+        while (true) {
+            emptyValues += builder(calendar.time)
+            if (format.format(calendar.time) == format.format(endTime)) break
+            calendar.add(Calendar.DAY_OF_YEAR, 1)
+        }
+
+        val valuesByDate = values.map {
+            format.format(mapper(it)) to it
+        }.toMap()
+        val result = emptyValues.map { emptyValue ->
+            valuesByDate[format.format(mapper(emptyValue))] ?: emptyValue
+        }
+        emitter.onNext(result)
+        emitter.onComplete()
+    }.subscribeOn(Schedulers.computation())
 }
 
 // region Current date
