@@ -16,11 +16,14 @@ data class Duration(
     }
 }
 
-fun Duration.toHoursMinutes() =
-    this.hours.toString() + " h " + this.minutes + " m"
+fun Duration.toHoursMinutes(): String =
+    when {
+        minutesTotal == 0 || hours > 0 -> "$hours h $minutes m"
+        else -> "$minutes m"
+    }
 
-fun Duration.toHours() =
-    this.hours.toString() + " h"
+fun Duration.toHours(): String =
+    "$hours h"
 
 operator fun Duration.plus(duration: Duration): Duration =
     Duration(hours * 60 + minutes + duration.hours * 60 + duration.minutes)
