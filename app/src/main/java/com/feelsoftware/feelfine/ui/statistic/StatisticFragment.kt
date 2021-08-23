@@ -11,6 +11,8 @@ import androidx.lifecycle.*
 import com.feelsoftware.feelfine.R
 import com.feelsoftware.feelfine.extension.onClick
 import com.feelsoftware.feelfine.extension.toLiveData
+import com.feelsoftware.feelfine.fit.model.Duration
+import com.feelsoftware.feelfine.fit.model.toHoursMinutes
 import com.feelsoftware.feelfine.fit.model.total
 import com.feelsoftware.feelfine.fit.usecase.GetFitDataUseCase
 import com.feelsoftware.feelfine.ui.base.BaseFragment
@@ -20,13 +22,13 @@ import com.github.mikephil.charting.components.YAxis.YAxisLabelPosition
 import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
-import com.github.mikephil.charting.formatter.DefaultAxisValueFormatter
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.github.mikephil.charting.formatter.ValueFormatter
 import kotlinx.android.synthetic.main.fragment_statistic.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.math.roundToInt
 
 class StatisticFragment : BaseFragment<StatisticViewModel>(R.layout.fragment_statistic) {
 
@@ -87,6 +89,7 @@ class StatisticFragment : BaseFragment<StatisticViewModel>(R.layout.fragment_sta
         chart.axisRight.isEnabled = false
 
         chart.data = BarData(BarDataSet(chartData.data, ""))
+        chart.data.setValueFormatter(chartData.yFormatter)
         chart.invalidate()
     }
 }
@@ -158,21 +161,27 @@ class StatisticViewModel(
                 when (currentCategory) {
                     Category.ACTIVITY -> useCase.getActivity(startTime, endTime)
                         .map {
-                            it.toChartData { activityInfo ->
+                            it.toChartData(valueFormatter = {
+                                Duration(it).toHoursMinutes()
+                            }) { activityInfo ->
                                 activityInfo.date to activityInfo.total.minutesTotal
                             }
                         }
                         .toLiveData()
                     Category.STEPS -> useCase.getSteps(startTime, endTime)
                         .map {
-                            it.toChartData { stepsInfo ->
+                            it.toChartData(valueFormatter = {
+                                it.toString()
+                            }) { stepsInfo ->
                                 stepsInfo.date to stepsInfo.count
                             }
                         }
                         .toLiveData()
                     Category.SLEEP -> useCase.getSleep(startTime, endTime)
                         .map {
-                            it.toChartData { sleepInfo ->
+                            it.toChartData(valueFormatter = {
+                                Duration(it).toHoursMinutes()
+                            }) { sleepInfo ->
                                 sleepInfo.date to sleepInfo.total.minutesTotal
                             }
                         }
@@ -275,7 +284,10 @@ class StatisticViewModel(
     private val Category.title: String
         get() = context.getString(titleResId).lowercase(Locale.getDefault())
 
-    private fun <T> List<T>.toChartData(mapper: (T) -> Pair<Date, Int>): ChartData {
+    private fun <T> List<T>.toChartData(
+        valueFormatter: (Int) -> String,
+        mapper: (T) -> Pair<Date, Int>
+    ): ChartData {
         val data = mapIndexed { index, t ->
             val value = mapper(t).second
             BarEntry(index.toFloat(), value.toFloat())
@@ -293,10 +305,14 @@ class StatisticViewModel(
                     return values.getOrNull(value.toInt()) ?: ""
                 }
             },
-            yFormatter = DefaultAxisValueFormatter(1)
+            yFormatter = object : ValueFormatter() {
+                override fun getFormattedValue(value: Float): String {
+                    return valueFormatter(value.roundToInt())
+                }
+            }
         )
+        // endregion
     }
-    // endregion
 }
 
 data class ChartData(
