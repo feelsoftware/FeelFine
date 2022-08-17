@@ -111,6 +111,7 @@ class AgeViewModel(
             }, onError = {
                 Timber.e(it, "Failed to mark onboarding as passed")
             })
+            .disposeOnDestroy()
     }
 
     private fun checkGoogleAccount() {

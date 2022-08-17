@@ -50,4 +50,5 @@
     <string name="statistic_category_activity">Activity</string>
     <string name="statistic_category_steps">Steps</string>
     <string name="statistic_category_sleep">Sleep</string>
+    <string name="log_out">Log out</string>
 </resources>

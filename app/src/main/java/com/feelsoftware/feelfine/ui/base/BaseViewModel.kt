@@ -42,7 +42,7 @@ open class BaseViewModel : ViewModel() {
         disposableDestroy.add(this)
     }
 
-    protected fun <V, T> MutableLiveData<V>.attachSource(
+    protected fun <V, T : Any> MutableLiveData<V>.attachSource(
         source: Observable<T>,
         mapper: (T) -> V
     ) {

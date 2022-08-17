@@ -26,6 +26,9 @@ interface DataSource<T> {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(list: List<T>): Completable
+
+    @RawQuery
+    fun delete(): Completable
 }
 
 abstract class DataRepository<L, T>(
@@ -85,13 +88,15 @@ class StepsDataRepository(
 }
 
 class StepsRemoteDataSource(
-    private val fitRepository: FitRepository
+    private val fitRepository: FitRepository,
 ) : DataSource<StepsInfo> {
 
     override fun getAll(startTime: Date, endTime: Date): Single<List<StepsInfo>> =
         fitRepository.getSteps(startTime, endTime)
 
     override fun insert(list: List<StepsInfo>) = Completable.complete()
+
+    override fun delete() = Completable.complete()
 }
 
 class SleepDataRepository(
@@ -109,13 +114,15 @@ class SleepDataRepository(
 }
 
 class SleepRemoteDataSource(
-    private val fitRepository: FitRepository
+    private val fitRepository: FitRepository,
 ) : DataSource<SleepInfo> {
 
     override fun getAll(startTime: Date, endTime: Date): Single<List<SleepInfo>> =
         fitRepository.getSleep(startTime, endTime)
 
     override fun insert(list: List<SleepInfo>) = Completable.complete()
+
+    override fun delete() = Completable.complete()
 }
 
 class ActivityDataRepository(
@@ -133,12 +140,14 @@ class ActivityDataRepository(
 }
 
 class ActivityRemoteDataSource(
-    private val fitRepository: FitRepository
+    private val fitRepository: FitRepository,
 ) : DataSource<ActivityInfo> {
 
     override fun getAll(startTime: Date, endTime: Date): Single<List<ActivityInfo>> =
         fitRepository.getActivity(startTime, endTime)
 
     override fun insert(list: List<ActivityInfo>) = Completable.complete()
+
+    override fun delete() = Completable.complete()
 }
 // endregion

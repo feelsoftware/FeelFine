@@ -34,4 +34,10 @@ class OnBoardingFlowManager(
             age = age ?: return null
         )
     }
+
+    /**
+     * Clear data for OnBoarding flow, mark as not passed
+     */
+    fun clear(): Completable =
+        userRepository.clear()
 }

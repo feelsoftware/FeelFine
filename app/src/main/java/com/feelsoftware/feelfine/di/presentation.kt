@@ -2,6 +2,7 @@
 
 package com.feelsoftware.feelfine.di
 
+import com.feelsoftware.feelfine.data.db.AppDatabase
 import com.feelsoftware.feelfine.data.usecase.GetCurrentMoodUseCase
 import com.feelsoftware.feelfine.data.usecase.GetPercentMoodUseCase
 import com.feelsoftware.feelfine.data.repository.UserRepository
@@ -76,7 +77,13 @@ val presentationModule = module {
         StatisticViewModel(androidContext(), get<GetFitDataUseCase>())
     }
     viewModel {
-        ProfileViewModel(get<ScoreTargetProvider>(), get<UserRepository>())
+        ProfileViewModel(
+            appDatabase = get<AppDatabase>(),
+            fitPermissionManager = get<FitPermissionManager>(),
+            onBoardingFlowManager = get<OnBoardingFlowManager>(),
+            scoreTargetProvider = get<ScoreTargetProvider>(),
+            userRepo = get<UserRepository>(),
+        )
     }
     viewModel {
         MoodViewModel(get<SetMoodUseCase>())

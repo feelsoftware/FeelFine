@@ -5,6 +5,8 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.feelsoftware.feelfine.data.db.dao.*
 import com.feelsoftware.feelfine.data.db.entity.*
+import io.reactivex.rxjava3.core.Completable
+import io.reactivex.rxjava3.schedulers.Schedulers
 
 @Database(
     version = 1,
@@ -32,4 +34,13 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun stepsDao(): StepsDao
 
     abstract fun userProfileDao(): UserProfileDao
+
+    fun clear(): Completable =
+        Completable.complete()
+            .andThen(activityDao().delete())
+            .andThen(moodDao().delete())
+            .andThen(sleepDao().delete())
+            .andThen(stepsDao().delete())
+            .andThen(userProfileDao().delete())
+            .subscribeOn(Schedulers.io())
 }

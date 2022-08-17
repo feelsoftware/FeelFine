@@ -6,6 +6,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.common.api.ApiException
 import com.jakewharton.rxrelay3.PublishRelay
 import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.core.Single
 import timber.log.Timber
 import java.util.concurrent.atomic.AtomicBoolean
 
@@ -16,6 +17,8 @@ interface FitPermissionManager {
     fun hasPermissionObservable(): Observable<Boolean>
 
     fun requestPermission()
+
+    fun resetPermission(): Single<Boolean>
 
     fun onPermissionResult(requestCode: Int, resultCode: Int, data: Intent?)
 }
@@ -39,6 +42,30 @@ class GoogleFitPermissionManager(
         if (hasPendingPermission.get()) return
         if (hasPermissionInternal()) return
         requestPermissionInternal()
+    }
+
+    override fun resetPermission(): Single<Boolean> {
+        hasPermissionRelay.accept(false)
+
+        val activity = activityEngine.activity
+        if (activity == null) {
+            Timber.e("Failed to checkPermission, activity == null")
+            return Single.just(false)
+        }
+
+        return Single.create { emitter ->
+            val client = GoogleSignIn.getClient(activity, logoutOptions)
+            client.signOut()
+                .addOnCompleteListener { task ->
+                    if (task.exception != null) {
+                        Timber.e(task.exception, "Failed to log out")
+                    } else {
+                        Timber.d("Logged out")
+                    }
+                    if (emitter.isDisposed) return@addOnCompleteListener
+                    emitter.onSuccess(true)
+                }
+        }
     }
 
     override fun onPermissionResult(requestCode: Int, resultCode: Int, data: Intent?) {

@@ -1,6 +1,7 @@
 package com.feelsoftware.feelfine.fit
 
 import android.os.Bundle
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.auth.api.signin.GoogleSignInOptionsExtension
 import com.google.android.gms.common.Scopes
 import com.google.android.gms.common.api.Scope
@@ -23,6 +24,9 @@ interface SignInOptions {
 
     val signInOptions: GoogleSignInOptionsExtension
         get() = OptionsWrapper(fitnessOptions)
+
+    val logoutOptions: GoogleSignInOptions
+        get() = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).build();
 }
 
 private class OptionsWrapper(

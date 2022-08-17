@@ -91,4 +91,10 @@
         android:label="MoodFragment"
         tools:layout="@layout/fragment_mood" />
 
+    <action
+        android:id="@+id/toEntryPoint"
+        app:destination="@id/entryPointFragment"
+        app:popUpTo="@id/nav_graph"
+        app:popUpToInclusive="true" />
+
 </navigation>
