@@ -29,6 +29,7 @@ interface DataSource<T> {
 }
 
 abstract class DataRepository<L, T>(
+    private val dataSource: String,
     private val localDataSource: DataSource<L>,
     private val remoteDataSource: DataSource<T>,
 ) {
@@ -37,24 +38,28 @@ abstract class DataRepository<L, T>(
         localDataSource.getAll(startTime, endTime).map { it.toModels() }.toObservable()
             .subscribeOn(Schedulers.io())
             .doOnNext {
-                Timber.d("local read $it")
+                Timber.d("[$dataSource] local read $it")
             },
         remoteDataSource.getAll(startTime, endTime).toObservable()
             .subscribeOn(Schedulers.io())
             .doOnNext {
-                Timber.d("remote read $it")
+                Timber.d("[$dataSource] remote read $it")
             }
             .flatMap { list ->
                 localDataSource.insert(list.toLocals())
                     .doOnComplete {
-                        Timber.d("local write $list")
+                        Timber.d("[$dataSource] local write $list")
                     }
                     .subscribeOn(Schedulers.io())
                     // andThen for Completable doesn't work, toSingle & flatMapObservable is hotfix
                     .toSingle { }
                     .flatMapObservable { Observable.just(list) }
             }
-    ).subscribeOn(Schedulers.io())
+    )
+        .doOnSubscribe {
+            Timber.d("[$dataSource] get $startTime $endTime")
+        }
+        .subscribeOn(Schedulers.io())
 
     abstract fun localToModel(local: L): T
 
@@ -68,7 +73,7 @@ abstract class DataRepository<L, T>(
 class StepsDataRepository(
     localDataSource: DataSource<StepsEntity>,
     remoteDataSource: DataSource<StepsInfo>,
-) : DataRepository<StepsEntity, StepsInfo>(localDataSource, remoteDataSource) {
+) : DataRepository<StepsEntity, StepsInfo>("steps", localDataSource, remoteDataSource) {
 
     override fun localToModel(local: StepsEntity) = with(local) {
         StepsInfo(date, count)
@@ -92,7 +97,7 @@ class StepsRemoteDataSource(
 class SleepDataRepository(
     localDataSource: DataSource<SleepEntity>,
     remoteDataSource: DataSource<SleepInfo>,
-) : DataRepository<SleepEntity, SleepInfo>(localDataSource, remoteDataSource) {
+) : DataRepository<SleepEntity, SleepInfo>("sleep", localDataSource, remoteDataSource) {
 
     override fun localToModel(local: SleepEntity) = with(local) {
         SleepInfo(date, lightSleep, deepSleep, awake, outOfBed)
@@ -116,7 +121,7 @@ class SleepRemoteDataSource(
 class ActivityDataRepository(
     localDataSource: DataSource<ActivityEntity>,
     remoteDataSource: DataSource<ActivityInfo>,
-) : DataRepository<ActivityEntity, ActivityInfo>(localDataSource, remoteDataSource) {
+) : DataRepository<ActivityEntity, ActivityInfo>("activity", localDataSource, remoteDataSource) {
 
     override fun localToModel(local: ActivityEntity) = with(local) {
         ActivityInfo(date, activityUnknown, activityWalking, activityRunning)

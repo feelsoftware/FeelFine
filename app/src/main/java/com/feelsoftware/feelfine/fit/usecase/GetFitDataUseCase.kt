@@ -9,7 +9,6 @@ import com.feelsoftware.feelfine.data.repository.StepsDataRepository
 import com.feelsoftware.feelfine.fit.model.*
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.schedulers.Schedulers
-import org.koin.core.component.KoinComponent
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.math.roundToInt
@@ -17,8 +16,8 @@ import kotlin.math.roundToInt
 class GetFitDataUseCase(
     private val stepsRepository: StepsDataRepository,
     private val sleepRepository: SleepDataRepository,
-    private val activityRepository: ActivityDataRepository
-) : KoinComponent {
+    private val activityRepository: ActivityDataRepository,
+) {
 
     fun getSteps(startTime: Date, endTime: Date): Observable<List<StepsInfo>> =
         stepsRepository.get(startTime, endTime)
@@ -87,9 +86,9 @@ class GetFitDataUseCase(
             calendar.add(Calendar.DAY_OF_YEAR, 1)
         }
 
-        val valuesByDate = values.map {
-            format.format(mapper(it)) to it
-        }.toMap()
+        val valuesByDate = values.associateBy {
+            format.format(mapper(it))
+        }
         val result = emptyValues.map { emptyValue ->
             valuesByDate[format.format(mapper(emptyValue))] ?: emptyValue
         }
@@ -122,9 +121,9 @@ fun GetFitDataUseCase.getPercentSteps(): Observable<Optional<Int>> {
     val (startTime, endTime) = yesterdayDates()
     val yesterdayData = getSteps(startTime, endTime).oneItem(startTime)
 
-    return Observable.zip(currentData, yesterdayData, { current, yesterday ->
+    return Observable.zip(currentData, yesterdayData) { current, yesterday ->
         calculatePercent(current.count, yesterday.count)
-    })
+    }
 }
 
 fun GetFitDataUseCase.getPercentSleep(): Observable<Optional<Int>> {
@@ -133,9 +132,9 @@ fun GetFitDataUseCase.getPercentSleep(): Observable<Optional<Int>> {
     val (startTime, endTime) = yesterdayDates(forSleep = true)
     val yesterdayData = getSleep(startTime, endTime).oneItem(startTime)
 
-    return Observable.zip(currentData, yesterdayData, { current, yesterday ->
+    return Observable.zip(currentData, yesterdayData) { current, yesterday ->
         calculatePercent(current.total.minutesTotal, yesterday.total.minutesTotal)
-    })
+    }
 }
 
 fun GetFitDataUseCase.getPercentActivity(): Observable<Optional<Int>> {
@@ -144,9 +143,9 @@ fun GetFitDataUseCase.getPercentActivity(): Observable<Optional<Int>> {
     val (startTime, endTime) = yesterdayDates()
     val yesterdayData = getActivity(startTime, endTime).oneItem(startTime)
 
-    return Observable.zip(currentData, yesterdayData, { current, yesterday ->
+    return Observable.zip(currentData, yesterdayData) { current, yesterday ->
         calculatePercent(current.total.minutesTotal, yesterday.total.minutesTotal)
-    })
+    }
 }
 
 private fun calculatePercent(current: Int, yesterday: Int): Optional<Int> =
@@ -199,7 +198,8 @@ private fun currentDates(forSleep: Boolean = false): Pair<Date, Date> {
         startTime = time
     }
     calendar.apply {
-        set(Calendar.HOUR_OF_DAY, if (forSleep) 12 else 23)
+        if (forSleep) add(Calendar.DAY_OF_YEAR, 1)
+        set(Calendar.HOUR_OF_DAY, if (forSleep) 11 else 23)
         set(Calendar.MINUTE, 59)
         set(Calendar.SECOND, 59)
         endTime = time
@@ -223,7 +223,8 @@ private fun yesterdayDates(forSleep: Boolean = false): Pair<Date, Date> {
         startTime = time
     }
     calendar.apply {
-        set(Calendar.HOUR_OF_DAY, if (forSleep) 12 else 23)
+        if (forSleep) add(Calendar.DAY_OF_YEAR, 1)
+        set(Calendar.HOUR_OF_DAY, if (forSleep) 11 else 23)
         set(Calendar.MINUTE, 59)
         set(Calendar.SECOND, 59)
         endTime = time
