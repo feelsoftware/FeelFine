@@ -4,6 +4,9 @@
     <string name="register">Sing up</string>
     <string name="sign_in">Sign in</string>
     <string name="dont_have_account">Let\'s get started!</string>
+    <string name="onboarding_age_title">What is date of birth?</string>
+    <string name="onboarding_age_description">Indicate your age</string>
+    <string name="onboarding_finish">Get started</string>
     <string name="nick_fill_error">Fill nick name</string>
     <string name="current_score_title">Current score</string>
     <string name="activity_score_text">%1$s / %2$s\nof your daily goal</string>
@@ -51,4 +54,9 @@
     <string name="statistic_category_steps">Steps</string>
     <string name="statistic_category_sleep">Sleep</string>
     <string name="log_out">Log out</string>
+    <string name="onboarding_terms_not_set_alert_title">Terms Of Use</string>
+    <string name="onboarding_terms_not_set_alert_body">Read and accept Terms Of Use</string>
+    <string name="onboarding_age_not_set_alert_title">Birthday</string>
+    <string name="onboarding_age_not_set_alert_body">Please, set your birthday.\n\nWe use your age to set target values for activities, steps and sleep.</string>
+    <string name="error_alert_button">Close</string>
 </resources>

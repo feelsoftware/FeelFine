@@ -6,14 +6,14 @@ import android.text.style.ClickableSpan
 import android.view.View
 import android.widget.TextView
 import androidx.core.text.buildSpannedString
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import com.feelsoftware.feelfine.R
 import com.feelsoftware.feelfine.extension.onClick
 import com.feelsoftware.feelfine.extension.subscribeBy
 import com.feelsoftware.feelfine.fit.FitPermissionManager
 import com.feelsoftware.feelfine.ui.base.BaseFragment
 import com.feelsoftware.feelfine.ui.base.BaseViewModel
+import com.feelsoftware.feelfine.ui.base.SingleLiveData
+import com.feelsoftware.feelfine.ui.dialog.showErrorDialog
 import com.feelsoftware.feelfine.utils.OnBoardingFlowManager
 import kotlinx.android.synthetic.main.fragment_age.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -25,12 +25,24 @@ class AgeFragment : BaseFragment<AgeViewModel>(R.layout.fragment_age) {
     override val viewModel: AgeViewModel by viewModel()
 
     override fun onReady() {
+        viewModel.termsNotSetError.observe {
+            showErrorDialog(
+                title = getString(R.string.onboarding_terms_not_set_alert_title),
+                body = getString(R.string.onboarding_terms_not_set_alert_body)
+            )
+        }
+        viewModel.birthdayNotSetError.observe {
+            showErrorDialog(
+                title = getString(R.string.onboarding_age_not_set_alert_title),
+                body = getString(R.string.onboarding_age_not_set_alert_body)
+            )
+        }
+
         calendarView.init(viewModel.year, viewModel.month, viewModel.day) { _, year, _, _ ->
             viewModel.onDateChanged(year)
         }
 
         getStartedB.onClick { viewModel.onContinue() }
-        viewModel.isContinueEnabled.observe { getStartedB.isEnabled = it }
 
         checkbox_terms.applyTermsOfUseLink {
             TermsOfUseDialog.show(this)
@@ -78,8 +90,8 @@ class AgeViewModel(
 
     private var isTermsChecked = false
 
-    private val _isContinueEnabled = MutableLiveData<Boolean>()
-    val isContinueEnabled: LiveData<Boolean> = _isContinueEnabled
+    val termsNotSetError = SingleLiveData<Unit>()
+    val birthdayNotSetError = SingleLiveData<Unit>()
 
     init {
         fitPermissionManager.hasPermissionObservable()
@@ -92,19 +104,22 @@ class AgeViewModel(
     fun onDateChanged(year: Int) {
         birthday.set(Calendar.YEAR, year)
         flowManager.age = Calendar.getInstance().get(Calendar.YEAR) - year
-        onInputChanged()
     }
 
     fun onTermsChecked(isChecked: Boolean) {
         isTermsChecked = isChecked
-        onInputChanged()
-    }
-
-    private fun onInputChanged() {
-        _isContinueEnabled.value = flowManager.age != null && isTermsChecked
     }
 
     fun onContinue() {
+        if (isTermsChecked.not()) {
+            termsNotSetError.value = Unit
+            return
+        }
+        if (flowManager.age == null) {
+            birthdayNotSetError.value = Unit
+            return
+        }
+
         flowManager.markAsPassed(flowManager.buildUserProfile() ?: return)
             .subscribeBy(onComplete = {
                 checkGoogleAccount()
