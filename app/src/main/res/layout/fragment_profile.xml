@@ -36,11 +36,12 @@
         android:layout_margin="10dp"
         android:background="@drawable/background_score"
         android:backgroundTint="@color/paleGrey"
-        app:layout_constraintBottom_toTopOf="@+id/textView5"
+        app:layout_constraintBottom_toTopOf="@+id/btnChangePhoto"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nameTV">
+        app:layout_constraintTop_toBottomOf="@+id/nameTV"
+        app:layout_goneMarginBottom="24dp">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/male"
@@ -53,7 +54,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/btnChangePhoto"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -63,9 +64,11 @@
         android:text="Choose your photo"
         android:textColor="@color/cloudyBlue"
         android:textSize="13sp"
+        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/wageCL"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        tools:visibility="visible" />
 
     <LinearLayout
         android:id="@+id/wageCL"
@@ -74,6 +77,7 @@
         android:layout_marginEnd="10dp"
         android:background="@drawable/background_score"
         android:backgroundTint="@color/lightTeal"
+        android:gravity="center"
         android:orientation="vertical"
         android:padding="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -110,8 +114,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginTop="8dp"
             android:fontFamily="@font/nunito_black"
-            android:textColor="@color/greyishBrown"
+            android:textColor="@color/white"
             android:textSize="13sp"
             tools:text="57 kg" />
 
@@ -124,6 +129,7 @@
         android:layout_marginStart="10dp"
         android:background="@drawable/background_score"
         android:backgroundTint="@color/lightTeal"
+        android:gravity="center"
         android:orientation="vertical"
         android:padding="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -159,8 +165,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginTop="8dp"
             android:fontFamily="@font/nunito_black"
-            android:textColor="@color/greyishBrown"
+            android:textColor="@color/white"
             android:textSize="13sp"
             tools:text="22 y.o." />
 
