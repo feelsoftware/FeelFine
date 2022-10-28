@@ -3,9 +3,12 @@
 package com.feelsoftware.feelfine.ui.score
 
 import android.annotation.SuppressLint
+import androidx.core.view.isVisible
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.map
 import com.feelsoftware.feelfine.R
+import com.feelsoftware.feelfine.data.model.UserProfile
+import com.feelsoftware.feelfine.data.repository.UserRepository
 import com.feelsoftware.feelfine.fit.model.*
 import com.feelsoftware.feelfine.fit.usecase.GetFitDataUseCase
 import com.feelsoftware.feelfine.fit.usecase.getCurrentSleep
@@ -17,6 +20,7 @@ import kotlinx.android.synthetic.main.fragment_sleep_score.*
 import kotlinx.android.synthetic.main.fragment_sleep_score.backIV
 import kotlinx.android.synthetic.main.fragment_sleep_score.totalScore
 import kotlinx.android.synthetic.main.fragment_sleep_score.scorePercentTV
+import kotlinx.android.synthetic.main.fragment_sleep_score.sleepText
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SleepScoreFragment : BaseFragment<SleepScoreViewModel>(R.layout.fragment_sleep_score) {
@@ -49,13 +53,18 @@ class SleepScoreFragment : BaseFragment<SleepScoreViewModel>(R.layout.fragment_s
             sleepText.text = getString(R.string.sleep_score_text, current, target)
             totalScore.progress = it.score
         }
+        viewModel.userProfile.observe { profile ->
+            demoLabel.isVisible = profile.isDemo
+        }
+
         backIV.setOnClickListener { requireActivity().onBackPressed() }
     }
 }
 
 class SleepScoreViewModel(
     useCase: GetFitDataUseCase,
-    scoreTargetProvider: ScoreTargetProvider
+    scoreTargetProvider: ScoreTargetProvider,
+    userRepository: UserRepository,
 ) : BaseViewModel() {
 
     val sleepInfo = MutableLiveData<SleepInfo>()
@@ -65,8 +74,11 @@ class SleepScoreViewModel(
         scoreTargetProvider.getSleepDuration().map { it.minutesTotal }
     )
 
+    val userProfile = MutableLiveData<UserProfile>()
+
     init {
         sleepInfo.attachSource(useCase.getCurrentSleep()) { it }
         combinePercentData(percents, useCase.getPercentSleep())
+        userProfile.attachSource(userRepository.getProfile()) { it }
     }
 }

@@ -18,6 +18,7 @@ data class UserProfileEntity(
     val gender: Gender,
     val weight: Int,
     val age: Int,
+    val isDemo: Boolean,
 ) {
 
     enum class Gender {

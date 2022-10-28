@@ -16,10 +16,11 @@ android {
         applicationId "com.feelsoftware.feelfine"
         minSdkVersion 23
         targetSdkVersion 33
-        versionCode 103
+        versionCode 105
         versionName "1.0.2"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        vectorDrawables.useSupportLibrary = true
     }
 
     signingConfigs {

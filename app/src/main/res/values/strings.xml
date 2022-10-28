@@ -3,6 +3,7 @@
     <string name="welcome_title">Welcome to FeelFine!</string>
     <string name="register">Sing up</string>
     <string name="sign_in">Sign in</string>
+    <string name="failed_sign_in_error_alert_body">Failed to sign in.\nReason: %s</string>
     <string name="dont_have_account">Let\'s get started!</string>
     <string name="onboarding_age_title">What is date of birth?</string>
     <string name="onboarding_age_description">Indicate your age</string>
@@ -59,4 +60,8 @@
     <string name="onboarding_age_not_set_alert_title">Birthday</string>
     <string name="onboarding_age_not_set_alert_body">Please, set your birthday.\n\nWe use your age to set target values for activities, steps and sleep.</string>
     <string name="error_alert_button">Close</string>
+    <string name="demo_profile_badge">Demo</string>
+    <string name="demo_profile_badge_description">
+        You are not signed to Google Account and now you see demo steps, sleep and activity.\nOpen Profile tab and Sign In to Google to see your real data from Google Fit.
+    </string>
 </resources>

@@ -31,7 +31,8 @@ class OnBoardingFlowManager(
             name = name ?: return null,
             gender = gender ?: return null,
             weight = weight ?: return null,
-            age = age ?: return null
+            age = age ?: return null,
+            isDemo = true,
         )
     }
 

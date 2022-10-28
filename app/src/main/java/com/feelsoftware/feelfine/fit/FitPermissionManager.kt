@@ -1,12 +1,20 @@
 package com.feelsoftware.feelfine.fit
 
 import android.content.Intent
+import com.feelsoftware.feelfine.R
+import com.feelsoftware.feelfine.data.db.dao.ActivityDao
+import com.feelsoftware.feelfine.data.db.dao.SleepDao
+import com.feelsoftware.feelfine.data.db.dao.StepsDao
+import com.feelsoftware.feelfine.data.repository.UserRepository
+import com.feelsoftware.feelfine.extension.subscribeBy
+import com.feelsoftware.feelfine.ui.dialog.showErrorDialog
 import com.feelsoftware.feelfine.utils.ActivityEngine
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.common.api.ApiException
 import com.jakewharton.rxrelay3.PublishRelay
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
+import io.reactivex.rxjava3.schedulers.Schedulers
 import timber.log.Timber
 import java.util.concurrent.atomic.AtomicBoolean
 
@@ -16,7 +24,7 @@ interface FitPermissionManager {
 
     fun hasPermissionObservable(): Observable<Boolean>
 
-    fun requestPermission()
+    fun requestPermission(): Single<Boolean>
 
     fun resetPermission(): Single<Boolean>
 
@@ -26,11 +34,16 @@ interface FitPermissionManager {
 private const val REQUEST_CODE = 1717
 
 class GoogleFitPermissionManager(
+    private val activityDao: ActivityDao,
     private val activityEngine: ActivityEngine,
+    private val sleepDao: SleepDao,
+    private val stepsDao: StepsDao,
+    private val userRepository: UserRepository,
 ) : FitPermissionManager, SignInOptions {
 
     private val hasPermissionRelay = PublishRelay.create<Boolean>()
     private val hasPendingPermission = AtomicBoolean(false)
+    private val permissionRequest = PublishRelay.create<Boolean>()
 
     override fun hasPermission(): Boolean = hasPermissionInternal()
 
@@ -38,10 +51,11 @@ class GoogleFitPermissionManager(
         return Observable.merge(Observable.just(hasPermissionInternal()), hasPermissionRelay)
     }
 
-    override fun requestPermission() {
-        if (hasPendingPermission.get()) return
-        if (hasPermissionInternal()) return
+    override fun requestPermission(): Single<Boolean> {
+        if (hasPendingPermission.get()) return Single.just(true)
+        if (hasPermissionInternal()) return Single.just(true)
         requestPermissionInternal()
+        return permissionRequest.firstOrError()
     }
 
     override fun resetPermission(): Single<Boolean> {
@@ -76,10 +90,34 @@ class GoogleFitPermissionManager(
         try {
             val account = task.getResult(ApiException::class.java)
             Timber.d("onPermissionResult success ${account?.displayName}")
-            hasPermissionRelay.accept(true)
+
+            userRepository.getProfile()
+                .firstOrError()
+                .flatMapCompletable { profile ->
+                    userRepository.setProfile(profile.copy(isDemo = false))
+                }
+                // Clear cached mocked data
+                .andThen(activityDao.delete())
+                .andThen(sleepDao.delete())
+                .andThen(stepsDao.delete())
+                .subscribeOn(Schedulers.io())
+                .doFinally {
+                    hasPermissionRelay.accept(true)
+                    permissionRequest.accept(true)
+                }
+                .subscribeBy(onError = { error ->
+                    Timber.e(error, "Failed to update profile")
+                })
         } catch (error: ApiException) {
             Timber.e(error, "onPermissionResult error")
+            activityEngine.activity?.apply {
+                showErrorDialog(
+                    title = getString(R.string.sign_in),
+                    body = getString(R.string.failed_sign_in_error_alert_body, error.toString()),
+                )
+            }
             hasPermissionRelay.accept(false)
+            permissionRequest.accept(false)
         }
     }
 
@@ -99,7 +137,11 @@ class GoogleFitPermissionManager(
     }
 
     private fun requestPermissionInternal() {
-        val activity = activityEngine.activity ?: return
+        val activity = activityEngine.activity ?: run {
+            permissionRequest.accept(false)
+            return
+        }
+        hasPendingPermission.set(true)
         val account = GoogleSignIn.getLastSignedInAccount(activity)
         GoogleSignIn.requestPermissions(activity, REQUEST_CODE, account, signInOptions)
     }

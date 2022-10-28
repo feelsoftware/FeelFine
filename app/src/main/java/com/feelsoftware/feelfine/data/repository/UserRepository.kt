@@ -11,7 +11,13 @@ class UserRepository(
     private val dao: UserProfileDao,
 ) {
 
-    private val emptyProfile = UserProfile("", UserProfile.Gender.MALE, 0, 0)
+    private val emptyProfile = UserProfile(
+        name = "",
+        gender = UserProfile.Gender.MALE,
+        weight = 0,
+        age = 0,
+        isDemo = true,
+    )
 
     fun setProfile(profile: UserProfile): Completable =
         dao.insert(profile.toEntity())
@@ -43,6 +49,7 @@ private fun UserProfile.toEntity() = UserProfileEntity(
     gender = gender.toEntity(),
     weight = weight,
     age = age,
+    isDemo = isDemo,
 )
 
 private fun UserProfile.Gender.toEntity() = when (this) {
@@ -55,6 +62,7 @@ private fun UserProfileEntity.toModel() = UserProfile(
     gender = gender.toModel(),
     weight = weight,
     age = age,
+    isDemo = isDemo,
 )
 
 private fun UserProfileEntity.Gender.toModel() = when (this) {

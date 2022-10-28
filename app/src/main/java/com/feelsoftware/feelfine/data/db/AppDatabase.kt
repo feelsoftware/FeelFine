@@ -9,7 +9,7 @@ import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.schedulers.Schedulers
 
 @Database(
-    version = 1,
+    version = 2,
     entities = [
         ActivityEntity::class,
         MoodEntity::class,

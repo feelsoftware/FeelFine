@@ -38,7 +38,7 @@ val presentationModule = module {
         EmptyViewModel()
     }
     viewModel {
-        EntryPointViewModel(get<OnBoardingFlowManager>(), get<FitPermissionManager>())
+        EntryPointViewModel(get<OnBoardingFlowManager>())
     }
     viewModel {
         HomeViewModel(get<MoodTracker>())
@@ -53,7 +53,7 @@ val presentationModule = module {
         WeightViewModel(get<OnBoardingFlowManager>())
     }
     viewModel {
-        AgeViewModel(get<OnBoardingFlowManager>(), get<FitPermissionManager>())
+        AgeViewModel(get<OnBoardingFlowManager>())
     }
     viewModel {
         CurrentScoreViewModel(
@@ -61,20 +61,33 @@ val presentationModule = module {
             get<GetCurrentMoodUseCase>(),
             get<GetPercentMoodUseCase>(),
             get<ScoreTargetProvider>(),
-            get<ScoreCalculator>()
+            get<ScoreCalculator>(),
+            get<UserRepository>(),
         )
     }
     viewModel {
-        SleepScoreViewModel(get<GetFitDataUseCase>(), get<ScoreTargetProvider>())
+        SleepScoreViewModel(
+            get<GetFitDataUseCase>(),
+            get<ScoreTargetProvider>(),
+            get<UserRepository>(),
+        )
     }
     viewModel {
-        StepScoreViewModel(get<GetFitDataUseCase>(), get<ScoreTargetProvider>())
+        StepScoreViewModel(
+            get<GetFitDataUseCase>(),
+            get<ScoreTargetProvider>(),
+            get<UserRepository>(),
+        )
     }
     viewModel {
-        ActivityScoreViewModel(get<GetFitDataUseCase>(), get<ScoreTargetProvider>())
+        ActivityScoreViewModel(
+            get<GetFitDataUseCase>(),
+            get<ScoreTargetProvider>(),
+            get<UserRepository>(),
+        )
     }
     viewModel {
-        StatisticViewModel(androidContext(), get<GetFitDataUseCase>())
+        StatisticViewModel(androidContext(), get<GetFitDataUseCase>(), get<UserRepository>())
     }
     viewModel {
         ProfileViewModel(
@@ -82,7 +95,7 @@ val presentationModule = module {
             fitPermissionManager = get<FitPermissionManager>(),
             onBoardingFlowManager = get<OnBoardingFlowManager>(),
             scoreTargetProvider = get<ScoreTargetProvider>(),
-            userRepo = get<UserRepository>(),
+            userRepository = get<UserRepository>(),
         )
     }
     viewModel {

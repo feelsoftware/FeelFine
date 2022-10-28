@@ -39,13 +39,12 @@
         tools:text="Maria" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_margin="10dp"
         android:background="@drawable/background_score"
         android:backgroundTint="@color/paleGrey"
-        app:layout_constraintBottom_toTopOf="@+id/btnChangePhoto"
+        app:layout_constraintBottom_toTopOf="@id/btnSignIn"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -53,31 +52,21 @@
         app:layout_goneMarginBottom="24dp">
 
         <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/male"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="10dp"
-            android:checked="true"
             android:src="@drawable/ic_profile_background" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <TextView
-        android:id="@+id/btnChangePhoto"
-        android:layout_width="0dp"
+    <com.google.android.gms.common.SignInButton
+        android:id="@+id/btnSignIn"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginBottom="16dp"
-        android:fontFamily="@font/nunito_extrabold"
-        android:gravity="center"
-        android:text="Choose your photo"
-        android:textColor="@color/cloudyBlue"
-        android:textSize="13sp"
-        android:visibility="gone"
+        android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toTopOf="@+id/wageCL"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:visibility="visible" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <LinearLayout
         android:id="@+id/wageCL"

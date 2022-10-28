@@ -8,7 +8,7 @@ import timber.log.Timber
 
 interface ActivityEngine {
 
-    var activity: Activity?
+    val activity: Activity?
 }
 
 class ActivityEngineImpl(

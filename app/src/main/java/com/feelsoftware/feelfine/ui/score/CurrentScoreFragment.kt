@@ -1,10 +1,13 @@
 package com.feelsoftware.feelfine.ui.score
 
+import androidx.core.view.isVisible
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.map
 import com.feelsoftware.feelfine.R
 import com.feelsoftware.feelfine.data.model.Mood
 import com.feelsoftware.feelfine.data.model.Optional
+import com.feelsoftware.feelfine.data.model.UserProfile
+import com.feelsoftware.feelfine.data.repository.UserRepository
 import com.feelsoftware.feelfine.data.usecase.GetCurrentMoodUseCase
 import com.feelsoftware.feelfine.data.usecase.GetPercentMoodUseCase
 import com.feelsoftware.feelfine.extension.onClick
@@ -73,6 +76,9 @@ class CurrentScoreFragment : BaseFragment<CurrentScoreViewModel>(R.layout.fragme
             )
             moodScore.progress = it.score
         }
+        viewModel.userProfile.observe { profile ->
+            demoLabel.isVisible = profile.isDemo
+        }
 
         stepLayout.onClick { viewModel.navigate(R.id.stepScoreFragment) }
         sleepLayout.onClick { viewModel.navigate(R.id.sleepScoreFragment) }
@@ -87,7 +93,8 @@ class CurrentScoreViewModel(
     getCurrentMoodUseCase: GetCurrentMoodUseCase,
     getPercentMoodUseCase: GetPercentMoodUseCase,
     scoreTargetProvider: ScoreTargetProvider,
-    scoreCalculator: ScoreCalculator
+    scoreCalculator: ScoreCalculator,
+    userRepository: UserRepository,
 ) : BaseViewModel() {
 
     private val stepsCount = MutableLiveData<Int>()
@@ -125,6 +132,8 @@ class CurrentScoreViewModel(
 
     val currentScore = scoreCalculator.calculate(stepsScore, sleepScore, activityScore, moodScore)
 
+    val userProfile = MutableLiveData<UserProfile>()
+
     init {
         stepsCount.attachSource(fitDataUseCase.getCurrentSteps()) { it.count }
         sleepDuration.attachSource(fitDataUseCase.getCurrentSleep()) { it.total }
@@ -134,5 +143,6 @@ class CurrentScoreViewModel(
         combinePercentData(sleepPercents, fitDataUseCase.getPercentSleep())
         combinePercentData(activityPercents, fitDataUseCase.getPercentActivity())
         combinePercentData(moodPercents, getPercentMoodUseCase())
+        userProfile.attachSource(userRepository.getProfile()) { it }
     }
 }

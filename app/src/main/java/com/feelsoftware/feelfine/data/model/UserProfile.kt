@@ -5,6 +5,7 @@ data class UserProfile(
     val gender: Gender,
     val weight: Int,
     val age: Int,
+    val isDemo: Boolean,
 ) {
 
     enum class Gender {

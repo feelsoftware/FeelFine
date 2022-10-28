@@ -26,6 +26,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <com.feelsoftware.feelfine.ui.profile.DemoProfileBadge
+        android:id="@+id/demoLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintBottom_toBottomOf="@id/backIV"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/backIV" />
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/stepsView"

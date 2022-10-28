@@ -7,8 +7,11 @@ import android.annotation.SuppressLint
 import android.content.Context
 import androidx.annotation.StringRes
 import androidx.core.view.isInvisible
+import androidx.core.view.isVisible
 import androidx.lifecycle.*
 import com.feelsoftware.feelfine.R
+import com.feelsoftware.feelfine.data.model.UserProfile
+import com.feelsoftware.feelfine.data.repository.UserRepository
 import com.feelsoftware.feelfine.extension.onClick
 import com.feelsoftware.feelfine.extension.toLiveData
 import com.feelsoftware.feelfine.fit.model.Duration
@@ -60,6 +63,10 @@ class StatisticFragment : BaseFragment<StatisticViewModel>(R.layout.fragment_sta
         btnPreviousDate.onClick { viewModel.onPreviousDateRangeClicked() }
         btnNextDate.onClick { viewModel.onNextDateRangeClicked() }
 
+        viewModel.userProfile.observe { profile ->
+            demoLabel.isVisible = profile.isDemo
+        }
+
         initChart()
         viewModel.chartData.observe(::displayChartData)
     }
@@ -96,7 +103,8 @@ class StatisticFragment : BaseFragment<StatisticViewModel>(R.layout.fragment_sta
 
 class StatisticViewModel(
     private val context: Context,
-    useCase: GetFitDataUseCase
+    useCase: GetFitDataUseCase,
+    userRepository: UserRepository,
 ) : BaseViewModel() {
 
     private val categories = listOf(
@@ -191,9 +199,12 @@ class StatisticViewModel(
         }
     }
 
+    val userProfile = MutableLiveData<UserProfile>()
+
     init {
         currentCategoryIndex = 1
         currentDate.value = Date()
+        userProfile.attachSource(userRepository.getProfile()) { it }
     }
 
     // region Category
