@@ -11,8 +11,8 @@ import com.feelsoftware.feelfine.utils.ActivityEngine
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.fitness.FitnessActivities
 import com.google.api.client.extensions.android.http.AndroidHttp
+import com.google.api.client.extensions.android.json.AndroidJsonFactory
 import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential
-import com.google.api.client.json.jackson2.JacksonFactory
 import com.google.api.services.fitness.model.AggregateBy
 import com.google.api.services.fitness.model.AggregateRequest
 import com.google.api.services.fitness.model.AggregateResponse
@@ -104,7 +104,7 @@ class GoogleFitRepository(
 
         val fitness = com.google.api.services.fitness.Fitness.Builder(
             AndroidHttp.newCompatibleTransport(),
-            JacksonFactory.getDefaultInstance(),
+            AndroidJsonFactory.getDefaultInstance(),
             credentials
         )
             .setApplicationName(activity.getString(R.string.app_name))

@@ -66,9 +66,8 @@ open class BaseViewModel : ViewModel() {
 
     fun navigate(@IdRes actionId: Int, arguments: Bundle) {
         navigation.postValue(object : NavDirections {
-            override fun getActionId(): Int = actionId
-
-            override fun getArguments(): Bundle = arguments
+            override val actionId: Int = actionId
+            override val arguments: Bundle = arguments
         })
     }
 
