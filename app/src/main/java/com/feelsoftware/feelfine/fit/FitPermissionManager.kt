@@ -10,6 +10,7 @@ import com.feelsoftware.feelfine.extension.subscribeBy
 import com.feelsoftware.feelfine.ui.dialog.showErrorDialog
 import com.feelsoftware.feelfine.utils.ActivityEngine
 import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInStatusCodes
 import com.google.android.gms.common.api.ApiException
 import com.jakewharton.rxrelay3.PublishRelay
 import io.reactivex.rxjava3.core.Observable
@@ -110,11 +111,16 @@ class GoogleFitPermissionManager(
                 })
         } catch (error: ApiException) {
             Timber.e(error, "onPermissionResult error")
-            activityEngine.activity?.apply {
-                showErrorDialog(
-                    title = getString(R.string.sign_in),
-                    body = getString(R.string.failed_sign_in_error_alert_body, error.toString()),
-                )
+            if (error.statusCode != GoogleSignInStatusCodes.SIGN_IN_CANCELLED) {
+                activityEngine.activity?.apply {
+                    showErrorDialog(
+                        title = getString(R.string.sign_in),
+                        body = getString(
+                            R.string.failed_sign_in_error_alert_body,
+                            error.toString()
+                        ),
+                    )
+                }
             }
             hasPermissionRelay.accept(false)
             permissionRequest.accept(false)
