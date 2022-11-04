@@ -80,6 +80,11 @@ class GoogleFitRepository(
         endTime: Date,
         request: AggregateRequest
     ): Single<AggregateResponse> = Single.create { emitter ->
+        if (startTime.after(endTime)) {
+            emitter.onError(IllegalArgumentException("Invalid date range, [$startTime, $endTime]"))
+            return@create
+        }
+
         val activity = activityEngine.activity ?: run {
             if (emitter.isDisposed) return@create
             emitter.onError(IllegalStateException("Activity is null"))

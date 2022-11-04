@@ -27,6 +27,10 @@ class MockFitRepository : FitRepository {
         endTime: Date,
         generator: (date: Date) -> T
     ): Single<List<T>> {
+        if (startTime.after(endTime)) {
+            return Single.error(IllegalArgumentException("Invalid date range, [$startTime, $endTime]"))
+        }
+
         val hours = TimeUnit.HOURS.convert(endTime.time - startTime.time, TimeUnit.MILLISECONDS)
         val days = (hours / 24 + 1).toInt()
 

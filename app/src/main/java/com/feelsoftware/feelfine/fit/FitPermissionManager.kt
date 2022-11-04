@@ -12,6 +12,7 @@ import com.feelsoftware.feelfine.utils.ActivityEngine
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInStatusCodes
 import com.google.android.gms.common.api.ApiException
+import com.google.android.gms.common.api.CommonStatusCodes
 import com.jakewharton.rxrelay3.PublishRelay
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
@@ -110,8 +111,16 @@ class GoogleFitPermissionManager(
                     Timber.e(error, "Failed to update profile")
                 })
         } catch (error: ApiException) {
-            Timber.e(error, "onPermissionResult error")
-            if (error.statusCode != GoogleSignInStatusCodes.SIGN_IN_CANCELLED) {
+            val ignoredErrorCodes = listOf(
+                GoogleSignInStatusCodes.SIGN_IN_CANCELLED,
+                CommonStatusCodes.CANCELED,
+            )
+            if (!ignoredErrorCodes.contains(error.statusCode)) {
+                Timber.e(
+                    error,
+                    "Failed to sign in, ${GoogleSignInStatusCodes.getStatusCodeString(error.statusCode)}"
+                )
+
                 activityEngine.activity?.apply {
                     showErrorDialog(
                         title = getString(R.string.sign_in),
@@ -122,6 +131,7 @@ class GoogleFitPermissionManager(
                     )
                 }
             }
+
             hasPermissionRelay.accept(false)
             permissionRequest.accept(false)
         }

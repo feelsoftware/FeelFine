@@ -1,5 +1,7 @@
 /build
 release.jks
 */*.aab
+*/*.apk
+*/output-metadata.json
 *.pepk
 google-services.json
