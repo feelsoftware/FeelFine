@@ -17,11 +17,14 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.graphics.drawscope.Fill
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.semantics.ProgressBarRangeInfo
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.progressBarRangeInfo
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.feelsoftware.feelfine.ui.theme.FeelFineTheme
@@ -30,7 +33,7 @@ private val circleSize = 24.dp
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
-fun OnboardingProgress(
+internal fun OnboardingProgress(
     currentIndex: Int,
     totalCount: Int,
     modifier: Modifier = Modifier
@@ -39,13 +42,21 @@ fun OnboardingProgress(
 
     val currentDensity = LocalDensity.current
     val pathEffect = remember(currentDensity) {
-        val dashSize = currentDensity.run { 2.dp.toPx() }
+        val dashSize = currentDensity.run { 4.dp.toPx() }
         PathEffect.dashPathEffect(floatArrayOf(dashSize, dashSize), 0f)
     }
 
     Row(
         modifier = modifier
-            .requiredHeight(circleSize),
+            .requiredHeight(circleSize)
+            .semantics(mergeDescendants = true) {
+                contentDescription = "Onboarding progress"
+                progressBarRangeInfo = ProgressBarRangeInfo(
+                    current = currentIndex.toFloat(),
+                    range = 0f..totalCount.toFloat(),
+                    steps = totalCount
+                )
+            },
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         repeat(totalCount) { index ->
@@ -64,7 +75,7 @@ fun OnboardingProgress(
                 }
             ) {
                 AnimatedVisibility(
-                    visible = index <= currentIndex,
+                    visible = index == currentIndex,
                     enter = scaleIn(),
                     exit = scaleOut()
                 ) {
@@ -89,7 +100,7 @@ fun OnboardingProgress(
                         .padding(horizontal = 8.dp),
                     onDraw = {
                         drawLine(
-                            color = Color.Red,
+                            color = colorInActive,
                             strokeWidth = 1.dp.toPx(),
                             start = Offset(0f, size.height / 2),
                             end = Offset(size.width, size.height / 2),

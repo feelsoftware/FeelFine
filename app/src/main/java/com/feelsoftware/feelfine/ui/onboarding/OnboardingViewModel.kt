@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 
-class OnboardingViewModel : ViewModel() {
+internal class OnboardingViewModel : ViewModel() {
 
     private val steps = mutableListOf<OnboardingStep>(
         OnboardingStep.Name(),
@@ -19,9 +19,26 @@ class OnboardingViewModel : ViewModel() {
         OnboardingStep.Weight(),
         OnboardingStep.Birthday(),
     )
+    private val validators = mutableListOf<OnboardingStepValidator<*>>(
+        OnboardingStepValidator.Name,
+        OnboardingStepValidator.Gender,
+        OnboardingStepValidator.Weight,
+        OnboardingStepValidator.Birthday,
+    )
     private val currentStep = MutableStateFlow<OnboardingStep>(steps.first())
 
     val step: StateFlow<OnboardingStep> = currentStep.asStateFlow()
+
+    private val _nextStepEnabled = MutableStateFlow<Boolean>(false)
+    val nextStepEnabled: StateFlow<Boolean> = _nextStepEnabled.asStateFlow()
+
+    val stepIndex: StateFlow<Int> = currentStep.map { steps.indexOf(it) }
+        .stateIn(
+            viewModelScope,
+            SharingStarted.WhileSubscribed(5000),
+            initialValue = -1
+        )
+    val stepsCount: StateFlow<Int> = MutableStateFlow(4).asStateFlow()
 
     val backHandlerEnabled: StateFlow<Boolean> = currentStep.map { it !is OnboardingStep.Name }
         .stateIn(
@@ -37,14 +54,64 @@ class OnboardingViewModel : ViewModel() {
         val index = steps.indexOf(currentStep.value)
         if (index <= 0) return
         currentStep.value = steps[index - 1]
+        validateCurrentStep()
     }
 
     fun nextStep() {
         val index = steps.indexOf(currentStep.value)
         if (index == steps.size - 1) {
             _finishOnboarding.value = true
-        } else {
+        } else if (nextStepEnabled.value) {
             currentStep.value = steps[index + 1]
+            validateCurrentStep()
         }
     }
+
+    fun updateStepData(step: OnboardingStep) {
+        currentStep.value = steps.update(step)
+        validateCurrentStep()
+    }
+
+    private fun validateCurrentStep() {
+        _nextStepEnabled.value = validators.validate(currentStep.value)
+    }
 }
+
+private inline fun <reified T : OnboardingStep> MutableList<OnboardingStep>.update(newStep: T): OnboardingStep {
+    val newValue = when (newStep) {
+        is OnboardingStep.Name ->
+            find<OnboardingStep.Name>().copy(name = newStep.name)
+        is OnboardingStep.Gender ->
+            find<OnboardingStep.Gender>().copy(gender = newStep.gender)
+        is OnboardingStep.Weight ->
+            find<OnboardingStep.Weight>().copy(weight = newStep.weight)
+        is OnboardingStep.Birthday ->
+            find<OnboardingStep.Birthday>().copy(birthday = newStep.birthday)
+        else ->
+            throw IllegalArgumentException("Unsupported step $this, only 4 steps are supported")
+    }
+    set(indexOf(find<T>()), newValue)
+
+    return newValue
+}
+
+private inline fun <reified T : OnboardingStep> List<OnboardingStep>.find(): T =
+    find { it is T } as T
+
+private inline fun <reified T : OnboardingStep> List<OnboardingStepValidator<*>>.validate(
+    step: T
+): Boolean = when (step) {
+    is OnboardingStep.Name ->
+        find<OnboardingStepValidator.Name>().validate(step)
+    is OnboardingStep.Gender ->
+        find<OnboardingStepValidator.Gender>().validate(step)
+    is OnboardingStep.Weight ->
+        find<OnboardingStepValidator.Weight>().validate(step)
+    is OnboardingStep.Birthday ->
+        find<OnboardingStepValidator.Birthday>().validate(step)
+    else ->
+        throw IllegalArgumentException("Unsupported step $this, only 4 steps are supported")
+}
+
+private inline fun <reified T : OnboardingStepValidator<*>> List<OnboardingStepValidator<*>>.find(): T =
+    filterIsInstance<T>().first()

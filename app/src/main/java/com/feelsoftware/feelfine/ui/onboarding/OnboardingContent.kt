@@ -1,6 +1,7 @@
 package com.feelsoftware.feelfine.ui.onboarding
 
 import android.content.res.Configuration
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -23,16 +24,14 @@ import com.feelsoftware.feelfine.ui.theme.button
 import com.feelsoftware.feelfine.ui.theme.label
 
 @Composable
-fun OnboardingContent(
+internal fun OnboardingContent(
     step: OnboardingStep,
+    stepIndex: Int,
+    stepsCount: Int,
+    onStepDataChange: (step: OnboardingStep) -> Unit,
+    nextStepEnabled: Boolean,
     onNextStepClick: () -> Unit,
 ) {
-    val currentIndex = when (step) {
-        is OnboardingStep.Name -> 0
-        is OnboardingStep.Gender -> 1
-        is OnboardingStep.Weight -> 2
-        is OnboardingStep.Birthday -> 3
-    }
     val (title, label) = when (step) {
         is OnboardingStep.Name ->
             stringResource(id = R.string.onboarding_name_title) to stringResource(id = R.string.onboarding_name_label)
@@ -47,8 +46,8 @@ fun OnboardingContent(
     Surface(modifier = Modifier.fillMaxSize()) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
             OnboardingProgress(
-                currentIndex = currentIndex,
-                totalCount = 4,
+                currentIndex = stepIndex,
+                totalCount = stepsCount,
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 32.dp)
@@ -77,11 +76,47 @@ fun OnboardingContent(
                         .padding(horizontal = 16.dp)
                         .padding(top = 8.dp)
                 )
+
+                Box(
+                    modifier = Modifier
+                        .weight(1f)
+                ) {
+                    when (step) {
+                        is OnboardingStep.Name ->
+                            OnboardingNameContent(
+                                name = step.name,
+                                onNameChange = { onStepDataChange(step.copy(it)) },
+                                onActionDone = { onNextStepClick() },
+                                modifier = Modifier
+                                    .padding(end = 32.dp)
+                                    .align(Alignment.Center)
+                            )
+                        is OnboardingStep.Gender ->
+                            Text(
+                                "TODO: Gender",
+                                modifier = Modifier
+                                    .align(Alignment.Center)
+                            )
+                        is OnboardingStep.Weight ->
+                            Text(
+                                "TODO: Weight",
+                                modifier = Modifier
+                                    .align(Alignment.Center)
+                            )
+                        is OnboardingStep.Birthday ->
+                            Text(
+                                "TODO: Birthday",
+                                modifier = Modifier
+                                    .align(Alignment.Center)
+                            )
+                    }
+                }
             }
 
             Button(
                 onClick = onNextStepClick,
                 shape = MaterialTheme.shapes.button,
+                enabled = nextStepEnabled,
                 modifier = Modifier
                     .padding(horizontal = 16.dp)
                     .padding(bottom = 16.dp)
@@ -99,6 +134,13 @@ fun OnboardingContent(
 @Composable
 private fun OnboardingContentPreview() {
     FeelFineTheme {
-        OnboardingContent(step = OnboardingStep.Name(), onNextStepClick = {})
+        OnboardingContent(
+            step = OnboardingStep.Name(),
+            stepIndex = 0,
+            stepsCount = 4,
+            onStepDataChange = {},
+            nextStepEnabled = true,
+            onNextStepClick = {}
+        )
     }
 }

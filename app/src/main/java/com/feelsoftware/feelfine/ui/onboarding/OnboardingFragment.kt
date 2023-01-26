@@ -9,15 +9,23 @@ import com.feelsoftware.feelfine.R
 import com.feelsoftware.feelfine.ui.base.BaseComposeFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class OnboardingFragment : BaseComposeFragment() {
+internal class OnboardingFragment : BaseComposeFragment() {
 
     @Composable
     override fun Content() {
         val viewModel: OnboardingViewModel by remember { viewModel() }
         val step by viewModel.step.collectAsState()
+        val index by viewModel.stepIndex.collectAsState()
+        val totalSteps by viewModel.stepsCount.collectAsState()
+        val nextStepEnabled by viewModel.nextStepEnabled.collectAsState()
+
         OnboardingContent(
             step = step,
-            onNextStepClick = viewModel::nextStep
+            stepIndex = index,
+            stepsCount = totalSteps,
+            onStepDataChange = viewModel::updateStepData,
+            nextStepEnabled = nextStepEnabled,
+            onNextStepClick = viewModel::nextStep,
         )
 
         val backHandlerEnabled by viewModel.backHandlerEnabled.collectAsState()
