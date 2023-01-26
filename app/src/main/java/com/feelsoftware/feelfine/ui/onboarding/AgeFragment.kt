@@ -4,6 +4,9 @@ import android.text.Spannable
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.view.View
+import android.widget.Button
+import android.widget.CheckBox
+import android.widget.DatePicker
 import android.widget.TextView
 import androidx.core.text.buildSpannedString
 import com.feelsoftware.feelfine.R
@@ -14,7 +17,6 @@ import com.feelsoftware.feelfine.ui.base.BaseViewModel
 import com.feelsoftware.feelfine.ui.base.SingleLiveData
 import com.feelsoftware.feelfine.ui.dialog.showErrorDialog
 import com.feelsoftware.feelfine.utils.OnBoardingFlowManager
-import kotlinx.android.synthetic.main.fragment_age.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 import java.util.*
@@ -22,6 +24,11 @@ import java.util.*
 class AgeFragment : BaseFragment<AgeViewModel>(R.layout.fragment_age) {
 
     override val viewModel: AgeViewModel by viewModel()
+
+    // TODO: Replace with ViewBinding
+    private inline val calendarView: DatePicker get() = requireView().findViewById(R.id.calendarView)
+    private val getStartedB: Button get() = requireView().findViewById(R.id.getStartedB)
+    private val checkbox_terms: CheckBox get() = requireView().findViewById(R.id.checkbox_terms)
 
     override fun onReady() {
         viewModel.termsNotSetError.observe {

@@ -1,5 +1,7 @@
 package com.feelsoftware.feelfine.ui.onboarding
 
+import android.widget.Button
+import android.widget.LinearLayout
 import androidx.core.content.res.ResourcesCompat
 import com.feelsoftware.feelfine.R
 import com.feelsoftware.feelfine.data.model.UserProfile
@@ -7,7 +9,6 @@ import com.feelsoftware.feelfine.extension.onClick
 import com.feelsoftware.feelfine.ui.base.BaseFragment
 import com.feelsoftware.feelfine.ui.base.BaseViewModel
 import com.feelsoftware.feelfine.utils.OnBoardingFlowManager
-import kotlinx.android.synthetic.main.fragment_gender.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 private const val MALE = 1
@@ -16,6 +17,11 @@ private const val FEMALE = 2
 class GenderFragment : BaseFragment<GenderViewModel>(R.layout.fragment_gender) {
 
     override val viewModel: GenderViewModel by viewModel()
+
+    // TODO: Replace with ViewBinding
+    private inline val maleBackgroundLL: LinearLayout get() = requireView().findViewById(R.id.maleBackgroundLL)
+    private inline val femaleBackgroundLL: LinearLayout get() = requireView().findViewById(R.id.femaleBackgroundLL)
+    private inline val continueB: Button get() = requireView().findViewById(R.id.continueB)
 
     override fun onReady() {
         var genderSelected = 0

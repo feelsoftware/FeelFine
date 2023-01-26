@@ -1,17 +1,13 @@
 package com.feelsoftware.feelfine.ui.onboarding
 
+import android.widget.Button
+import android.widget.ImageView
+import android.widget.TextView
 import com.feelsoftware.feelfine.R
 import com.feelsoftware.feelfine.extension.onClick
-
 import com.feelsoftware.feelfine.ui.base.BaseFragment
 import com.feelsoftware.feelfine.ui.base.BaseViewModel
 import com.feelsoftware.feelfine.utils.OnBoardingFlowManager
-import kotlinx.android.synthetic.main.fragment_nick_name.continueB
-import kotlinx.android.synthetic.main.fragment_wage.endIcon
-import kotlinx.android.synthetic.main.fragment_wage.endTV
-import kotlinx.android.synthetic.main.fragment_wage.middleTV
-import kotlinx.android.synthetic.main.fragment_wage.startIcon
-import kotlinx.android.synthetic.main.fragment_wage.startTV
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class WeightFragment : BaseFragment<WeightViewModel>(R.layout.fragment_wage) {
@@ -20,6 +16,14 @@ class WeightFragment : BaseFragment<WeightViewModel>(R.layout.fragment_wage) {
 
     private val wageArgsList = (0..150).toList().toTypedArray()
     private var currentScore = wageArgsList[wageArgsList.size / 2]
+
+    // TODO: Replace with ViewBinding
+    private inline val startTV: TextView get() = requireView().findViewById(R.id.startTV)
+    private inline val middleTV: TextView get() = requireView().findViewById(R.id.middleTV)
+    private inline val endTV: TextView get() = requireView().findViewById(R.id.endTV)
+    private inline val startIcon: ImageView get() = requireView().findViewById(R.id.startIcon)
+    private inline val endIcon: ImageView get() = requireView().findViewById(R.id.endIcon)
+    private inline val continueB: Button get() = requireView().findViewById(R.id.continueB)
 
     private fun manageWeight() {
         startTV.text = wageArgsList[currentScore - 1].toString()
@@ -42,7 +46,6 @@ class WeightFragment : BaseFragment<WeightViewModel>(R.layout.fragment_wage) {
                 manageWeight()
             }
         }
-
     }
 }
 

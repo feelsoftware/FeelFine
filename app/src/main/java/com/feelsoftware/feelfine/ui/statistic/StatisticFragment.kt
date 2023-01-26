@@ -5,6 +5,8 @@ package com.feelsoftware.feelfine.ui.statistic
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.annotation.StringRes
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
@@ -20,6 +22,8 @@ import com.feelsoftware.feelfine.fit.model.total
 import com.feelsoftware.feelfine.fit.usecase.GetFitDataUseCase
 import com.feelsoftware.feelfine.ui.base.BaseFragment
 import com.feelsoftware.feelfine.ui.base.BaseViewModel
+import com.feelsoftware.feelfine.ui.profile.DemoProfileBadge
+import com.github.mikephil.charting.charts.BarChart
 import com.github.mikephil.charting.components.XAxis.XAxisPosition
 import com.github.mikephil.charting.components.YAxis.YAxisLabelPosition
 import com.github.mikephil.charting.data.BarData
@@ -27,7 +31,6 @@ import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.github.mikephil.charting.formatter.ValueFormatter
-import kotlinx.android.synthetic.main.fragment_statistic.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.text.SimpleDateFormat
 import java.util.*
@@ -36,6 +39,20 @@ import kotlin.math.roundToInt
 class StatisticFragment : BaseFragment<StatisticViewModel>(R.layout.fragment_statistic) {
 
     override val viewModel: StatisticViewModel by viewModel()
+
+    // TODO: Replace with ViewBinding
+    private inline val tvCurrentDate: TextView get() = requireView().findViewById(R.id.tvCurrentDate)
+    private inline val tvPreviousCategory: TextView get() = requireView().findViewById(R.id.tvPreviousCategory)
+    private inline val tvCurrentCategory: TextView get() = requireView().findViewById(R.id.tvCurrentCategory)
+    private inline val tvNextCategory: TextView get() = requireView().findViewById(R.id.tvNextCategory)
+    private inline val btnPreviousCategory: ImageView get() = requireView().findViewById(R.id.btnPreviousCategory)
+    private inline val btnNextCategory: ImageView get() = requireView().findViewById(R.id.btnNextCategory)
+    private inline val weekB: TextView get() = requireView().findViewById(R.id.weekB)
+    private inline val monthB: TextView get() = requireView().findViewById(R.id.monthB)
+    private inline val demoLabel: DemoProfileBadge get() = requireView().findViewById(R.id.demoLabel)
+    private inline val btnPreviousDate: ImageView get() = requireView().findViewById(R.id.btnPreviousDate)
+    private inline val btnNextDate: ImageView get() = requireView().findViewById(R.id.btnNextDate)
+    private inline val chart: BarChart get() = requireView().findViewById(R.id.chart)
 
     override fun onReady() {
         viewModel.previousCategoryTitle.observe {

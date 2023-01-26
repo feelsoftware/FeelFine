@@ -1,5 +1,7 @@
 package com.feelsoftware.feelfine.ui.profile
 
+import android.widget.Button
+import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.lifecycle.MutableLiveData
 import com.feelsoftware.feelfine.R
@@ -14,15 +16,25 @@ import com.feelsoftware.feelfine.score.ScoreTargetProvider
 import com.feelsoftware.feelfine.ui.base.BaseFragment
 import com.feelsoftware.feelfine.ui.base.BaseViewModel
 import com.feelsoftware.feelfine.utils.OnBoardingFlowManager
+import com.google.android.gms.common.SignInButton
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
-import kotlinx.android.synthetic.main.fragment_profile.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
 class ProfileFragment : BaseFragment<ProfileViewModel>(R.layout.fragment_profile) {
 
     override val viewModel: ProfileViewModel by viewModel()
+
+    // TODO: Replace with ViewBinding
+    private inline val tvName: TextView get() = requireView().findViewById(R.id.tvName)
+    private inline val wageTV: TextView get() = requireView().findViewById(R.id.wageTV)
+    private inline val ageTV: TextView get() = requireView().findViewById(R.id.ageTV)
+    private inline val stepsTV: TextView get() = requireView().findViewById(R.id.stepsTV)
+    private inline val sleepTV: TextView get() = requireView().findViewById(R.id.sleepTV)
+    private inline val activityTV: TextView get() = requireView().findViewById(R.id.activityTV)
+    private inline val btnSignIn: SignInButton get() = requireView().findViewById(R.id.btnSignIn)
+    private inline val btnLogout: TextView get() = requireView().findViewById(R.id.btnLogout)
 
     override fun onReady() {
         viewModel.userProfile.observe { profile ->

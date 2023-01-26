@@ -1,5 +1,7 @@
 package com.feelsoftware.feelfine.ui.score
 
+import android.view.View
+import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.map
@@ -18,13 +20,35 @@ import com.feelsoftware.feelfine.fit.usecase.*
 import com.feelsoftware.feelfine.score.*
 import com.feelsoftware.feelfine.ui.base.BaseFragment
 import com.feelsoftware.feelfine.ui.base.BaseViewModel
+import com.feelsoftware.feelfine.ui.profile.DemoProfileBadge
+import com.mikhaellopez.circularprogressbar.CircularProgressBar
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import kotlinx.android.synthetic.main.fragment_current_score.*
-import kotlinx.android.synthetic.main.fragment_current_score.stepsText
 
 class CurrentScoreFragment : BaseFragment<CurrentScoreViewModel>(R.layout.fragment_current_score) {
 
     override val viewModel: CurrentScoreViewModel by viewModel()
+
+    // TODO: Replace with ViewBinding
+    private inline val stepsPercentTV: TextView get() = requireView().findViewById(R.id.stepsPercentTV)
+    private inline val sleepPercentTV: TextView get() = requireView().findViewById(R.id.sleepPercentTV)
+    private inline val activityPercentTV: TextView get() = requireView().findViewById(R.id.activityPercentTV)
+    private inline val moodPercentTV: TextView get() = requireView().findViewById(R.id.moodPercentTV)
+    private inline val currentScore: CircularProgressBar get() = requireView().findViewById(R.id.currentScore)
+    private inline val scoreTV: TextView get() = requireView().findViewById(R.id.scoreTV)
+    private inline val stepsScore: CircularProgressBar get() = requireView().findViewById(R.id.stepsScore)
+    private inline val stepsText: TextView get() = requireView().findViewById(R.id.stepsText)
+    private inline val sleepScore: CircularProgressBar get() = requireView().findViewById(R.id.sleepScore)
+    private inline val sleepText: TextView get() = requireView().findViewById(R.id.sleepText)
+    private inline val activityScore: CircularProgressBar get() = requireView().findViewById(R.id.activityScore)
+    private inline val activityText: TextView get() = requireView().findViewById(R.id.activityText)
+    private inline val moodScore: CircularProgressBar get() = requireView().findViewById(R.id.moodScore)
+    private inline val moodText: TextView get() = requireView().findViewById(R.id.moodText)
+    private inline val demoLabel: DemoProfileBadge get() = requireView().findViewById(R.id.demoLabel)
+    private inline val currentScoreTV: TextView get() = requireView().findViewById(R.id.currentScoreTV)
+    private inline val stepLayout: View get() = requireView().findViewById(R.id.stepLayout)
+    private inline val sleepLayout: View get() = requireView().findViewById(R.id.sleepLayout)
+    private inline val activityLayout: View get() = requireView().findViewById(R.id.activityLayout)
+    private inline val moodLayout: View get() = requireView().findViewById(R.id.moodLayout)
 
     override fun onReady() {
         viewModel.stepsPercents.observe {

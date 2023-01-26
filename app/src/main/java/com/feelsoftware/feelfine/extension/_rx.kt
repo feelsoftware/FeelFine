@@ -16,18 +16,18 @@ import timber.log.Timber
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 
-fun <T : Any?> Observable<T>.subscribeBy(
+fun <T : Any> Observable<T>.subscribeBy(
     onError: (Throwable) -> Unit = {},
     onComplete: () -> Unit = {},
     onNext: (T) -> Unit = {}
 ): Disposable = subscribe(Consumer(onNext), Consumer(onError), Action(onComplete))
 
-fun <T : Any?> Single<T>.subscribeBy(
+fun <T : Any> Single<T>.subscribeBy(
     onError: (Throwable) -> Unit = {},
     onSuccess: (T) -> Unit = {}
 ): Disposable = subscribe(Consumer(onSuccess), Consumer(onError))
 
-fun <T : Any?> Maybe<T>.subscribeBy(
+fun <T : Any> Maybe<T>.subscribeBy(
     onError: (Throwable) -> Unit = {},
     onSuccess: (T) -> Unit = {},
     onComplete: () -> Unit = {},
@@ -38,7 +38,7 @@ fun Completable.subscribeBy(
     onComplete: () -> Unit = {}
 ): Disposable = subscribe(Action(onComplete), Consumer(onError))
 
-suspend fun <T : Any?> Single<T>.await() = suspendCancellableCoroutine<T> { continuation ->
+suspend fun <T : Any> Single<T>.await() = suspendCancellableCoroutine<T> { continuation ->
     val disposable = subscribeBy(onSuccess = {
         continuation.resume(it)
     }, onError = {
@@ -47,7 +47,7 @@ suspend fun <T : Any?> Single<T>.await() = suspendCancellableCoroutine<T> { cont
     continuation.invokeOnCancellation { disposable.dispose() }
 }
 
-fun <T : Any?> Observable<T>.toLiveData(): LiveData<T> {
+fun <T : Any> Observable<T>.toLiveData(): LiveData<T> {
     var disposable: Disposable? = null
 
     return object : LiveData<T>() {
