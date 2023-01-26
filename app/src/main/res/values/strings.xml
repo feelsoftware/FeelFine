@@ -1,11 +1,11 @@
 <resources>
     <string name="app_name">FeelFine</string>
-    <string name="welcome_title">Welcome to FeelFine!</string>
+    <string name="welcome_title">Welcome to %s</string>
+    <string name="welcome_label">Let\'s get started</string>
+    <string name="continue_text">Continue</string>
     <string name="register">Sing up</string>
     <string name="sign_in">Sign in</string>
     <string name="failed_sign_in_error_alert_body">Failed to sign in.\nReason: %s</string>
-    <string name="dont_have_account">Let\'s get started!</string>
-    <string name="onboarding_continue">Continue</string>
     <string name="onboarding_age_title">What is date of birth?</string>
     <string name="onboarding_age_description">Indicate your age</string>
     <string name="onboarding_finish">Get started</string>
@@ -65,4 +65,5 @@
     <string name="demo_profile_badge_description">
         You are not signed to Google Account and now you see demo steps, sleep and activity.\nOpen Profile tab and Sign In to Google to see your real data from Google Fit.
     </string>
+    <string name="title_activity_main2">MainActivity2</string>
 </resources>

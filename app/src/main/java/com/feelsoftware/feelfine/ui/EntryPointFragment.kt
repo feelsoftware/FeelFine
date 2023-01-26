@@ -25,7 +25,7 @@ class EntryPointViewModel(
                 if (isPassed) {
                     navigate(R.id.toHomeFragment)
                 } else {
-                    navigate(R.id.toOnboarding)
+                    navigate(R.id.toWelcomeFragment)
                 }
             }, onError = {
                 Timber.e(it, "Failed to check if onboarding is passed")
