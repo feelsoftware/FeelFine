@@ -15,6 +15,10 @@
             app:destination="@id/welcomeFragment"
             app:popUpTo="@id/nav_graph"
             app:popUpToInclusive="true" />
+        <!-- TODO: remove this action -->
+        <action
+            android:id="@+id/toOnboardingFragment"
+            app:destination="@id/onboardingFragment" />
     </fragment>
 
     <fragment
@@ -22,9 +26,19 @@
         android:name="com.feelsoftware.feelfine.ui.welcome.WelcomeFragment"
         android:label="WelcomeFragment">
         <action
+            android:id="@+id/toOnboardingFragment"
+            app:destination="@id/onboardingFragment" />
+        <!-- TODO: remove this action -->
+        <action
             android:id="@+id/toNickNameFragment"
             app:destination="@id/nickNameFragment" />
     </fragment>
+
+    <!-- region Onboarding -->
+    <fragment
+        android:id="@+id/onboardingFragment"
+        android:name="com.feelsoftware.feelfine.ui.onboarding.OnboardingFragment"
+        android:label="OnboardingFragment" />
     <fragment
         android:id="@+id/nickNameFragment"
         android:name="com.feelsoftware.feelfine.ui.onboarding.NickNameFragment"
@@ -57,6 +71,7 @@
         android:name="com.feelsoftware.feelfine.ui.onboarding.AgeFragment"
         android:label="AgeFragment"
         tools:layout="@layout/fragment_age" />
+    <!-- endregion -->
 
     <fragment
         android:id="@+id/homeFragment"

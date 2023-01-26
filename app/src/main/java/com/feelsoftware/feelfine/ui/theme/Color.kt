@@ -1,7 +1,10 @@
 package com.feelsoftware.feelfine.ui.theme
 
+import androidx.compose.material3.ColorScheme
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 
 internal val colorWhite = Color(0xFFFFFFFF)
@@ -80,3 +83,7 @@ internal val DarkColorScheme = darkColorScheme(
 //    outlineVariant = md_theme_light_outlineVariant,
 //    scrim = md_theme_light_scrim,
 )
+
+val ColorScheme.label: Color
+    @Composable
+    get() = MaterialTheme.colorScheme.onSurfaceVariant

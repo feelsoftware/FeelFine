@@ -2,11 +2,8 @@ package com.feelsoftware.feelfine.ui.welcome
 
 import androidx.annotation.ColorRes
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import com.feelsoftware.feelfine.R
 import com.feelsoftware.feelfine.ui.base.BaseComposeFragment
-import com.feelsoftware.feelfine.ui.base.EmptyViewModel
-import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class WelcomeFragment : BaseComposeFragment() {
 
@@ -15,10 +12,12 @@ class WelcomeFragment : BaseComposeFragment() {
 
     @Composable
     override fun Content() {
-        val viewModel: EmptyViewModel by remember { viewModel() }
         WelcomeContent(
             onContinueClick = {
-                viewModel.navigate(R.id.toNickNameFragment)
+                this.viewModel.navigate(R.id.toNickNameFragment)
+            },
+            onDevClick = {
+                this.viewModel.navigate(R.id.toOnboardingFragment)
             }
         )
     }

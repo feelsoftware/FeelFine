@@ -7,8 +7,10 @@ import com.feelsoftware.feelfine.R
 import com.feelsoftware.feelfine.ui.theme.FeelFineTheme
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
+@Deprecated("Will be migrated to fully Composable component")
 abstract class BaseComposeFragment : BaseFragment<EmptyViewModel>(R.layout.fragment_compose) {
 
+    @Deprecated("Will be migrated to fully Composable component")
     override val viewModel: EmptyViewModel by viewModel()
 
     final override fun onReady() {

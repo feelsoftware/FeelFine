@@ -13,9 +13,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
-        android:textColor="@color/greyishBrown"
         android:fontFamily="@font/nunito_black"
-        android:text="Who are you?"
+        android:text="@string/onboarding_name_title"
+        android:textColor="@color/greyishBrown"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -29,7 +29,7 @@
         android:fontFamily="@font/nunito_semibold"
         android:gravity="center"
         android:lines="2"
-        android:text="Create your nick name \nto personalise your account"
+        android:text="@string/onboarding_name_label"
         android:textColor="@color/greyText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -43,15 +43,15 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_nick"
+        app:srcCompat="@drawable/bg_onboarding_name"
         tools:ignore="MissingConstraints" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/nickIL"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="Nick"
         android:layout_marginEnd="35dp"
+        android:hint="@string/onboarding_name_hint"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/nickStepIcon"
@@ -61,14 +61,14 @@
             android:id="@+id/nickET"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:paddingStart="8dp"
-            android:paddingEnd="8dp"
-            android:textColor="@color/greyishBrown"
             android:background="@drawable/edittext_rounded_background"
             android:fontFamily="@font/nunito_extrabold"
             android:imeOptions="actionDone"
             android:inputType="textEmailAddress"
-            android:maxLength="20" />
+            android:maxLength="20"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:textColor="@color/greyishBrown" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -96,7 +96,7 @@
         android:background="@drawable/button_purple"
         android:enabled="false"
         android:fontFamily="@font/nunito_extrabold"
-        android:text="Continue"
+        android:text="@string/continue_text"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

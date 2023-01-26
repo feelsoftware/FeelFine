@@ -2,6 +2,7 @@ package com.feelsoftware.feelfine.ui.welcome
 
 import android.content.res.Configuration
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -29,10 +30,14 @@ import androidx.compose.ui.unit.dp
 import com.feelsoftware.feelfine.R
 import com.feelsoftware.feelfine.ui.theme.FeelFineTheme
 import com.feelsoftware.feelfine.ui.theme.button
+import com.feelsoftware.feelfine.ui.theme.label
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
-fun WelcomeContent(onContinueClick: () -> Unit) {
+fun WelcomeContent(
+    onContinueClick: () -> Unit,
+    onDevClick: () -> Unit,
+) {
     Surface {
         Column(modifier = Modifier.fillMaxSize()) {
             Box(
@@ -87,7 +92,7 @@ fun WelcomeContent(onContinueClick: () -> Unit) {
                 ) {
                     Text(
                         stringResource(id = R.string.welcome_label),
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        color = MaterialTheme.colorScheme.label,
                         style = MaterialTheme.typography.labelLarge,
                         modifier = Modifier
                             .padding(horizontal = 16.dp)
@@ -95,6 +100,8 @@ fun WelcomeContent(onContinueClick: () -> Unit) {
                             .semantics {
                                 invisibleToUser()
                             }
+                            // TODO: remove when onboarding flow is migrated
+                            .clickable { onDevClick() }
                     )
                     Button(
                         onClick = onContinueClick,
@@ -117,6 +124,6 @@ fun WelcomeContent(onContinueClick: () -> Unit) {
 @Composable
 private fun WelcomeContentPreview() {
     FeelFineTheme {
-        WelcomeContent(onContinueClick = {})
+        WelcomeContent(onContinueClick = {}, onDevClick = {})
     }
 }
