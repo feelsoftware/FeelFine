@@ -92,9 +92,11 @@ internal fun OnboardingContent(
                                     .align(Alignment.Center)
                             )
                         is OnboardingStep.Gender ->
-                            Text(
-                                "TODO: Gender",
+                            OnboardingGenderContent(
+                                gender = step.gender,
+                                onSelected = { onStepDataChange(step.copy(it)) },
                                 modifier = Modifier
+                                    .padding(horizontal = 48.dp)
                                     .align(Alignment.Center)
                             )
                         is OnboardingStep.Weight ->

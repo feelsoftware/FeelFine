@@ -68,7 +68,8 @@ internal class OnboardingViewModel : ViewModel() {
     }
 
     fun updateStepData(step: OnboardingStep) {
-        currentStep.value = steps.update(step)
+        steps[stepIndex.value] = step
+        currentStep.value = step
         validateCurrentStep()
     }
 
@@ -76,27 +77,6 @@ internal class OnboardingViewModel : ViewModel() {
         _nextStepEnabled.value = validators.validate(currentStep.value)
     }
 }
-
-private inline fun <reified T : OnboardingStep> MutableList<OnboardingStep>.update(newStep: T): OnboardingStep {
-    val newValue = when (newStep) {
-        is OnboardingStep.Name ->
-            find<OnboardingStep.Name>().copy(name = newStep.name)
-        is OnboardingStep.Gender ->
-            find<OnboardingStep.Gender>().copy(gender = newStep.gender)
-        is OnboardingStep.Weight ->
-            find<OnboardingStep.Weight>().copy(weight = newStep.weight)
-        is OnboardingStep.Birthday ->
-            find<OnboardingStep.Birthday>().copy(birthday = newStep.birthday)
-        else ->
-            throw IllegalArgumentException("Unsupported step $this, only 4 steps are supported")
-    }
-    set(indexOf(find<T>()), newValue)
-
-    return newValue
-}
-
-private inline fun <reified T : OnboardingStep> List<OnboardingStep>.find(): T =
-    find { it is T } as T
 
 private inline fun <reified T : OnboardingStep> List<OnboardingStepValidator<*>>.validate(
     step: T
