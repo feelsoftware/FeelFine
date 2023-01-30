@@ -10,7 +10,10 @@ internal sealed interface OnboardingStep {
 
     data class Weight(val weight: Float, val range: ClosedRange<Float>) : OnboardingStep
 
-    data class Birthday(val birthday: Date? = null) : OnboardingStep
+    data class Birthday(
+        val birthday: Date? = null,
+        val termsAccepted: Boolean = false,
+    ) : OnboardingStep
 }
 
 internal fun interface OnboardingStepValidator<T : OnboardingStep> {
@@ -32,6 +35,7 @@ internal fun interface OnboardingStepValidator<T : OnboardingStep> {
     }
 
     object Birthday : OnboardingStepValidator<OnboardingStep.Birthday> {
-        override fun validate(step: OnboardingStep.Birthday): Boolean = step.birthday != null
+        override fun validate(step: OnboardingStep.Birthday): Boolean =
+            step.birthday != null && step.termsAccepted
     }
 }

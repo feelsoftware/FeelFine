@@ -112,6 +112,8 @@ internal fun OnboardingContent(
                             OnboardingBirthdayContent(
                                 birthday = step.birthday,
                                 onBirthdayChange = { onStepDataChange(step.copy(it)) },
+                                termsAccepted = step.termsAccepted,
+                                onTermsAcceptedChange = { onStepDataChange(step.copy(termsAccepted = it)) },
                                 modifier = Modifier
                                     .padding(horizontal = 8.dp)
                                     .align(Alignment.Center)

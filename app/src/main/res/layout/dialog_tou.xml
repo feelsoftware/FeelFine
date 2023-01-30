@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:background="?attr/colorPrimary"
         app:layout_constraintTop_toTopOf="parent"
-        app:title="Terms Of Use" />
+        app:title="@string/onboarding_terms_dialog_title" />
 
     <com.github.barteksc.pdfviewer.PDFView
         android:id="@+id/pdfView"

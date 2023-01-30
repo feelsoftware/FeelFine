@@ -33,7 +33,7 @@ class AgeFragment : BaseFragment<AgeViewModel>(R.layout.fragment_age) {
     override fun onReady() {
         viewModel.termsNotSetError.observe {
             showErrorDialog(
-                title = getString(R.string.onboarding_terms_not_set_alert_title),
+                title = getString(R.string.onboarding_terms_dialog_title),
                 body = getString(R.string.onboarding_terms_not_set_alert_body)
             )
         }
@@ -60,8 +60,8 @@ class AgeFragment : BaseFragment<AgeViewModel>(R.layout.fragment_age) {
 
     private inline fun TextView.applyTermsOfUseLink(crossinline onClicked: () -> Unit) {
         text = buildSpannedString {
-            val link = getString(R.string.i_accept_terms_link)
-            val text = getString(R.string.i_accept_terms, link)
+            val link = getString(R.string.onboarding_terms_link)
+            val text = getString(R.string.onboarding_terms_text, link)
             append(text)
 
             val span = object : ClickableSpan() {
