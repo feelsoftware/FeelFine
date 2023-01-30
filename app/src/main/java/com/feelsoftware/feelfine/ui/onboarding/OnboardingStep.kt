@@ -8,10 +8,7 @@ internal sealed interface OnboardingStep {
 
     data class Gender(val gender: UserProfile.Gender? = null) : OnboardingStep
 
-    data class Weight(
-        val weight: Float,
-        val range: ClosedRange<Float>
-    ) : OnboardingStep
+    data class Weight(val weight: Float, val range: ClosedRange<Float>) : OnboardingStep
 
     data class Birthday(val birthday: Date? = null) : OnboardingStep
 }

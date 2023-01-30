@@ -109,10 +109,11 @@ internal fun OnboardingContent(
                                     .align(Alignment.Center)
                             )
                         is OnboardingStep.Birthday ->
-                            Text(
-                                "TODO: Birthday",
+                            OnboardingBirthdayContent(
+                                birthday = step.birthday,
+                                onBirthdayChange = { onStepDataChange(step.copy(it)) },
                                 modifier = Modifier
-                                    .padding(horizontal = 48.dp)
+                                    .padding(horizontal = 8.dp)
                                     .align(Alignment.Center)
                             )
                     }
