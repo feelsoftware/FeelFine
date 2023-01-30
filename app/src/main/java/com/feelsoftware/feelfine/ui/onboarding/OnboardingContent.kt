@@ -100,15 +100,19 @@ internal fun OnboardingContent(
                                     .align(Alignment.Center)
                             )
                         is OnboardingStep.Weight ->
-                            Text(
-                                "TODO: Weight",
+                            OnboardingWeightContent(
+                                weight = step.weight,
+                                range = step.range,
+                                onChange = { onStepDataChange(step.copy(it)) },
                                 modifier = Modifier
+                                    .padding(horizontal = 48.dp)
                                     .align(Alignment.Center)
                             )
                         is OnboardingStep.Birthday ->
                             Text(
                                 "TODO: Birthday",
                                 modifier = Modifier
+                                    .padding(horizontal = 48.dp)
                                     .align(Alignment.Center)
                             )
                     }

@@ -4,6 +4,7 @@ package com.feelsoftware.feelfine.ui.onboarding
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.feelsoftware.feelfine.data.model.UserProfile.Gender
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -11,12 +12,14 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 
+private const val WEIGHT_NONE = 0f
+
 internal class OnboardingViewModel : ViewModel() {
 
     private val steps = mutableListOf<OnboardingStep>(
         OnboardingStep.Name(),
         OnboardingStep.Gender(),
-        OnboardingStep.Weight(),
+        OnboardingStep.Weight(weight = WEIGHT_NONE, range = 1f..635f),
         OnboardingStep.Birthday(),
     )
     private val validators = mutableListOf<OnboardingStepValidator<*>>(
@@ -71,6 +74,17 @@ internal class OnboardingViewModel : ViewModel() {
         steps[stepIndex.value] = step
         currentStep.value = step
         validateCurrentStep()
+
+        if (step is OnboardingStep.Gender) {
+            // Update default weight based on gender
+            val weightData = steps.filterIsInstance<OnboardingStep.Weight>().first()
+                .takeIf { it.weight == WEIGHT_NONE } ?: return
+            val weightStep = steps.indexOfFirst { it is OnboardingStep.Weight }
+                .takeIf { it != -1 } ?: return
+            steps[weightStep] = weightData.copy(
+                weight = if (step.gender == Gender.MALE) 65f else 55f
+            )
+        }
     }
 
     private fun validateCurrentStep() {

@@ -13,7 +13,7 @@
     <string name="onboarding_gender_label">To calculate fitness score by gender</string>
     <string name="gender_male">Male</string>
     <string name="gender_female">Female</string>
-    <string name="onboarding_weight_title">What is your weight?</string>
+    <string name="onboarding_weight_title">What is your weight, kg?</string>
     <string name="onboarding_weight_label">To calculate fitness score by weight</string>
     <string name="onboarding_birthday_title">What is your birthday?</string>
     <string name="onboarding_birthday_label">To calculate fitness scope by age</string>
