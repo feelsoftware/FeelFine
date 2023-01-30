@@ -2,7 +2,6 @@ package com.feelsoftware.feelfine.ui.welcome
 
 import android.content.res.Configuration
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -36,7 +35,6 @@ import com.feelsoftware.feelfine.ui.theme.label
 @Composable
 fun WelcomeContent(
     onContinueClick: () -> Unit,
-    onDevClick: () -> Unit,
 ) {
     Surface {
         Column(modifier = Modifier.fillMaxSize()) {
@@ -100,8 +98,6 @@ fun WelcomeContent(
                             .semantics {
                                 invisibleToUser()
                             }
-                            // TODO: remove when onboarding flow is migrated
-                            .clickable { onDevClick() }
                     )
                     Button(
                         onClick = onContinueClick,
@@ -124,6 +120,6 @@ fun WelcomeContent(
 @Composable
 private fun WelcomeContentPreview() {
     FeelFineTheme {
-        WelcomeContent(onContinueClick = {}, onDevClick = {})
+        WelcomeContent(onContinueClick = {})
     }
 }

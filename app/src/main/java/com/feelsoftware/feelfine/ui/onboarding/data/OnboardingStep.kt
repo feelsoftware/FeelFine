@@ -1,4 +1,4 @@
-package com.feelsoftware.feelfine.ui.onboarding
+package com.feelsoftware.feelfine.ui.onboarding.data
 
 import com.feelsoftware.feelfine.data.model.UserProfile
 import java.util.Date

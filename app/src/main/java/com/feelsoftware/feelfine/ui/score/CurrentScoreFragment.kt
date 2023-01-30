@@ -167,6 +167,6 @@ class CurrentScoreViewModel(
         combinePercentData(sleepPercents, fitDataUseCase.getPercentSleep())
         combinePercentData(activityPercents, fitDataUseCase.getPercentActivity())
         combinePercentData(moodPercents, getPercentMoodUseCase())
-        userProfile.attachSource(userRepository.getProfile()) { it }
+        userProfile.attachSource(userRepository.getProfileLegacy()) { it }
     }
 }

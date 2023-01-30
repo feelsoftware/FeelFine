@@ -77,6 +77,6 @@ class StepScoreViewModel(
     init {
         stepsInfo.attachSource(useCase.getCurrentSteps()) { it }
         combinePercentData(percents, useCase.getPercentSteps())
-        userProfile.attachSource(userRepository.getProfile()) { it }
+        userProfile.attachSource(userRepository.getProfileLegacy()) { it }
     }
 }

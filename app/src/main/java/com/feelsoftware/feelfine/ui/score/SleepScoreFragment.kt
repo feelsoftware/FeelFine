@@ -89,6 +89,6 @@ class SleepScoreViewModel(
     init {
         sleepInfo.attachSource(useCase.getCurrentSleep()) { it }
         combinePercentData(percents, useCase.getPercentSleep())
-        userProfile.attachSource(userRepository.getProfile()) { it }
+        userProfile.attachSource(userRepository.getProfileLegacy()) { it }
     }
 }

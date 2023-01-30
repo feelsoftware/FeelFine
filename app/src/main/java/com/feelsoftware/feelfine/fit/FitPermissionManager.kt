@@ -93,10 +93,10 @@ class GoogleFitPermissionManager(
             val account = task.getResult(ApiException::class.java)
             Timber.d("onPermissionResult success ${account?.displayName}")
 
-            userRepository.getProfile()
+            userRepository.getProfileLegacy()
                 .firstOrError()
                 .flatMapCompletable { profile ->
-                    userRepository.setProfile(profile.copy(isDemo = false))
+                    userRepository.setProfileLegacy(profile.copy(isDemo = false))
                 }
                 // Clear cached mocked data
                 .andThen(activityDao.delete())

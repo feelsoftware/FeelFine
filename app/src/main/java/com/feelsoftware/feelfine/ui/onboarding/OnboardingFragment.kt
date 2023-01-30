@@ -17,6 +17,7 @@ internal class OnboardingFragment : BaseComposeFragment() {
         val step by viewModel.step.collectAsState()
         val index by viewModel.stepIndex.collectAsState()
         val totalSteps by viewModel.stepsCount.collectAsState()
+        val buttonText by viewModel.buttonText.collectAsState()
         val nextStepEnabled by viewModel.nextStepEnabled.collectAsState()
 
         OnboardingContent(
@@ -24,6 +25,7 @@ internal class OnboardingFragment : BaseComposeFragment() {
             stepIndex = index,
             stepsCount = totalSteps,
             onStepDataChange = viewModel::updateStepData,
+            buttonText = buttonText,
             nextStepEnabled = nextStepEnabled,
             onNextStepClick = viewModel::nextStep,
         )

@@ -15,11 +15,12 @@
             app:destination="@id/welcomeFragment"
             app:popUpTo="@id/nav_graph"
             app:popUpToInclusive="true" />
-        <!-- TODO: remove this action -->
-        <action
-            android:id="@+id/toOnboardingFragment"
-            app:destination="@id/onboardingFragment" />
     </fragment>
+    <action
+        android:id="@+id/toEntryPoint"
+        app:destination="@id/entryPointFragment"
+        app:popUpTo="@id/nav_graph"
+        app:popUpToInclusive="true" />
 
     <fragment
         android:id="@+id/welcomeFragment"
@@ -28,50 +29,12 @@
         <action
             android:id="@+id/toOnboardingFragment"
             app:destination="@id/onboardingFragment" />
-        <!-- TODO: remove this action -->
-        <action
-            android:id="@+id/toNickNameFragment"
-            app:destination="@id/nickNameFragment" />
     </fragment>
 
-    <!-- region Onboarding -->
     <fragment
         android:id="@+id/onboardingFragment"
         android:name="com.feelsoftware.feelfine.ui.onboarding.OnboardingFragment"
         android:label="OnboardingFragment" />
-    <fragment
-        android:id="@+id/nickNameFragment"
-        android:name="com.feelsoftware.feelfine.ui.onboarding.NickNameFragment"
-        android:label="NickNameFragment"
-        tools:layout="@layout/fragment_nick_name">
-        <action
-            android:id="@+id/toGenderFragment"
-            app:destination="@id/genderFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/genderFragment"
-        android:name="com.feelsoftware.feelfine.ui.onboarding.GenderFragment"
-        android:label="GenderFragment"
-        tools:layout="@layout/fragment_gender">
-        <action
-            android:id="@+id/toWeightFragment"
-            app:destination="@id/weightFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/weightFragment"
-        android:name="com.feelsoftware.feelfine.ui.onboarding.WeightFragment"
-        android:label="WeightFragment"
-        tools:layout="@layout/fragment_wage">
-        <action
-            android:id="@+id/toAgeFragment"
-            app:destination="@id/ageFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/ageFragment"
-        android:name="com.feelsoftware.feelfine.ui.onboarding.AgeFragment"
-        android:label="AgeFragment"
-        tools:layout="@layout/fragment_age" />
-    <!-- endregion -->
 
     <fragment
         android:id="@+id/homeFragment"
@@ -104,11 +67,5 @@
         android:name="com.feelsoftware.feelfine.ui.score.MoodFragment"
         android:label="MoodFragment"
         tools:layout="@layout/fragment_mood" />
-
-    <action
-        android:id="@+id/toEntryPoint"
-        app:destination="@id/entryPointFragment"
-        app:popUpTo="@id/nav_graph"
-        app:popUpToInclusive="true" />
 
 </navigation>

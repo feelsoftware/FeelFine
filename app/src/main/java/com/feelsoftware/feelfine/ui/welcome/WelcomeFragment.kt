@@ -14,11 +14,8 @@ class WelcomeFragment : BaseComposeFragment() {
     override fun Content() {
         WelcomeContent(
             onContinueClick = {
-                this.viewModel.navigate(R.id.toNickNameFragment)
-            },
-            onDevClick = {
                 this.viewModel.navigate(R.id.toOnboardingFragment)
-            }
+            },
         )
     }
 }

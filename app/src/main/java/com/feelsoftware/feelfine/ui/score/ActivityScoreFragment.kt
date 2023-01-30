@@ -85,6 +85,6 @@ class ActivityScoreViewModel(
     init {
         activityInfo.attachSource(useCase.getCurrentActivity()) { it }
         combinePercentData(percents, useCase.getPercentActivity())
-        userProfile.attachSource(userRepository.getProfile()) { it }
+        userProfile.attachSource(userRepository.getProfileLegacy()) { it }
     }
 }

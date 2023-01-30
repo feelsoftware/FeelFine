@@ -19,6 +19,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.feelsoftware.feelfine.R
+import com.feelsoftware.feelfine.ui.onboarding.data.OnboardingStep
 import com.feelsoftware.feelfine.ui.theme.FeelFineTheme
 import com.feelsoftware.feelfine.ui.theme.button
 import com.feelsoftware.feelfine.ui.theme.label
@@ -29,6 +30,7 @@ internal fun OnboardingContent(
     stepIndex: Int,
     stepsCount: Int,
     onStepDataChange: (step: OnboardingStep) -> Unit,
+    buttonText: String,
     nextStepEnabled: Boolean,
     onNextStepClick: () -> Unit,
 ) {
@@ -131,7 +133,7 @@ internal fun OnboardingContent(
                     .padding(bottom = 16.dp)
                     .width(200.dp)
             ) {
-                Text(text = stringResource(id = R.string.continue_text))
+                Text(text = buttonText)
             }
         }
     }
@@ -148,6 +150,7 @@ private fun OnboardingContentPreview() {
             stepIndex = 0,
             stepsCount = 4,
             onStepDataChange = {},
+            buttonText = stringResource(id = R.string.continue_text),
             nextStepEnabled = true,
             onNextStepClick = {}
         )

@@ -21,7 +21,6 @@
     <string name="onboarding_terms_text">I have read and accept %s</string>
     <string name="onboarding_terms_link">Terms Of Use</string>
     <string name="onboarding_terms_dialog_title">Terms Of Use</string>
-    <string name="nick_fill_error">Fill nick name</string>
     <string name="current_score_title">Current score</string>
     <string name="activity_score_text">%1$s / %2$s\nof your daily goal</string>
     <string name="activity_walking_duration">Walking: %s</string>
@@ -66,13 +65,9 @@
     <string name="statistic_category_steps">Steps</string>
     <string name="statistic_category_sleep">Sleep</string>
     <string name="log_out">Log out</string>
-    <string name="onboarding_terms_not_set_alert_body">Read and accept Terms Of Use</string>
-    <string name="onboarding_age_not_set_alert_title">Birthday</string>
-    <string name="onboarding_age_not_set_alert_body">Please, set your birthday.\n\nWe use your age to set target values for activities, steps and sleep.</string>
     <string name="error_alert_button">Close</string>
     <string name="demo_profile_badge">Demo</string>
     <string name="demo_profile_badge_description">
         You are not signed to Google Account and now you see demo steps, sleep and activity.\nOpen Profile tab and Sign In to Google to see your real data from Google Fit.
     </string>
-    <string name="title_activity_main2">MainActivity2</string>
 </resources>

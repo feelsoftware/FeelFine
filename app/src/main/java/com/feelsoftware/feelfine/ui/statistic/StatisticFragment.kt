@@ -220,7 +220,7 @@ class StatisticViewModel(
     init {
         currentCategoryIndex = 1
         currentDate.value = Date()
-        userProfile.attachSource(userRepository.getProfile()) { it }
+        userProfile.attachSource(userRepository.getProfileLegacy()) { it }
     }
 
     // region Category

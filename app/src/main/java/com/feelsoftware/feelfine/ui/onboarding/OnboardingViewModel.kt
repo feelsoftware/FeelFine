@@ -4,17 +4,26 @@ package com.feelsoftware.feelfine.ui.onboarding
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.feelsoftware.feelfine.R
 import com.feelsoftware.feelfine.data.model.UserProfile.Gender
+import com.feelsoftware.feelfine.ui.onboarding.data.OnboardingStep
+import com.feelsoftware.feelfine.ui.onboarding.data.OnboardingStepValidator
+import com.feelsoftware.feelfine.ui.onboarding.usecase.CompleteOnboardingUseCase
+import com.feelsoftware.feelfine.utils.StringResources
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
 
 private const val WEIGHT_NONE = 0f
 
-internal class OnboardingViewModel : ViewModel() {
+internal class OnboardingViewModel(
+    private val completeOnboarding: CompleteOnboardingUseCase,
+    private val stringResources: StringResources,
+) : ViewModel() {
 
     private val steps = mutableListOf<OnboardingStep>(
         OnboardingStep.Name(),
@@ -28,12 +37,9 @@ internal class OnboardingViewModel : ViewModel() {
         OnboardingStepValidator.Weight,
         OnboardingStepValidator.Birthday,
     )
+
     private val currentStep = MutableStateFlow<OnboardingStep>(steps.first())
-
     val step: StateFlow<OnboardingStep> = currentStep.asStateFlow()
-
-    private val _nextStepEnabled = MutableStateFlow<Boolean>(false)
-    val nextStepEnabled: StateFlow<Boolean> = _nextStepEnabled.asStateFlow()
 
     val stepIndex: StateFlow<Int> = currentStep.map { steps.indexOf(it) }
         .stateIn(
@@ -42,6 +48,23 @@ internal class OnboardingViewModel : ViewModel() {
             initialValue = -1
         )
     val stepsCount: StateFlow<Int> = MutableStateFlow(4).asStateFlow()
+
+    private val _nextStepEnabled = MutableStateFlow<Boolean>(false)
+    val nextStepEnabled: StateFlow<Boolean> = _nextStepEnabled.asStateFlow()
+
+    val buttonText: StateFlow<String> =
+        stepIndex.map { index ->
+            if (index == steps.lastIndex) {
+                stringResources.getString(R.string.onboarding_finish)
+            } else {
+                stringResources.getString(R.string.continue_text)
+            }
+        }
+            .stateIn(
+                viewModelScope,
+                SharingStarted.WhileSubscribed(5000),
+                initialValue = ""
+            )
 
     val backHandlerEnabled: StateFlow<Boolean> = currentStep.map { it !is OnboardingStep.Name }
         .stateIn(
@@ -63,7 +86,7 @@ internal class OnboardingViewModel : ViewModel() {
     fun nextStep() {
         val index = steps.indexOf(currentStep.value)
         if (index == steps.size - 1) {
-            _finishOnboarding.value = true
+            completeOnboarding()
         } else if (nextStepEnabled.value) {
             currentStep.value = steps[index + 1]
             validateCurrentStep()
@@ -84,6 +107,13 @@ internal class OnboardingViewModel : ViewModel() {
             steps[weightStep] = weightData.copy(
                 weight = if (step.gender == Gender.MALE) 65f else 55f
             )
+        }
+    }
+
+    private fun completeOnboarding() {
+        viewModelScope.launch {
+            completeOnboarding(steps)
+            _finishOnboarding.value = true
         }
     }
 
