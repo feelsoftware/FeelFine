@@ -19,6 +19,7 @@ import androidx.compose.ui.semantics.role
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.compose.ui.window.Dialog
@@ -62,7 +63,12 @@ internal fun OnboardingTermsContent(
             val end = start + link.length
 
             append(text)
-            addStyle(SpanStyle(color = MaterialTheme.colorScheme.tertiary), start, end)
+            addStyle(
+                SpanStyle(
+                    color = MaterialTheme.colorScheme.tertiary,
+                    fontWeight = FontWeight.Bold
+                ), start, end
+            )
             addStringAnnotation(tag = linkTag, annotation = linkTag, start, end)
         }
         ClickableText(
