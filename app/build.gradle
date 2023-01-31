@@ -12,12 +12,15 @@ android {
     compileSdk 33
     buildToolsVersion '33.0.0'
 
+    Properties props = new Properties()
+    props.load(new FileInputStream(new File('local.properties')))
+
     defaultConfig {
         applicationId "com.feelsoftware.feelfine"
         minSdkVersion 23
         targetSdkVersion 33
-        versionCode 107
-        versionName "1.0.3"
+        versionCode props['versionCode'].toInteger()
+        versionName props['versionName']
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
