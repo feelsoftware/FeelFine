@@ -3,6 +3,8 @@
 package com.feelsoftware.feelfine.ui.score
 
 import android.annotation.SuppressLint
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.map
@@ -16,11 +18,8 @@ import com.feelsoftware.feelfine.fit.usecase.getPercentSleep
 import com.feelsoftware.feelfine.score.*
 import com.feelsoftware.feelfine.ui.base.BaseFragment
 import com.feelsoftware.feelfine.ui.base.BaseViewModel
-import kotlinx.android.synthetic.main.fragment_sleep_score.*
-import kotlinx.android.synthetic.main.fragment_sleep_score.backIV
-import kotlinx.android.synthetic.main.fragment_sleep_score.totalScore
-import kotlinx.android.synthetic.main.fragment_sleep_score.scorePercentTV
-import kotlinx.android.synthetic.main.fragment_sleep_score.sleepText
+import com.feelsoftware.feelfine.ui.profile.DemoProfileBadge
+import com.mikhaellopez.circularprogressbar.CircularProgressBar
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SleepScoreFragment : BaseFragment<SleepScoreViewModel>(R.layout.fragment_sleep_score) {
@@ -28,6 +27,17 @@ class SleepScoreFragment : BaseFragment<SleepScoreViewModel>(R.layout.fragment_s
     override val viewModel: SleepScoreViewModel by viewModel()
 
     override val statusBarColorResId: Int = R.color.lavenderTwo
+
+    // TODO: Replace with ViewBinding
+    private inline val awakeTV: TextView get() = requireView().findViewById(R.id.awakeTV)
+    private inline val lightSleepTV: TextView get() = requireView().findViewById(R.id.lightSleepTV)
+    private inline val deepSleepTV: TextView get() = requireView().findViewById(R.id.deepSleepTV)
+    private inline val outOfBedTV: TextView get() = requireView().findViewById(R.id.outOfBedTV)
+    private inline val scorePercentTV: TextView get() = requireView().findViewById(R.id.scorePercentTV)
+    private inline val sleepText: TextView get() = requireView().findViewById(R.id.sleepText)
+    private inline val totalScore: CircularProgressBar get() = requireView().findViewById(R.id.totalScore)
+    private inline val demoLabel: DemoProfileBadge get() = requireView().findViewById(R.id.demoLabel)
+    private inline val backIV: ImageView get() = requireView().findViewById(R.id.backIV)
 
     override fun onReady() {
         viewModel.sleepInfo.observe {
@@ -79,6 +89,6 @@ class SleepScoreViewModel(
     init {
         sleepInfo.attachSource(useCase.getCurrentSleep()) { it }
         combinePercentData(percents, useCase.getPercentSleep())
-        userProfile.attachSource(userRepository.getProfile()) { it }
+        userProfile.attachSource(userRepository.getProfileLegacy()) { it }
     }
 }

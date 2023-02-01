@@ -2,6 +2,7 @@ package com.feelsoftware.feelfine.score
 
 import com.feelsoftware.feelfine.data.model.Mood
 import com.feelsoftware.feelfine.data.model.UserProfile
+import com.feelsoftware.feelfine.data.model.age
 import com.feelsoftware.feelfine.data.repository.UserRepository
 import com.feelsoftware.feelfine.fit.model.Duration
 import io.reactivex.rxjava3.core.Single
@@ -34,11 +35,11 @@ class ScoreTargetProviderImpl(
         Single.just(Mood.values().maxByOrNull { it.intensity } ?: Mood.values().last())
 
     private fun getUserInfo(): Single<UserInfo> =
-        userRepository.getProfile()
+        userRepository.getProfileLegacy()
             .firstOrError()
             .map { profile ->
                 UserInfo(
-                    weight = profile.weight,
+                    weight = profile.weight.toInt(),
                     age = profile.age,
                     isMale = profile.gender == UserProfile.Gender.MALE
                 )

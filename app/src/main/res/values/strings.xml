@@ -1,15 +1,26 @@
 <resources>
     <string name="app_name">FeelFine</string>
-    <string name="welcome_title">Welcome to FeelFine!</string>
+    <string name="welcome_title">Welcome to %s</string>
+    <string name="welcome_label">Let\'s get started</string>
+    <string name="continue_text">Continue</string>
     <string name="register">Sing up</string>
     <string name="sign_in">Sign in</string>
     <string name="failed_sign_in_error_alert_body">Failed to sign in.\nReason: %s</string>
-    <string name="dont_have_account">Let\'s get started!</string>
-    <string name="onboarding_continue">Continue</string>
-    <string name="onboarding_age_title">What is date of birth?</string>
-    <string name="onboarding_age_description">Indicate your age</string>
+    <string name="onboarding_name_title">Who are you?</string>
+    <string name="onboarding_name_label">To personalise your account</string>
+    <string name="onboarding_name_hint">Name</string>
+    <string name="onboarding_gender_title">Which one are you?</string>
+    <string name="onboarding_gender_label">To calculate fitness score by gender</string>
+    <string name="gender_male">Male</string>
+    <string name="gender_female">Female</string>
+    <string name="onboarding_weight_title">What is your weight, kg?</string>
+    <string name="onboarding_weight_label">To calculate fitness score by weight</string>
+    <string name="onboarding_birthday_title">What is your birthday?</string>
+    <string name="onboarding_birthday_label">To calculate fitness scope by age</string>
     <string name="onboarding_finish">Get started</string>
-    <string name="nick_fill_error">Fill nick name</string>
+    <string name="onboarding_terms_text">I have read and accept %s</string>
+    <string name="onboarding_terms_link">Terms Of Use</string>
+    <string name="onboarding_terms_dialog_title">Terms Of Use</string>
     <string name="current_score_title">Current score</string>
     <string name="activity_score_text">%1$s / %2$s\nof your daily goal</string>
     <string name="activity_walking_duration">Walking: %s</string>
@@ -46,8 +57,6 @@
         <item>Activity</item>
         <item>Mood</item>
     </string-array>
-    <string name="i_accept_terms">I have read and accepted %s</string>
-    <string name="i_accept_terms_link">Terms Of Use</string>
     <string name="mood_notification_title">Track your mood</string>
     <string name="mood_notification_message">How do you feel today?</string>
     <string name="your_goals">Your goals:</string>
@@ -56,10 +65,6 @@
     <string name="statistic_category_steps">Steps</string>
     <string name="statistic_category_sleep">Sleep</string>
     <string name="log_out">Log out</string>
-    <string name="onboarding_terms_not_set_alert_title">Terms Of Use</string>
-    <string name="onboarding_terms_not_set_alert_body">Read and accept Terms Of Use</string>
-    <string name="onboarding_age_not_set_alert_title">Birthday</string>
-    <string name="onboarding_age_not_set_alert_body">Please, set your birthday.\n\nWe use your age to set target values for activities, steps and sleep.</string>
     <string name="error_alert_button">Close</string>
     <string name="demo_profile_badge">Demo</string>
     <string name="demo_profile_badge_description">

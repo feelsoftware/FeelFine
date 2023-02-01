@@ -17,7 +17,7 @@ import org.koin.dsl.module
 
 val fitModule = module {
     factory<FitRepository> {
-        val profile = get<UserRepository>().getProfile().firstOrError().blockingGet()
+        val profile = get<UserRepository>().getProfileLegacy().firstOrError().blockingGet()
         if (profile.isDemo) {
             MockFitRepository()
         } else {

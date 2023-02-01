@@ -32,7 +32,7 @@ abstract class BaseFragment<VM : BaseViewModel>(
         Timber.tag(this::class.java.name).d("onCreate")
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    final override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.navigation.observe {

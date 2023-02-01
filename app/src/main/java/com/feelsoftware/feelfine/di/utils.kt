@@ -10,7 +10,11 @@ import com.feelsoftware.feelfine.score.ScoreCalculator
 import com.feelsoftware.feelfine.score.ScoreCalculatorImpl
 import com.feelsoftware.feelfine.score.ScoreTargetProvider
 import com.feelsoftware.feelfine.score.ScoreTargetProviderImpl
-import com.feelsoftware.feelfine.utils.*
+import com.feelsoftware.feelfine.utils.ActivityEngine
+import com.feelsoftware.feelfine.utils.ActivityEngineImpl
+import com.feelsoftware.feelfine.utils.MoodNotificationManager
+import com.feelsoftware.feelfine.utils.MoodTracker
+import com.feelsoftware.feelfine.utils.StringResources
 import org.koin.android.ext.koin.androidApplication
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
@@ -18,9 +22,6 @@ import org.koin.dsl.module
 val utilsModule = module {
     single<ActivityEngine> {
         ActivityEngineImpl(androidApplication())
-    }
-    single<OnBoardingFlowManager> {
-        OnBoardingFlowManager(get<UserRepository>())
     }
     single<WorkManager> {
         WorkManager.getInstance(androidContext())
@@ -39,5 +40,8 @@ val utilsModule = module {
     }
     single<ScoreCalculator> {
         ScoreCalculatorImpl()
+    }
+    single {
+        StringResources(get<ActivityEngine>())
     }
 }

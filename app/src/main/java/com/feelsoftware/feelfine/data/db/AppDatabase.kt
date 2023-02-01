@@ -9,7 +9,7 @@ import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.schedulers.Schedulers
 
 @Database(
-    version = 2,
+    version = 3,
     entities = [
         ActivityEntity::class,
         MoodEntity::class,
@@ -17,7 +17,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers
         StepsEntity::class,
         UserProfileEntity::class,
     ],
-    exportSchema = false
+    exportSchema = false,
 )
 @TypeConverters(
     DateConverter::class,
@@ -41,6 +41,6 @@ abstract class AppDatabase : RoomDatabase() {
             .andThen(moodDao().delete())
             .andThen(sleepDao().delete())
             .andThen(stepsDao().delete())
-            .andThen(userProfileDao().delete())
+            .andThen(userProfileDao().deleteLegacy())
             .subscribeOn(Schedulers.io())
 }

@@ -3,6 +3,8 @@
 package com.feelsoftware.feelfine.ui.score
 
 import android.annotation.SuppressLint
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.lifecycle.*
 import com.feelsoftware.feelfine.R
@@ -15,11 +17,8 @@ import com.feelsoftware.feelfine.fit.usecase.getPercentActivity
 import com.feelsoftware.feelfine.score.*
 import com.feelsoftware.feelfine.ui.base.BaseFragment
 import com.feelsoftware.feelfine.ui.base.BaseViewModel
-import kotlinx.android.synthetic.main.fragment_activity_score.*
-import kotlinx.android.synthetic.main.fragment_activity_score.backIV
-import kotlinx.android.synthetic.main.fragment_activity_score.demoLabel
-import kotlinx.android.synthetic.main.fragment_activity_score.totalScore
-import kotlinx.android.synthetic.main.fragment_activity_score.scorePercentTV
+import com.feelsoftware.feelfine.ui.profile.DemoProfileBadge
+import com.mikhaellopez.circularprogressbar.CircularProgressBar
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ActivityScoreFragment :
@@ -28,6 +27,16 @@ class ActivityScoreFragment :
     override val viewModel: ActivityScoreViewModel by viewModel()
 
     override val statusBarColorResId: Int = R.color.pastelPink
+
+    // TODO: Replace with ViewBinding
+    private inline val walkingTV: TextView get() = requireView().findViewById(R.id.walkingTV)
+    private inline val runningTV: TextView get() = requireView().findViewById(R.id.runningTV)
+    private inline val otherTV: TextView get() = requireView().findViewById(R.id.otherTV)
+    private inline val scorePercentTV: TextView get() = requireView().findViewById(R.id.scorePercentTV)
+    private inline val activityText: TextView get() = requireView().findViewById(R.id.activityText)
+    private inline val totalScore: CircularProgressBar get() = requireView().findViewById(R.id.totalScore)
+    private inline val demoLabel: DemoProfileBadge get() = requireView().findViewById(R.id.demoLabel)
+    private inline val backIV: ImageView get() = requireView().findViewById(R.id.backIV)
 
     override fun onReady() {
         viewModel.activityInfo.observe {
@@ -76,6 +85,6 @@ class ActivityScoreViewModel(
     init {
         activityInfo.attachSource(useCase.getCurrentActivity()) { it }
         combinePercentData(percents, useCase.getPercentActivity())
-        userProfile.attachSource(userRepository.getProfile()) { it }
+        userProfile.attachSource(userRepository.getProfileLegacy()) { it }
     }
 }

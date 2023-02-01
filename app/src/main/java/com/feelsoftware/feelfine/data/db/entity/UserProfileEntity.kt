@@ -5,6 +5,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverter
 import androidx.room.TypeConverters
+import java.util.Date
 
 @Entity(
     tableName = "user_profile"
@@ -16,8 +17,8 @@ data class UserProfileEntity(
     val id: Int,
     val name: String,
     val gender: Gender,
-    val weight: Int,
-    val age: Int,
+    val weight: Float,
+    val birthday: Date,
     val isDemo: Boolean,
 ) {
 
