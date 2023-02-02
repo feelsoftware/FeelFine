@@ -2,17 +2,24 @@
 
 package com.feelsoftware.feelfine.utils
 
+import android.Manifest
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
+import android.content.pm.PackageManager
 import android.os.Build
 import androidx.core.app.NotificationCompat
 import androidx.navigation.NavDeepLinkBuilder
-import androidx.work.*
+import androidx.work.ExistingPeriodicWorkPolicy
+import androidx.work.PeriodicWorkRequestBuilder
+import androidx.work.WorkManager
+import androidx.work.Worker
+import androidx.work.WorkerParameters
 import com.feelsoftware.feelfine.R
+import java.util.Calendar
+import java.util.Date
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
-import java.util.*
 import java.util.concurrent.TimeUnit
 
 private const val PERIODICAL_TAG = "MoodTracker.PERIODICAL_TAG"
@@ -20,8 +27,9 @@ private const val PERIODICAL_NAME = "MoodTracker.PERIODICAL_NAME"
 private const val TAG_HOUR = "MoodTracker.TAG_HOUR"
 
 class MoodTracker(
-    private val workManager: WorkManager
-) : KoinComponent {
+    private val activityEngine: ActivityEngine,
+    private val workManager: WorkManager,
+) {
 
     fun trackPeriodically() {
         cancel()
@@ -30,6 +38,13 @@ class MoodTracker(
 
     fun cancel() {
         workManager.cancelAllWorkByTag(PERIODICAL_TAG)
+    }
+
+    fun checkPermission() {
+        val activity = activityEngine.activity ?: return
+        if (activity.checkSelfPermission(Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED) return
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) return
+        activity.requestPermissions(arrayOf(Manifest.permission.POST_NOTIFICATIONS), 0)
     }
 
     private fun trackPeriodically(hour: Int) {
@@ -99,8 +114,9 @@ class MoodNotificationManager(
         val channel = NotificationChannel(
             CHANNEL_ID,
             context.getString(R.string.mood_score),
-            NotificationManager.IMPORTANCE_DEFAULT
+            NotificationManager.IMPORTANCE_LOW
         )
+        channel.description = context.getString(R.string.mood_notification_message)
         notificationManager.createNotificationChannel(channel)
     }
 }

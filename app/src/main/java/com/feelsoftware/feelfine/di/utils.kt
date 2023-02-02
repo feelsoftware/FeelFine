@@ -27,7 +27,7 @@ val utilsModule = module {
         WorkManager.getInstance(androidContext())
     }
     single<MoodTracker> {
-        MoodTracker(get<WorkManager>())
+        MoodTracker(get<ActivityEngine>(), get<WorkManager>())
     }
     single<MoodNotificationManager> {
         MoodNotificationManager(

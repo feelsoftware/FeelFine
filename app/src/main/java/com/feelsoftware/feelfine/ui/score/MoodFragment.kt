@@ -8,6 +8,7 @@ import com.feelsoftware.feelfine.extension.onClick
 import com.feelsoftware.feelfine.extension.subscribeBy
 import com.feelsoftware.feelfine.ui.base.BaseFragment
 import com.feelsoftware.feelfine.ui.base.BaseViewModel
+import com.feelsoftware.feelfine.utils.MoodTracker
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
@@ -49,8 +50,13 @@ class MoodFragment : BaseFragment<MoodViewModel>(R.layout.fragment_mood) {
 }
 
 class MoodViewModel(
-    private val setMoodUseCase: SetMoodUseCase
+    moodTracker: MoodTracker,
+    private val setMoodUseCase: SetMoodUseCase,
 ) : BaseViewModel() {
+
+    init {
+        moodTracker.checkPermission()
+    }
 
     fun setMood(mood: Mood) {
         setMoodUseCase(mood)

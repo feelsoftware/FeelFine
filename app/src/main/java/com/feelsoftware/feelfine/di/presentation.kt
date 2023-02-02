@@ -86,6 +86,6 @@ val presentationModule = module {
         )
     }
     viewModel {
-        MoodViewModel(get<SetMoodUseCase>())
+        MoodViewModel(get<MoodTracker>(), get<SetMoodUseCase>())
     }
 }
