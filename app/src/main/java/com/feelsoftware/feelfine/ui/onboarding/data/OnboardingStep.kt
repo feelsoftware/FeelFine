@@ -23,15 +23,18 @@ internal fun interface OnboardingStepValidator<T : OnboardingStep> {
     fun validate(step: T): Boolean
 
     object Name : OnboardingStepValidator<OnboardingStep.Name> {
-        override fun validate(step: OnboardingStep.Name): Boolean = step.name.isNullOrEmpty().not()
+        override fun validate(step: OnboardingStep.Name): Boolean =
+            step.name.orEmpty().trim().isEmpty().not()
     }
 
     object Gender : OnboardingStepValidator<OnboardingStep.Gender> {
-        override fun validate(step: OnboardingStep.Gender): Boolean = step.gender != null
+        override fun validate(step: OnboardingStep.Gender): Boolean =
+            step.gender != null
     }
 
     object Weight : OnboardingStepValidator<OnboardingStep.Weight> {
-        override fun validate(step: OnboardingStep.Weight): Boolean = true
+        override fun validate(step: OnboardingStep.Weight): Boolean =
+            true
     }
 
     object Birthday : OnboardingStepValidator<OnboardingStep.Birthday> {
