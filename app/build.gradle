@@ -99,6 +99,9 @@ dependencies {
     debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
     debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_version"
 
+    // Accompanist
+    implementation "com.google.accompanist:accompanist-pager:0.29.1-alpha"
+
     // Google Fit
     implementation "com.google.android.gms:play-services-fitness:21.1.0"
     implementation "com.google.android.gms:play-services-auth:20.4.1"
