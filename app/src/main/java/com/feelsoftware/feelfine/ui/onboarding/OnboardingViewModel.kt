@@ -93,6 +93,15 @@ internal class OnboardingViewModel(
         }
     }
 
+    fun navigateToStep(index: Int) {
+        val step = steps.getOrNull(index) ?: return
+        for (i in 0 until index) {
+            // Verify if we are able to navigate to all steps between
+            if (validators.validate(steps[i]).not()) return
+        }
+        currentStep.value = step
+    }
+
     fun updateStepData(step: OnboardingStep) {
         steps[stepIndex.value] = step
         currentStep.value = step

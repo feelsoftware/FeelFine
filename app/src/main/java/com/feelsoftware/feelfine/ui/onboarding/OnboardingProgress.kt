@@ -5,17 +5,20 @@ import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.scaleIn
 import androidx.compose.animation.scaleOut
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.drawBehind
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.drawWithCache
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.graphics.drawscope.Fill
@@ -36,7 +39,8 @@ private val circleSize = 24.dp
 internal fun OnboardingProgress(
     currentIndex: Int,
     totalCount: Int,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onItemClicked: (index: Int) -> Unit,
 ) {
     require(currentIndex < totalCount)
 
@@ -65,13 +69,20 @@ internal fun OnboardingProgress(
 
             Row(modifier = Modifier
                 .size(circleSize)
-                .drawBehind {
-                    val strokeWidth = 2.dp.toPx()
-                    drawCircle(
-                        color = colorInActive,
-                        radius = (size.minDimension - strokeWidth) / 2f,
-                        style = Stroke(width = strokeWidth)
-                    )
+                .clip(CircleShape)
+                .clickable {
+                    // No needs to navigate to current index
+                    if (index != currentIndex) onItemClicked(index)
+                }
+                .drawWithCache {
+                    onDrawBehind {
+                        val strokeWidth = 2.dp.toPx()
+                        drawCircle(
+                            color = colorInActive,
+                            radius = (size.minDimension - strokeWidth) / 2f,
+                            style = Stroke(width = strokeWidth)
+                        )
+                    }
                 }
             ) {
                 AnimatedVisibility(
@@ -117,7 +128,7 @@ internal fun OnboardingProgress(
 @Composable
 private fun OnboardingProgressEmptyPreview() {
     FeelFineTheme {
-        OnboardingProgress(currentIndex = 0, totalCount = 4)
+        OnboardingProgress(currentIndex = 0, totalCount = 4, onItemClicked = {})
     }
 }
 
@@ -125,7 +136,7 @@ private fun OnboardingProgressEmptyPreview() {
 @Composable
 private fun OnboardingProgressHalfPreview() {
     FeelFineTheme {
-        OnboardingProgress(currentIndex = 1, totalCount = 4)
+        OnboardingProgress(currentIndex = 1, totalCount = 4, onItemClicked = {})
     }
 }
 
@@ -133,6 +144,6 @@ private fun OnboardingProgressHalfPreview() {
 @Composable
 private fun OnboardingProgressFullPreview() {
     FeelFineTheme {
-        OnboardingProgress(currentIndex = 3, totalCount = 4)
+        OnboardingProgress(currentIndex = 3, totalCount = 4, onItemClicked = {})
     }
 }

@@ -28,6 +28,7 @@ internal class OnboardingFragment : BaseComposeFragment() {
             buttonText = buttonText,
             nextStepEnabled = nextStepEnabled,
             onNextStepClick = viewModel::nextStep,
+            navigateToStep = viewModel::navigateToStep,
         )
 
         val backHandlerEnabled by viewModel.backHandlerEnabled.collectAsState()
