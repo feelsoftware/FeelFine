@@ -3,8 +3,7 @@
     <string name="welcome_title">Welcome to %s</string>
     <string name="welcome_label">Let\'s get started</string>
     <string name="continue_text">Continue</string>
-    <string name="register">Sing up</string>
-    <string name="sign_in">Sign in</string>
+    <string name="failed_sign_in_error_alert_title">Error</string>
     <string name="failed_sign_in_error_alert_body">Failed to sign in.\nReason: %s</string>
     <string name="onboarding_name_title">Who are you?</string>
     <string name="onboarding_name_label">To personalise your account</string>
@@ -45,19 +44,9 @@
     <string name="sleep_placeholder">Sleep: %s</string>
     <string name="user_weight_placeholder">%s kg</string>
     <string name="about_score">About score</string>
-    <string name="about_score_text">
-        Score consists of four values: Activity, Mood, Steps and quality of Sleep.
-        Based on them, you have personalized score between 0 to 100. \nTo help you yo improve your mental state,
-        you have every day mood questionnaire.
-    For updating your goals, please, visit profile settings</string>
+    <string name="about_score_text">Score consists of four values: Activity, Mood, Steps and quality of Sleep.\nBased on them, you have personalized score between 0 to 100.\n\nTo help you yo improve your mental state, you have every day mood questionnaire.</string>
     <string name="mood_score">Mood score</string>
     <string name="score_details">Details</string>
-    <string-array name="score_values">
-        <item>Steps</item>
-        <item>Sleep</item>
-        <item>Activity</item>
-        <item>Mood</item>
-    </string-array>
     <string name="mood_notification_title">Track your mood</string>
     <string name="mood_notification_message">How do you feel today?</string>
     <string name="your_goals">Your goals:</string>
@@ -66,10 +55,10 @@
     <string name="statistic_category_steps">Steps</string>
     <string name="statistic_category_sleep">Sleep</string>
     <string name="statistic_category_mood">Mood</string>
+    <string name="statistic_week">week</string>
+    <string name="statistic_month">month</string>
     <string name="log_out">Log out</string>
     <string name="error_alert_button">Close</string>
     <string name="demo_profile_badge">Demo</string>
-    <string name="demo_profile_badge_description">
-        You are not signed to Google Account and now you see demo steps, sleep and activity.\nOpen Profile tab and Sign In to Google to see your real data from Google Fit.
-    </string>
+    <string name="demo_profile_badge_description">You are not signed to Google Account and now you see demo steps, sleep and activity.\nOpen Profile tab and Sign In to Google to see your real data from Google Fit.</string>
 </resources>

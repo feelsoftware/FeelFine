@@ -110,6 +110,7 @@ class StatisticFragment : BaseFragment<StatisticViewModel>(R.layout.fragment_sta
         }
         chart.axisRight.isEnabled = false
         chart.legend.isEnabled = false
+        chart.renderer = RoundedBarChartRenderer(chart)
     }
 
     private fun displayChartData(chartData: ChartData) {

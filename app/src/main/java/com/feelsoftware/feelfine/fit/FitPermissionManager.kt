@@ -123,7 +123,7 @@ class GoogleFitPermissionManager(
 
                 activityEngine.activity?.apply {
                     showErrorDialog(
-                        title = getString(R.string.sign_in),
+                        title = getString(R.string.failed_sign_in_error_alert_title),
                         body = getString(
                             R.string.failed_sign_in_error_alert_body,
                             error.toString()
