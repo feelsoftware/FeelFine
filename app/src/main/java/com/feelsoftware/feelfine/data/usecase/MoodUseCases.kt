@@ -3,6 +3,7 @@ package com.feelsoftware.feelfine.data.usecase
 import com.feelsoftware.feelfine.data.model.Mood
 import com.feelsoftware.feelfine.data.model.Optional
 import com.feelsoftware.feelfine.data.repository.MoodRepository
+import com.feelsoftware.feelfine.data.repository.UserRepository
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
@@ -18,10 +19,25 @@ class SetMoodUseCase(
 }
 
 class GetMoodByDateUseCase(
-    private val repository: MoodRepository
+    private val repository: MoodRepository,
+    private val userRepository: UserRepository,
 ) {
 
     operator fun invoke(date: Date): Single<Optional<Mood>> =
+        userRepository.getProfileLegacy()
+            .firstOrError()
+            .flatMap { profile ->
+                if (profile.isDemo) {
+                    getMockMood()
+                } else {
+                    getMood(date)
+                }
+            }
+
+    private fun getMockMood(): Single<Optional<Mood>> =
+        Single.just(Optional.of(Mood.values().random()))
+
+    private fun getMood(date: Date): Single<Optional<Mood>> =
         repository.getMoodByDay(date)
             .firstOrError()
             .map { list ->
@@ -58,7 +74,7 @@ class GetPercentMoodUseCase(
         val currentData = getMoodByDateUseCase(currentDate)
         val yesterdayData = getMoodByDateUseCase(yesterdayDate)
 
-        return Single.zip(currentData, yesterdayData, { current, yesterday ->
+        return Single.zip(currentData, yesterdayData) { current, yesterday ->
             if (current.isPresent.not() || yesterday.isPresent.not()) {
                 return@zip Optional.empty<Int>()
             }
@@ -66,6 +82,6 @@ class GetPercentMoodUseCase(
             Optional.of(
                 (current.value.intensity * 100f / yesterday.value.intensity.coerceAtLeast(1)).roundToInt() - 100
             )
-        }).toObservable()
+        }.toObservable()
     }
 }

@@ -52,7 +52,7 @@ val useCaseModule = module {
         SetMoodUseCase(get<MoodRepository>())
     }
     factory<GetMoodByDateUseCase> {
-        GetMoodByDateUseCase(get<MoodRepository>())
+        GetMoodByDateUseCase(get<MoodRepository>(), get<UserRepository>())
     }
     factory<GetCurrentMoodUseCase> {
         GetCurrentMoodUseCase(get<GetMoodByDateUseCase>())
