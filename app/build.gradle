@@ -21,7 +21,7 @@ android {
         targetSdkVersion 33
         versionCode props['versionCode'].toInteger()
         versionName props['versionName']
-        resConfigs "en"
+        resConfigs 'en'
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
@@ -65,7 +65,7 @@ android {
         compose true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.4.0"
+        kotlinCompilerExtensionVersion = "1.4.3"
     }
 }
 
@@ -74,7 +74,7 @@ dependencies {
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'
 
     implementation 'androidx.core:core-ktx:1.9.0'
-    implementation 'androidx.appcompat:appcompat:1.6.0'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation "androidx.activity:activity-ktx:1.6.1"
     implementation "androidx.fragment:fragment-ktx:1.5.5"
     implementation 'com.google.android.material:material:1.8.0'
@@ -94,7 +94,7 @@ dependencies {
     implementation 'androidx.activity:activity-compose:1.6.1'
     implementation "androidx.compose.ui:ui:$compose_version"
     implementation "androidx.compose.ui:ui-tooling-preview:$compose_version"
-    implementation 'androidx.compose.material3:material3:1.1.0-alpha05'
+    implementation 'androidx.compose.material3:material3:1.1.0-alpha07'
     androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"
     debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
     debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_version"
@@ -103,7 +103,7 @@ dependencies {
     implementation "com.google.android.gms:play-services-fitness:21.1.0"
     implementation "com.google.android.gms:play-services-auth:20.4.1"
     implementation 'com.google.firebase:firebase-analytics-ktx:21.2.0'
-    implementation 'com.google.firebase:firebase-crashlytics-ktx:18.3.3'
+    implementation 'com.google.firebase:firebase-crashlytics-ktx:18.3.5'
     //noinspection GradleDependency
     implementation('com.google.api-client:google-api-client:1.30.11') {
         exclude group: 'org.apache.httpcomponents', module: 'httpclient'
@@ -126,8 +126,8 @@ dependencies {
     implementation 'com.jakewharton.rxrelay3:rxrelay:3.0.0'
 
     // WorkManager
-    implementation "androidx.work:work-runtime-ktx:2.7.1"
-    implementation "androidx.work:work-rxjava3:2.7.1"
+    implementation "androidx.work:work-runtime-ktx:2.8.0"
+    implementation "androidx.work:work-rxjava3:2.8.0"
 
     // DI
     implementation "io.insert-koin:koin-android:3.1.2"
