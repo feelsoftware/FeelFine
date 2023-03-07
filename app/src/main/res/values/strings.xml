@@ -51,6 +51,7 @@
         you have every day mood questionnaire.
     For updating your goals, please, visit profile settings</string>
     <string name="mood_score">Mood score</string>
+    <string name="score_details">Details</string>
     <string-array name="score_values">
         <item>Steps</item>
         <item>Sleep</item>
@@ -64,6 +65,7 @@
     <string name="statistic_category_activity">Activity</string>
     <string name="statistic_category_steps">Steps</string>
     <string name="statistic_category_sleep">Sleep</string>
+    <string name="statistic_category_mood">Mood</string>
     <string name="log_out">Log out</string>
     <string name="error_alert_button">Close</string>
     <string name="demo_profile_badge">Demo</string>

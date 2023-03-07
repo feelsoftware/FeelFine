@@ -5,9 +5,13 @@ package com.feelsoftware.feelfine.ui.statistic
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.graphics.Color
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.annotation.ColorInt
+import androidx.annotation.ColorRes
 import androidx.annotation.StringRes
+import androidx.core.content.ContextCompat
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.lifecycle.*
@@ -23,6 +27,7 @@ import com.feelsoftware.feelfine.fit.usecase.GetFitDataUseCase
 import com.feelsoftware.feelfine.ui.base.BaseFragment
 import com.feelsoftware.feelfine.ui.base.BaseViewModel
 import com.feelsoftware.feelfine.ui.profile.DemoProfileBadge
+import com.feelsoftware.feelfine.utils.ActivityEngine
 import com.github.mikephil.charting.charts.BarChart
 import com.github.mikephil.charting.components.XAxis.XAxisPosition
 import com.github.mikephil.charting.components.YAxis.YAxisLabelPosition
@@ -112,13 +117,17 @@ class StatisticFragment : BaseFragment<StatisticViewModel>(R.layout.fragment_sta
         chart.axisLeft.valueFormatter = chartData.yFormatter
         chart.axisRight.isEnabled = false
 
-        chart.data = BarData(BarDataSet(chartData.data, ""))
+        chart.data = BarData(BarDataSet(chartData.data, "")
+            .apply {
+                color = chartData.color
+            })
         chart.data.setValueFormatter(chartData.yFormatter)
         chart.invalidate()
     }
 }
 
 class StatisticViewModel(
+    private val activityEngine: ActivityEngine,
     private val context: Context,
     useCase: GetFitDataUseCase,
     userRepository: UserRepository,
@@ -185,27 +194,36 @@ class StatisticViewModel(
                 when (currentCategory) {
                     Category.ACTIVITY -> useCase.getActivity(startTime, endTime)
                         .map {
-                            it.toChartData(valueFormatter = {
-                                Duration(it).toHoursMinutes()
-                            }) { activityInfo ->
+                            it.toChartData(
+                                color = R.color.activity_primary,
+                                valueFormatter = { value ->
+                                    Duration(value).toHoursMinutes()
+                                }
+                            ) { activityInfo ->
                                 activityInfo.date to activityInfo.total.minutesTotal
                             }
                         }
                         .toLiveData()
                     Category.STEPS -> useCase.getSteps(startTime, endTime)
                         .map {
-                            it.toChartData(valueFormatter = {
-                                it.toString()
-                            }) { stepsInfo ->
+                            it.toChartData(
+                                color = R.color.steps_primary,
+                                valueFormatter = { value ->
+                                    value.toString()
+                                }
+                            ) { stepsInfo ->
                                 stepsInfo.date to stepsInfo.count
                             }
                         }
                         .toLiveData()
                     Category.SLEEP -> useCase.getSleep(startTime, endTime)
                         .map {
-                            it.toChartData(valueFormatter = {
-                                Duration(it).toHoursMinutes()
-                            }) { sleepInfo ->
+                            it.toChartData(
+                                color = R.color.sleep_primary,
+                                valueFormatter = { value ->
+                                    Duration(value).toHoursMinutes()
+                                }
+                            ) { sleepInfo ->
                                 sleepInfo.date to sleepInfo.total.minutesTotal
                             }
                         }
@@ -317,6 +335,7 @@ class StatisticViewModel(
         get() = context.getString(titleResId).lowercase(Locale.getDefault())
 
     private fun <T> List<T>.toChartData(
+        @ColorRes color: Int,
         valueFormatter: (Int) -> String,
         mapper: (T) -> Pair<Date, Int>
     ): ChartData {
@@ -341,7 +360,10 @@ class StatisticViewModel(
                 override fun getFormattedValue(value: Float): String {
                     return valueFormatter(value.roundToInt())
                 }
-            }
+            },
+            color = activityEngine.activity?.let {
+                ContextCompat.getColor(it, color)
+            } ?: Color.BLUE,
         )
         // endregion
     }
@@ -350,7 +372,8 @@ class StatisticViewModel(
 data class ChartData(
     val data: List<BarEntry>,
     val xFormatter: ValueFormatter,
-    val yFormatter: ValueFormatter
+    val yFormatter: ValueFormatter,
+    @ColorInt val color: Int,
 )
 
 private enum class Category(@StringRes val titleResId: Int) {

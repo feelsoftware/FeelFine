@@ -75,7 +75,12 @@ val presentationModule = module {
         )
     }
     viewModel {
-        StatisticViewModel(androidContext(), get<GetFitDataUseCase>(), get<UserRepository>())
+        StatisticViewModel(
+            get<ActivityEngine>(),
+            androidContext(),
+            get<GetFitDataUseCase>(),
+            get<UserRepository>(),
+        )
     }
     viewModel {
         ProfileViewModel(

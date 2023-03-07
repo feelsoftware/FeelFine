@@ -30,4 +30,12 @@
     <color name="pastelPink">#ffc3d6</color>
     <color name="gunmetal">#525a5b</color>
     <color name="sandTwo">#dbe48b</color>
+    <color name="steps_primary">@color/lavenderBlue</color>
+    <color name="steps_secondary">@color/powderBlue</color>
+    <color name="sleep_primary">@color/lavender</color>
+    <color name="sleep_secondary">@color/lavenderTwo</color>
+    <color name="activity_primary">@color/powerPink</color>
+    <color name="activity_secondary">@color/pastelPink</color>
+    <color name="mood_primary">@color/sand</color>
+    <color name="mood_secondary">@color/sandTwo</color>
 </resources>
