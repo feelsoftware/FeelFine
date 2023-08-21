@@ -5,12 +5,13 @@ plugins {
     id "androidx.navigation.safeargs"
     id 'com.google.gms.google-services'
     id 'com.google.firebase.crashlytics'
+    id 'com.google.devtools.ksp' version "1.9.0-1.0.13"
 }
 
 android {
     namespace 'com.feelsoftware.feelfine'
-    compileSdk 33
-    buildToolsVersion '33.0.0'
+    compileSdk 34
+    buildToolsVersion = '34.0.0'
 
     Properties props = new Properties()
     props.load(new FileInputStream(new File('local.properties')))
@@ -18,10 +19,10 @@ android {
     defaultConfig {
         applicationId "com.feelsoftware.feelfine"
         minSdkVersion 23
-        targetSdkVersion 33
+        targetSdkVersion 34
         versionCode props['versionCode'].toInteger()
         versionName props['versionName']
-        resConfigs 'en'
+        resourceConfigurations += ['en']
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
@@ -65,36 +66,36 @@ android {
         compose true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.4.3"
+        kotlinCompilerExtensionVersion = "1.5.1"
     }
 }
 
 dependencies {
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4'
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3'
 
-    implementation 'androidx.core:core-ktx:1.9.0'
+    implementation 'androidx.core:core-ktx:1.10.1'
     implementation 'androidx.appcompat:appcompat:1.6.1'
-    implementation "androidx.activity:activity-ktx:1.6.1"
-    implementation "androidx.fragment:fragment-ktx:1.5.5"
-    implementation 'com.google.android.material:material:1.8.0'
+    implementation "androidx.activity:activity-ktx:1.7.2"
+    implementation "androidx.fragment:fragment-ktx:1.6.1"
+    implementation 'com.google.android.material:material:1.9.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
 
     // ArchComponents
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1"
-    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.5.1"
-    implementation "androidx.lifecycle:lifecycle-common-java8:2.5.1"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.6.1"
+    implementation "androidx.lifecycle:lifecycle-common-java8:2.6.1"
 
     // NavComponent
-    implementation "androidx.navigation:navigation-fragment-ktx:2.5.3"
-    implementation "androidx.navigation:navigation-ui-ktx:2.5.3"
+    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
+    implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
 
     // Compose
-    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.5.1'
-    implementation 'androidx.activity:activity-compose:1.6.1'
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.6.1'
+    implementation 'androidx.activity:activity-compose:1.7.2'
     implementation "androidx.compose.ui:ui:$compose_version"
     implementation "androidx.compose.ui:ui-tooling-preview:$compose_version"
-    implementation 'androidx.compose.material3:material3:1.1.0-alpha07'
+    implementation 'androidx.compose.material3:material3:1.2.0-alpha05'
     androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"
     debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
     debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_version"
@@ -104,9 +105,9 @@ dependencies {
 
     // Google Fit
     implementation "com.google.android.gms:play-services-fitness:21.1.0"
-    implementation "com.google.android.gms:play-services-auth:20.4.1"
-    implementation 'com.google.firebase:firebase-analytics-ktx:21.2.0'
-    implementation 'com.google.firebase:firebase-crashlytics-ktx:18.3.5'
+    implementation "com.google.android.gms:play-services-auth:20.6.0"
+    implementation 'com.google.firebase:firebase-analytics-ktx:21.3.0'
+    implementation 'com.google.firebase:firebase-crashlytics-ktx:18.4.0'
     //noinspection GradleDependency
     implementation('com.google.api-client:google-api-client:1.30.11') {
         exclude group: 'org.apache.httpcomponents', module: 'httpclient'
@@ -118,22 +119,22 @@ dependencies {
     implementation 'com.google.apis:google-api-services-fitness:v1-rev127-1.25.0'
 
     // DataBase
-    implementation "androidx.room:room-runtime:2.5.0"
-    kapt "androidx.room:room-compiler:2.5.0"
-    implementation "androidx.room:room-ktx:2.5.0"
-    implementation "androidx.room:room-rxjava3:2.5.0"
+    implementation "androidx.room:room-runtime:2.5.2"
+    ksp "androidx.room:room-compiler:2.5.2"
+    implementation "androidx.room:room-ktx:2.5.2"
+    implementation "androidx.room:room-rxjava3:2.5.2"
 
     // RxJava
-    implementation 'io.reactivex.rxjava3:rxjava:3.0.12'
-    implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
+    implementation 'io.reactivex.rxjava3:rxjava:3.1.5'
+    implementation 'io.reactivex.rxjava3:rxandroid:3.0.2'
     implementation 'com.jakewharton.rxrelay3:rxrelay:3.0.0'
 
     // WorkManager
-    implementation "androidx.work:work-runtime-ktx:2.8.0"
-    implementation "androidx.work:work-rxjava3:2.8.0"
+    implementation "androidx.work:work-runtime-ktx:2.8.1"
+    implementation "androidx.work:work-rxjava3:2.8.1"
 
     // DI
-    implementation "io.insert-koin:koin-android:3.1.2"
+    implementation "io.insert-koin:koin-android:3.3.3"
 
     // Utils
     implementation 'com.jakewharton.timber:timber:5.0.1'

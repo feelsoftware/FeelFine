@@ -82,9 +82,6 @@ internal fun OnboardingBirthdayContent(
                 todayDateBorderColor = MaterialTheme.colorScheme.onSurfaceVariant,
                 todayContentColor = MaterialTheme.colorScheme.onSurfaceVariant,
             ),
-            dateValidator = { timestamp ->
-                timestamp in (dateRange.start.time.time..dateRange.endInclusive.time.time)
-            }
         )
 
         OnboardingTermsContent(
