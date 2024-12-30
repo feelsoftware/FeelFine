@@ -15,3 +15,7 @@
 .cxx
 local.properties
 /.idea/deploymentTargetDropDown.xml
+/.idea/runConfigurations.xml
+/.idea/deploymentTargetSelector.xml
+/.idea/migrations.xml
+/.kotlin

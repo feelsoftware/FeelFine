@@ -1,3 +1,7 @@
+# Failed to initialise Google Fit
+-keep class com.google.api.** { *; }
+
+# This is generated automatically by the Android Gradle plugin.
 -dontwarn javax.naming.InvalidNameException
 -dontwarn javax.naming.NamingException
 -dontwarn javax.naming.directory.Attribute
