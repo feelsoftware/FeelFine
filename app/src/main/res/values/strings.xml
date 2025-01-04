@@ -61,4 +61,5 @@
     <string name="error_alert_button">Close</string>
     <string name="demo_profile_badge">Demo</string>
     <string name="demo_profile_badge_description">You are not signed to Google Account and now you see demo steps, sleep and activity.\nOpen Profile tab and Sign In to Google to see your real data from Google Fit.</string>
+    <string name="health_connect_permission_details">FeelFine reads your fitness data (activity, sleep, steps) and keep that data locally, not shared to 3rd party services.</string>
 </resources>

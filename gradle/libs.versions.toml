@@ -15,9 +15,11 @@ firebaseCrashlytics = "3.0.2"
 googleApiClient = "1.30.11"
 googleApiServicesFitness = "v1-rev127-1.25.0"
 googleServices = "4.4.2"
+healthConnect = "1.1.0-alpha10"
 koin = "4.0.1"
 kotlin = "2.1.0"
 kotlinxCoroutines = "1.9.0"
+kotlinxDateTime = "0.6.1"
 ksp = "2.1.0-1.0.29"
 lifecycleViewmodelKtx = "2.8.7"
 listenablefuture = "9999.0-empty-to-avoid-conflict-with-guava"
@@ -55,9 +57,11 @@ fragment-ktx = { module = "androidx.fragment:fragment-ktx", version.ref = "fragm
 google-api-client = { module = "com.google.api-client:google-api-client", version.ref = "googleApiClient" }
 google-api-client-android = { module = "com.google.api-client:google-api-client-android", version.ref = "googleApiClient" }
 google-api-services-fitness = { module = "com.google.apis:google-api-services-fitness", version.ref = "googleApiServicesFitness" }
+health-connect = { module = "androidx.health.connect:connect-client", version.ref = "healthConnect" }
 koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinxCoroutines" }
 kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinxCoroutines" }
+kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinxDateTime" }
 lifecycle-common-java8 = { module = "androidx.lifecycle:lifecycle-common-java8", version.ref = "lifecycleViewmodelKtx" }
 lifecycle-livedata-ktx = { module = "androidx.lifecycle:lifecycle-livedata-ktx", version.ref = "lifecycleViewmodelKtx" }
 lifecycle-runtime-ktx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycleViewmodelKtx" }
