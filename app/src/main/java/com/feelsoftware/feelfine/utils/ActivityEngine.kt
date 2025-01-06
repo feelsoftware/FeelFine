@@ -3,19 +3,31 @@ package com.feelsoftware.feelfine.utils
 import android.app.Activity
 import android.app.Application
 import android.os.Bundle
+import androidx.activity.ComponentActivity
 import com.feelsoftware.feelfine.MainActivity
 import timber.log.Timber
 
 interface ActivityEngine {
 
-    val activity: Activity?
+    val activity: ComponentActivity?
+
+    fun registerCallback(callback: Callback)
+
+    interface Callback {
+
+        fun onActivityCreated(activity: ComponentActivity)
+
+        fun onActivityDestroyed()
+    }
 }
 
 class ActivityEngineImpl(
     application: Application
 ) : ActivityEngine {
 
-    override var activity: Activity? = null
+    override var activity: ComponentActivity? = null
+
+    private val callbacks = mutableListOf<ActivityEngine.Callback>()
 
     init {
         application.registerActivityLifecycleCallbacks(object :
@@ -25,6 +37,7 @@ class ActivityEngineImpl(
                 Timber.d("onActivityCreated $activity")
                 if (activity is MainActivity) {
                     this@ActivityEngineImpl.activity = activity
+                    callbacks.forEach { it.onActivityCreated(activity) }
                 }
             }
 
@@ -50,8 +63,13 @@ class ActivityEngineImpl(
                 Timber.d("onActivityDestroyed $activity")
                 if (activity is MainActivity) {
                     this@ActivityEngineImpl.activity = null
+                    callbacks.forEach { it.onActivityDestroyed() }
                 }
             }
         })
+    }
+
+    override fun registerCallback(callback: ActivityEngine.Callback) {
+        callbacks += callback
     }
 }

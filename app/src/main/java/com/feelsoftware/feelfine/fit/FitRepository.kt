@@ -34,6 +34,7 @@ interface FitRepository {
     fun getActivity(startTime: Date, endTime: Date): Single<List<ActivityInfo>>
 }
 
+@Deprecated("Migrate to HealthConnectRepository")
 class GoogleFitRepository(
     private val activityEngine: ActivityEngine,
     private val permissionManager: FitPermissionManager,

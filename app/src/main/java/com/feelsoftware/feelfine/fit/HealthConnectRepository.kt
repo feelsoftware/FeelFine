@@ -12,7 +12,7 @@ import androidx.health.connect.client.request.ReadRecordsRequest
 import androidx.health.connect.client.time.TimeRangeFilter
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
-import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.datetime.DatePeriod
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
@@ -51,8 +51,10 @@ interface HealthConnectRepository {
 
 class HealthConnectRepositoryImpl(
     private val clientProvider: HealthConnectClientProvider,
-    private val permissionManager: HealthConnectPermissionManager,
+    permissionManager: HealthConnectPermissionManager,
 ) : HealthConnectRepository {
+
+    private val hasPermission: StateFlow<Boolean> = permissionManager.hasPermission()
 
     override suspend fun getActivity(date: LocalDate): Result<Activity> {
         return get<ExerciseSessionRecord>(
@@ -114,7 +116,7 @@ class HealthConnectRepositoryImpl(
         startTime: LocalDateTime,
         endTime: LocalDateTime,
     ): Result<List<T>> = runCatching {
-        if (!permissionManager.hasPermission().first()) {
+        if (!hasPermission.value) {
             return@runCatching emptyList<T>()
         }
         val client = clientProvider().getOrThrow()
@@ -137,7 +139,7 @@ class HealthConnectRepositoryImpl(
         endTime: LocalDateTime,
         metrics: Set<AggregateMetric<Number>>,
     ): Result<Map<AggregateMetric<Number>, Number>> = runCatching {
-        if (!permissionManager.hasPermission().first()) {
+        if (!hasPermission.value) {
             return@runCatching emptyMap()
         }
         val client = clientProvider().getOrThrow()

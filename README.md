@@ -1,6 +1,6 @@
 ## FeelFine - activity tracker app
 
-Application to track your fitness activities with [Google Fit API](https://developers.google.com/fit "Google Fit API").
+Application to track your fitness activities with [Health Connect](https://developer.android.com/health-and-fitness/guides/health-connect "Health Connect") and [Google Fit](https://developers.google.com/fit "Google Fit") APIs.
 - Kotlin
 - Jetpack Compose
 - [Koin](https://github.com/InsertKoinIO/koin "Koin") for DI
@@ -36,7 +36,7 @@ Four simple onboarding steps to pick your name, gender, weight and birthday.
 
 <img src="https://github.com/feelsoftware/FeelFine/raw/main/readme/score_1.png" width="180" height="360" /> <img src="https://github.com/feelsoftware/FeelFine/raw/main/readme/score_2.png" width="180" height="360" /> <img src="https://github.com/feelsoftware/FeelFine/raw/main/readme/score_3.png" width="180" height="360" /> <img src="https://github.com/feelsoftware/FeelFine/raw/main/readme/score_4.png" width="180" height="360" />
 
-A user’s data as steps, sleep, biking, running and other activities synced via [Google Fit API](https://developers.google.com/fit "Google Fit API"). User has an every day score, based on his own metrics.
+Users data as steps, sleep, walking, running and other combined activities are synced via [Health Connect](https://developer.android.com/health-and-fitness/guides/health-connect "Health Connect") or [Google Fit](https://developers.google.com/fit "Google Fit") APIs. Users have an every day score, based on their own metrics.
 
 
 ------------
@@ -46,7 +46,7 @@ A user’s data as steps, sleep, biking, running and other activities synced via
 
 <img src="https://github.com/feelsoftware/FeelFine/raw/main/readme/statistic_1.png" width="180" height="360" /> <img src="https://github.com/feelsoftware/FeelFine/raw/main/readme/statistic_2.png" width="180" height="360" /> <img src="https://github.com/feelsoftware/FeelFine/raw/main/readme/statistic_3.png" width="180" height="360" />
 
-Users could observe week/month/custom range activities statistics. 
+Users could observe week/month/custom range activities statistics.
 
 
 ------------
@@ -56,7 +56,7 @@ Users could observe week/month/custom range activities statistics.
 
 <img src="https://github.com/feelsoftware/FeelFine/raw/main/readme/mood.png" width="180" height="360" />
 
-We are asking each day 'How are you?' for the mood score with 9 options for users.
+Every day we are asking users 'How are you?' for the mood score with 9 options.
 
 
 ------------
@@ -68,3 +68,13 @@ We are asking each day 'How are you?' for the mood score with 9 options for user
 
 User profile with wage, age and goals (steps, sleep, activity) customizations.
 
+
+------------
+
+
+### What's next
+- Migrate to Kotlin Coroutines from RxJava
+- Migrate to Compose
+- Migrate to Kotlin Multiplatform  (use cross-platform library https://github.com/vitoksmile/HealthKMP)
+- Night theme
+- Edit goals
