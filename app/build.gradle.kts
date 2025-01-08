@@ -22,7 +22,7 @@ android {
 
     defaultConfig {
         applicationId = "com.feelsoftware.feelfine"
-        minSdk = 23
+        minSdk = 28
         //noinspection EditedTargetSdkVersion
         targetSdk = 35
         versionCode = props.getProperty("versionCode").toInt()
@@ -81,6 +81,7 @@ android {
 dependencies {
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.kotlinx.coroutines.android)
+    implementation(libs.kotlinx.datetime)
 
     implementation(libs.core.ktx)
     implementation(libs.appcompat)
@@ -116,6 +117,7 @@ dependencies {
     implementation(libs.firebase.crashlytics.ktx)
 
     // Google Fit
+    implementation(libs.health.connect)
     implementation(libs.play.services.fitness)
     implementation(libs.google.api.client)
     implementation(libs.google.api.client.android)

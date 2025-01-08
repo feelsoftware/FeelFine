@@ -35,6 +35,7 @@ interface FitPermissionManager {
 
 private const val REQUEST_CODE = 1717
 
+@Deprecated("Migrate to HealthConnectPermissionManager")
 class GoogleFitPermissionManager(
     private val activityDao: ActivityDao,
     private val activityEngine: ActivityEngine,
