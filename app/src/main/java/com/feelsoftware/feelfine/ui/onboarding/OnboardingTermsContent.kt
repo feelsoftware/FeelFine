@@ -1,13 +1,23 @@
 package com.feelsoftware.feelfine.ui.onboarding
 
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.ClickableText
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.Checkbox
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ModalBottomSheet
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -22,13 +32,11 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.viewinterop.AndroidView
-import androidx.compose.ui.window.Dialog
-import androidx.compose.ui.window.DialogProperties
-import androidx.compose.ui.window.SecureFlagPolicy
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.ahmer.pdfviewer.PDFView
+import com.ahmer.pdfviewer.util.FitPolicy
 import com.feelsoftware.feelfine.R
 import com.feelsoftware.feelfine.ui.theme.FeelFineTheme
-import com.github.barteksc.pdfviewer.PDFView
-import com.github.barteksc.pdfviewer.util.FitPolicy
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -115,29 +123,53 @@ private fun rememberTermsDialogState() = remember {
     TermsDialogState()
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun TermsDialog(
     termsDialogState: TermsDialogState
 ) {
-    val openDialog by termsDialogState.openDialog.collectAsState()
+    val openDialog by termsDialogState.openDialog.collectAsStateWithLifecycle()
     if (openDialog.not()) return
 
-    Dialog(
+    val sheetState = rememberModalBottomSheetState(
+        skipPartiallyExpanded = true,
+        confirmValueChange = { false },
+    )
+
+    ModalBottomSheet(
         onDismissRequest = { termsDialogState.hide() },
-        properties = DialogProperties(securePolicy = SecureFlagPolicy.SecureOn)
+        sheetState = sheetState,
+        dragHandle = null,
+        contentWindowInsets = { WindowInsets() },
     ) {
-        AndroidView(
-            factory = {
-                PDFView(it, null).apply {
-                    fromStream(resources.openRawResource(R.raw.terms_of_use))
-                        .pageFitPolicy(FitPolicy.WIDTH) // mode to fit pages in the view
-                        .load()
-                }
-            },
-            modifier = Modifier
-                .fillMaxWidth()
-                .fillMaxHeight(0.75f)
-        )
+        Scaffold(
+            topBar = {
+                TopAppBar(
+                    title = { Text(stringResource(R.string.app_name)) },
+                    navigationIcon = {
+                        IconButton(onClick = { termsDialogState.hide() }) {
+                            Icon(
+                                imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                                contentDescription = "Close Terms & Conditions"
+                            )
+                        }
+                    },
+                )
+            }
+        ) {
+            AndroidView(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(it),
+                factory = { context ->
+                    PDFView(context, null).apply {
+                        fromStream(resources.openRawResource(R.raw.terms_of_use))
+                            .pageFitPolicy(FitPolicy.WIDTH) // mode to fit pages in the view
+                            .load()
+                    }
+                },
+            )
+        }
     }
 }
 

@@ -14,7 +14,7 @@ plugins {
 
 android {
     namespace = "com.feelsoftware.feelfine"
-    compileSdk = 35
+    compileSdk = 36
 
     val props = Properties().apply {
         load(FileInputStream(File(rootProject.rootDir, "local.properties")))
@@ -24,7 +24,7 @@ android {
         applicationId = "com.feelsoftware.feelfine"
         minSdk = 28
         //noinspection EditedTargetSdkVersion
-        targetSdk = 35
+        targetSdk = 36
         versionCode = props.getProperty("versionCode").toInt()
         versionName = props.getProperty("versionName")
         resourceConfigurations.add("en")
