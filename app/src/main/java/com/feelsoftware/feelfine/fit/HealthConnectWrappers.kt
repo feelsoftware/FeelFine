@@ -93,7 +93,11 @@ class HealthConnectFitPermissionManagerWrapper(
     }
 
     override fun resetPermission(): Single<Boolean> {
-        return Single.just(false)
+        return createRxSingle {
+            permissionManager.revokePermission()
+                .map { true }
+                .recover { false }
+        }
     }
 
     override fun onPermissionResult(requestCode: Int, resultCode: Int, data: Intent?) {}

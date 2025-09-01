@@ -27,6 +27,8 @@ interface HealthConnectPermissionManager {
     fun hasPermission(): StateFlow<Boolean>
 
     suspend fun requestPermission(): Result<Boolean>
+
+    suspend fun revokePermission(): Result<Unit>
 }
 
 class HealthConnectPermissionManagerImpl(
@@ -89,6 +91,13 @@ class HealthConnectPermissionManagerImpl(
                         }.launch(requiredPermissions)
                     }
                 }
+            }
+    }
+
+    override suspend fun revokePermission(): Result<Unit> {
+        return clientProvider()
+            .mapCatching { client ->
+                client.permissionController.revokeAllPermissions()
             }
     }
 

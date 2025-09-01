@@ -61,5 +61,13 @@
     <string name="error_alert_button">Close</string>
     <string name="demo_profile_badge">Demo</string>
     <string name="demo_profile_badge_description">You are not signed to Google Account and now you see demo steps, sleep and activity.\nOpen Profile tab and Sign In to Google to see your real data from Google Fit.</string>
+
+    <string name="health_connect_permission_title">FeelFine permissions</string>
     <string name="health_connect_permission_details">FeelFine reads your fitness data (activity, sleep, steps) and keep that data locally, not shared to 3rd party services.</string>
+    <string name="health_connect_permission_exercise">Exercise (activity) permission</string>
+    <string name="health_connect_permission_sleep">Sleep permission</string>
+    <string name="health_connect_permission_steps">Steps permission</string>
+    <string name="health_connect_permission_details_exercise">FeelFine needs access to read \"Exercise\" data from Health Connect to calculate your activity score and display your activity details (walking, running)</string>
+    <string name="health_connect_permission_details_sleep">FeelFine needs access to read \"Sleep\" data from Health Connect to calculate your sleep score and display your sleep details (awake, light and deep sleep, out of bed)</string>
+    <string name="health_connect_permission_details_steps">FeelFine needs access to read \"Steps\" data from Health Connect to calculate your steps score and display your steps details (steps count, burned calories, distance)</string>
 </resources>
