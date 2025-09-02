@@ -60,6 +60,8 @@ class HealthConnectFitPermissionManagerWrapper(
         })
     }
 
+    override fun isHealthConnectAvailable(): Boolean = true
+
     override fun hasPermission(): Boolean {
         return permissionManager.hasPermission().value
     }

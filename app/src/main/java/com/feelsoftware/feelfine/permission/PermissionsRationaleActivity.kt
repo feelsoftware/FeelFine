@@ -12,7 +12,10 @@ class PermissionsRationaleActivity : AppCompatActivity() {
 
         setContent {
             FeelFineTheme {
-                PermissionRationaleView()
+                PermissionsRationaleView(
+                    onBack = null,
+                    onContinue = null,
+                )
             }
         }
     }

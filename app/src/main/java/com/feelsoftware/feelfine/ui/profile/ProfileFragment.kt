@@ -1,8 +1,11 @@
 package com.feelsoftware.feelfine.ui.profile
 
+import android.view.View
 import android.widget.TextView
 import androidx.core.view.isVisible
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.map
 import com.feelsoftware.feelfine.R
 import com.feelsoftware.feelfine.data.db.AppDatabase
 import com.feelsoftware.feelfine.data.model.UserProfile
@@ -12,6 +15,7 @@ import com.feelsoftware.feelfine.extension.subscribeBy
 import com.feelsoftware.feelfine.fit.FitPermissionManager
 import com.feelsoftware.feelfine.fit.model.Duration
 import com.feelsoftware.feelfine.fit.model.toHours
+import com.feelsoftware.feelfine.permission.observePermissionsRationaleResult
 import com.feelsoftware.feelfine.score.ScoreTargetProvider
 import com.feelsoftware.feelfine.ui.base.BaseFragment
 import com.feelsoftware.feelfine.ui.base.BaseViewModel
@@ -32,7 +36,8 @@ class ProfileFragment : BaseFragment<ProfileViewModel>(R.layout.fragment_profile
     private inline val stepsTV: TextView get() = requireView().findViewById(R.id.stepsTV)
     private inline val sleepTV: TextView get() = requireView().findViewById(R.id.sleepTV)
     private inline val activityTV: TextView get() = requireView().findViewById(R.id.activityTV)
-    private inline val btnSignIn: SignInButton get() = requireView().findViewById(R.id.btnSignIn)
+    private inline val btnSignInGoogle: SignInButton get() = requireView().findViewById(R.id.btnSignInGoogle)
+    private inline val btnSignInHealthConnect: View get() = requireView().findViewById(R.id.btnSignInHealthConnect)
     private inline val btnLogout: TextView get() = requireView().findViewById(R.id.btnLogout)
 
     override fun onReady() {
@@ -42,8 +47,6 @@ class ProfileFragment : BaseFragment<ProfileViewModel>(R.layout.fragment_profile
                 R.string.user_weight_placeholder, profile.weight.toInt().toString()
             )
             ageTV.text = getString(R.string.user_age_placeholder, profile.age.toString())
-
-            btnSignIn.isVisible = profile.isDemo
         }
         viewModel.stepsTarget.observe {
             stepsTV.text = getString(R.string.steps_placeholder, it.toString())
@@ -55,9 +58,24 @@ class ProfileFragment : BaseFragment<ProfileViewModel>(R.layout.fragment_profile
             activityTV.text = getString(R.string.activity_placeholder, it.toHours())
         }
 
-        btnSignIn.setOnClickListener {
+        viewModel.isSignInGoogleAvailable.observe {
+            btnSignInGoogle.isVisible = it
+        }
+        btnSignInGoogle.setOnClickListener {
             viewModel.signIn()
         }
+
+        viewModel.isSignInHealthConnectAvailable.observe {
+            btnSignInHealthConnect.isVisible = it
+        }
+        btnSignInHealthConnect.setOnClickListener {
+            viewModel.navigate(ProfileFragmentDirections.toPermissionsRationaleScreen().actionId)
+        }
+        observePermissionsRationaleResult(
+            onCancelled = {},
+            onConfirmed = { viewModel.signIn() },
+        )
+
         btnLogout.setOnClickListener {
             viewModel.logout()
         }
@@ -75,6 +93,15 @@ class ProfileViewModel(
     val stepsTarget = MutableLiveData<Int>()
     val sleepTarget = MutableLiveData<Duration>()
     val activityTarget = MutableLiveData<Duration>()
+
+    val isSignInGoogleAvailable: LiveData<Boolean> =
+        userProfile.map { profile ->
+            profile.isDemo && !fitPermissionManager.isHealthConnectAvailable()
+        }
+    val isSignInHealthConnectAvailable: LiveData<Boolean> =
+        userProfile.map { profile ->
+            profile.isDemo && fitPermissionManager.isHealthConnectAvailable()
+        }
 
     init {
         stepsTarget.attachSource(scoreTargetProvider.getSteps().toObservable()) { it }

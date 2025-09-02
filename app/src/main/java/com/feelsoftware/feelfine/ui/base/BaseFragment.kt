@@ -6,6 +6,7 @@ import androidx.annotation.ColorRes
 import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
+import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.feelsoftware.feelfine.R
@@ -36,11 +37,18 @@ abstract class BaseFragment<VM : BaseViewModel>(
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.navigation.observe {
-            // A hack to support internal and external navigations
+            val navOptions = NavOptions.Builder()
+                .setEnterAnim(android.R.anim.fade_in)
+                .setExitAnim(android.R.anim.fade_out)
+                .setPopEnterAnim(android.R.anim.fade_in)
+                .setPopExitAnim(android.R.anim.fade_out)
+                .build()
+
+            // A hack to support internal and external navigation
             try {
-                findNavController().navigate(it)
-            } catch (error: Throwable) {
-                requireActivity().findNavController(R.id.nav_host_fragment).navigate(it)
+                findNavController().navigate(it, navOptions)
+            } catch (_: Throwable) {
+                requireActivity().findNavController(R.id.nav_host_fragment).navigate(it, navOptions)
             }
         }
         viewModel.backNavigation.observe {

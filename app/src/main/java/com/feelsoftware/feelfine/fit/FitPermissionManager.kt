@@ -22,6 +22,8 @@ import java.util.concurrent.atomic.AtomicBoolean
 
 interface FitPermissionManager {
 
+    fun isHealthConnectAvailable(): Boolean
+
     fun hasPermission(): Boolean
 
     fun hasPermissionObservable(): Observable<Boolean>
@@ -47,6 +49,8 @@ class GoogleFitPermissionManager(
     private val hasPermissionRelay = PublishRelay.create<Boolean>()
     private val hasPendingPermission = AtomicBoolean(false)
     private val permissionRequest = PublishRelay.create<Boolean>()
+
+    override fun isHealthConnectAvailable(): Boolean = false
 
     override fun hasPermission(): Boolean = hasPermissionInternal()
 

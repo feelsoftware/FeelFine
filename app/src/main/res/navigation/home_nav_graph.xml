@@ -21,6 +21,17 @@
         android:id="@+id/profileFragment"
         android:name="com.feelsoftware.feelfine.ui.profile.ProfileFragment"
         android:label="ProfileFragment"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_profile">
+
+        <action
+            android:id="@+id/toPermissionsRationaleScreen"
+            app:destination="@id/permissionsRationaleFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/permissionsRationaleFragment"
+        android:name="com.feelsoftware.feelfine.permission.PermissionsRationaleFragment"
+        android:label="@string/health_connect_permission_title" />
 
 </navigation>
