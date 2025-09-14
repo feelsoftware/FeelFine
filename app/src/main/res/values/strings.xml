@@ -67,7 +67,7 @@
     <string name="health_connect_permission_exercise">Exercise (activity) permission</string>
     <string name="health_connect_permission_sleep">Sleep permission</string>
     <string name="health_connect_permission_steps">Steps permission</string>
-    <string name="health_connect_permission_details_exercise">FeelFine needs access to read \"Exercise\" data from Health Connect to calculate your activity score and display your activity details (walking, running)</string>
-    <string name="health_connect_permission_details_sleep">FeelFine needs access to read \"Sleep\" data from Health Connect to calculate your sleep score and display your sleep details (awake, light and deep sleep, out of bed)</string>
-    <string name="health_connect_permission_details_steps">FeelFine needs access to read \"Steps\" data from Health Connect to calculate your steps score and display your steps details (steps count, burned calories, distance)</string>
+    <string name="health_connect_permission_details_exercise">FeelFine needs access to read \"Exercise\" data from Health Connect to calculate your activity scope and display duration of walking, running, and other physical activities (used to display activity duration for today, yesterday, and historically).</string>
+    <string name="health_connect_permission_details_sleep">FeelFine needs access to read \"Sleep\" data from Health Connect to calculate your steps scope and display step count (used to display daily and historical step counts).</string>
+    <string name="health_connect_permission_details_steps">FeelFine needs access to read \"Steps\" data from Health Connect to calculate your sleep scope and displaysleep duration (used to display daily and historical sleep duration).</string>
 </resources>
