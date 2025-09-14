@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <style name="Theme.FeelFine" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Primary brand color. -->
@@ -19,6 +19,9 @@
         <item name="android:windowLightStatusBar">true</item>
         <item name="android:windowTranslucentStatus">false</item>
         <item name="android:windowTranslucentNavigation">false</item>
+
+        <!-- Dark mode not supported yet -->
+        <item name="android:forceDarkAllowed" tools:ignore="NewApi">false</item>
     </style>
 
     <style name="CurrentScorePercentStyle">
